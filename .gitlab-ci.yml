@@ -1,0 +1,8 @@
+stages:
+  - Deployment
+Dev:
+  stage: Deployment
+  environment:
+    name: development
+  only:
+    - master
