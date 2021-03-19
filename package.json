@@ -55,5 +55,6 @@
   },
   "optionalDependencies": {
     "fsevents": "2.1.2"
-  }
+  },
+  "homepage": "http://livewall.com/"
 }

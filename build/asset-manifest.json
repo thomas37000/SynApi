@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/deploy-react-gitlab/static/css/main.8a0b63e9.chunk.css",
+    "main.js": "/deploy-react-gitlab/static/js/main.48f641af.chunk.js",
+    "main.js.map": "/deploy-react-gitlab/static/js/main.48f641af.chunk.js.map",
+    "runtime-main.js": "/deploy-react-gitlab/static/js/runtime-main.f659e3f2.js",
+    "runtime-main.js.map": "/deploy-react-gitlab/static/js/runtime-main.f659e3f2.js.map",
+    "static/css/2.150d169a.chunk.css": "/deploy-react-gitlab/static/css/2.150d169a.chunk.css",
+    "static/js/2.c9b897ca.chunk.js": "/deploy-react-gitlab/static/js/2.c9b897ca.chunk.js",
+    "static/js/2.c9b897ca.chunk.js.map": "/deploy-react-gitlab/static/js/2.c9b897ca.chunk.js.map",
+    "index.html": "/deploy-react-gitlab/index.html",
+    "static/css/2.150d169a.chunk.css.map": "/deploy-react-gitlab/static/css/2.150d169a.chunk.css.map",
+    "static/css/main.8a0b63e9.chunk.css.map": "/deploy-react-gitlab/static/css/main.8a0b63e9.chunk.css.map",
+    "static/js/2.c9b897ca.chunk.js.LICENSE.txt": "/deploy-react-gitlab/static/js/2.c9b897ca.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f659e3f2.js",
+    "static/css/2.150d169a.chunk.css",
+    "static/js/2.c9b897ca.chunk.js",
+    "static/css/main.8a0b63e9.chunk.css",
+    "static/js/main.48f641af.chunk.js"
+  ]
+}
