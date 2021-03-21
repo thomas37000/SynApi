@@ -14,75 +14,33 @@ export default function CardInstagram({ post }) {
 
   return (
     <>
-      {!!post.media_url ? (
-        <div className="cardWithImg" style={bgBefore}>
-          <div className="cardBodyWithImg">
-            <div className="content">
-              <p>{post.content}</p>
-            </div>
-            <div className="cardImg">
+      <div className="card">
+        <div className="cardBody">
+          <div className="content">
+            <p>{post.user_description}</p>
+          </div>
+          <div className="cardImg">
+            {!!post.media_url ? (
               <div className="getImg">
                 <img src={post.media_url} alt="" />
               </div>
-            </div>
-          </div>
-
-          <p className="card-text">{post.text}</p>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
+            ) : (
+              <div className="hideImg">
+                <img src={post.media_url} alt="" />
+              </div>
+            )}
           </div>
         </div>
-      ) : (
-        <div className="card">
-          <div className="cardBody">
-            <div className="content">
-              <p>{post.content}</p>
-            </div>
-            <div className="cardImg">
-              {!!post.media_url ? (
-                <div className="getImg">
-                  <img src={post.media_url} alt="" />
-                </div>
-              ) : (
-                <div className="hideImg">
-                  <img src={post.media_url} alt="" />
-                </div>
-              )}
-            </div>
-          </div>
-
-          <p className="card-text">{post.text}</p>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
-          </div>
+        <p className="card-text">{post.text}</p>
+        <div className="userCard">
+          <img className="logoUser" src={post.avatar_url} alt={post.name} />
+          <h3 className="name">@{post.name}</h3>
         </div>
-      )}
+        <div className="footerCard">
+          <h3 className="hashtag">{post.name}</h3>
+          <img className="logoUser" src={post.avatar_url} alt={post.search} />
+        </div>
+      </div>
     </>
   );
 }

@@ -11,7 +11,21 @@
 }
 
 .txtSpan {
-  color: var(--RxTrNoImg);
+  color: var(--RxTrNoImg);.txtSpanWithImg {
+    color: var(--RxTr);
+  }
+}
+
+.txtSpanNous {
+  color: var(--RxTrAvecNousNoImg);
+}
+
+.txtSpanWithImg {
+  color: var(--RxTr);
+}
+
+.txtSpanWithImgInst {
+  color: var(--RxIm);
 }
 
 .card {
@@ -80,7 +94,7 @@
 
 .content {
   margin: 10rem 0 3rem 0;
-  color: var(--Text)!important;
+  color: var(--Text) !important;
 }
 
 .regex {

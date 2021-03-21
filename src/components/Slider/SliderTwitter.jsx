@@ -19,12 +19,14 @@ const SliderTwitter = () => {
 
   const API_URL = `https://slideyour.net/api.php`;
   const params = {
-    s: 'thomas2',
-    t: '414d4d57e4577ea404ff0ebdfe25c680',
+    // s: 'thomas2',
+    // t: '414d4d57e4577ea404ff0ebdfe25c680',
+    s: 'instatest',
+    t: 'eae769a9a8c41df4525fc99f1b90a774',
     object: 'post',
     network: 'twitter',
     username: '',
-    per_page: 3,
+    per_page: 30,
   };
 
   useEffect(() => {

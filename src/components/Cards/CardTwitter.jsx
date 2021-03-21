@@ -1,3 +1,5 @@
+/* eslint-disable react/no-danger */
+/* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 /* eslint-disable no-const-assign */
 /* eslint-disable no-extra-boolean-cast */
@@ -19,43 +21,20 @@ export default function CardTwitter({ post }) {
     '--avecNousBg': nous,
   };
 
-  // const spanRegex = {
-  //   '--Regex': regex,
-  // };
+  const spanWithImg = `url(${post.content})`;
+  const spanRegex = {
+    '--RxTr': spanWithImg,
+  };
 
-  const regex = /@\w+/g;
+  const regex = /[@#]\w+/g;
   const contentApi = `url(${post.content})`;
   const found = contentApi.match(regex);
-  console.log('regex', found);
-
-  function createSpan() {
-    const divSpan = document.createElement('div');
-    const txtSpan = document.createElement('span');
-    txtSpan.classList.add('txtSpan');
-    divSpan.appendChild(txtSpan);
-  }
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      return txt.toUpperCase();
+      return `<span class="txtSpan txtSpanWithImg">${txt}</span>`;
     });
   }
-
-  // PHP REGEX
-  //   function hashtag_detect($content) {
-  //     $content = str_replace('#', ' #', $content);
-  //     preg_match_all('#[\n\t\r\s  \: \.]\#([a-zA-Z0-9_]+)[\n\t\r\s\:\.\/,  \?; ]#i', ' ' . $content . ' ', $array, PREG_PATTERN_ORDER);
-  //     if (is_array($array)) {
-  //         foreach ($array[1] as $hastag) {
-  //             $html = ' <span class="hashtag">';
-  //             $html.='#' . $hastag . '</span>';
-  //             $content = str_replace('#' . $hastag, $html, $content);
-  //         }
-  //     }
-  //     return $content;
-  // }
-
-  // JS Exemple REGEX
 
   return (
     <>
@@ -63,7 +42,12 @@ export default function CardTwitter({ post }) {
         <div className="cardWithImg" style={bgBefore}>
           <div className="cardBodyWithImg">
             <div className="content">
-              <p>{post.content}</p>
+              <span className="textSpanWithImg" style={spanRegex}>
+                <div
+                  dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                  style={spanRegex}
+                />
+              </span>
             </div>
             <div className="cardImg">
               {!!post.media_url ? (
@@ -100,7 +84,9 @@ export default function CardTwitter({ post }) {
             <div className="card" style={avecNous}>
               <div className="cardBodyNoImg">
                 <div className="content">
-                  <p>{post.content}</p>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                  />
                 </div>
                 <div className="hideImg">
                   <img src={post.media_url} alt="" />
@@ -127,7 +113,9 @@ export default function CardTwitter({ post }) {
             <div className="card">
               <div className="cardBodyNoImg">
                 <div className="content">
-                  <p>{Hashtag(post.content)}</p>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                  />
                 </div>
                 <div className="hideImg">
                   <img src={post.media_url} alt="" />
