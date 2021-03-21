@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-const-assign */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
@@ -17,11 +19,37 @@ export default function CardTwitter({ post }) {
     '--avecNousBg': nous,
   };
 
+  // const spanRegex = {
+  //   '--Regex': regex,
+  // };
+
   const regex = /@\w+/g;
-  const regex2 = `url(${post.content.regex})`;
-  const spanRegex = {
-    '--Regex': regex,
-  };
+  const contentApi = `url(${post.content})`;
+  const found = contentApi.match(regex);
+  console.log('regex', found);
+
+  function Hashtag(str) {
+    return str.replace(regex, (txt) => {
+      return txt.contentApi;
+      // return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+
+  // PHP REGEX
+  //   function hashtag_detect($content) {
+  //     $content = str_replace('#', ' #', $content);
+  //     preg_match_all('#[\n\t\r\s  \: \.]\#([a-zA-Z0-9_]+)[\n\t\r\s\:\.\/,  \?; ]#i', ' ' . $content . ' ', $array, PREG_PATTERN_ORDER);
+  //     if (is_array($array)) {
+  //         foreach ($array[1] as $hastag) {
+  //             $html = ' <span class="hashtag">';
+  //             $html.='#' . $hastag . '</span>';
+  //             $content = str_replace('#' . $hastag, $html, $content);
+  //         }
+  //     }
+  //     return $content;
+  // }
+
+  // JS Exemple REGEX
 
   return (
     <>
@@ -93,7 +121,7 @@ export default function CardTwitter({ post }) {
             <div className="card">
               <div className="cardBodyNoImg">
                 <div className="content">
-                  <p>{post.content}</p>
+                  <p>{Hashtag(post.content)}</p>
                 </div>
                 <div className="hideImg">
                   <img src={post.media_url} alt="" />
