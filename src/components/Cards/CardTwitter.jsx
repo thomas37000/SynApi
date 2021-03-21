@@ -28,10 +28,16 @@ export default function CardTwitter({ post }) {
   const found = contentApi.match(regex);
   console.log('regex', found);
 
-  function Hashtag(str) {
-    return str.replace(regex, (txt) => {
-      return txt.contentApi;
-      // return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  function createSpan() {
+    const divSpan = document.createElement('div');
+    const txtSpan = document.createElement('span');
+    txtSpan.classList.add('txtSpan');
+    divSpan.appendChild(txtSpan);
+  }
+
+  function Hashtag(match) {
+    return match.replace(regex, (txt) => {
+      return txt.toUpperCase();
     });
   }
 

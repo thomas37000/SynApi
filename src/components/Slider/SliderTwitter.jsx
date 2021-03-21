@@ -24,7 +24,7 @@ const SliderTwitter = () => {
     object: 'post',
     network: 'twitter',
     username: '',
-    per_page: 30,
+    per_page: 3,
   };
 
   useEffect(() => {
