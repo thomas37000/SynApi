@@ -10,38 +10,38 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 
-export default function CardFakeInsta({ post }) {
-  const bg = `url(${post.media_url})`;
-  const bgBefore = {
-    '--before': bg,
-  };
+export default function CardFakeInsta() {
+  // const bg = `url(${post.media_url})`;
+  // const bgBefore = {
+  //   '--before': bg,
+  // };
 
-  const nous = `url(${post.user.name})`;
-  const avecNous = {
-    '--avecNousBg': nous,
-  };
+  // const nous = `url(${post.user.name})`;
+  // const avecNous = {
+  //   '--avecNousBg': nous,
+  // };
 
-  const spanWithImg = `url(${post.content})`;
-  const spanRegex = {
-    '--RxTr': spanWithImg,
-  };
+  // const spanWithImg = `url(${post.content})`;
+  // const spanRegex = {
+  //   '--RxTr': spanWithImg,
+  // };
 
-  const regex = /[@#]\w+/g;
-  const contentApi = `url(${post.content})`;
-  const found = contentApi.match(regex);
+  // const regex = /[@#]\w+/g;
+  // const contentApi = `url(${post.content})`;
+  // const found = contentApi.match(regex);
 
-  function Hashtag(match) {
-    return match.replace(regex, (txt) => {
-      return `<span class="txtSpanWithImgInst">${txt}</span>`;
-    });
-  }
+  // function Hashtag(match) {
+  //   return match.replace(regex, (txt) => {
+  //     return `<span class="txtSpanWithImgInst">${txt}</span>`;
+  //   });
+  // }
 
   return (
     <>
-      <div className="cardWithImg" style={bgBefore}>
+      <div className="cardWithImg">
         <div className="cardBodyWithImg">
           <div className="contentNoImg">
-            <span className="textSpanWithImg" style={spanRegex}>
+            <span className="textSpanWithImg">
               <div>lorem IPSUM</div>
             </span>
           </div>
