@@ -32,7 +32,9 @@ export default function CardTwitter({ post }) {
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      return `<span class="txtSpan txtSpanWithImg">${txt}</span>`;
+      return !!post.media_url
+        ? `<span class="txtSpanWithImg">${txt}</span>`
+        : `<span class="txtSpan">${txt}</span>`;
     });
   }
 
@@ -43,17 +45,15 @@ export default function CardTwitter({ post }) {
           <div className="cardBodyWithImg">
             <div className="content">
               {!!post.content ? (
-                <span className="textSpanWithImg" style={spanRegex}>
+                <span className="textSpanWithImg">
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                    style={spanRegex}
                   />
                 </span>
               ) : (
                 <span className="hideContent">
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                    style={spanRegex}
                   />
                 </span>
               )}

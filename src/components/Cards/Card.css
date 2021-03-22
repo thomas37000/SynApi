@@ -1,32 +1,3 @@
-:root {
-  --bgNoImg: #1da1f2;
-  --bgNoImgFb: #4267b2;
-  --bgNoImgNous: #ffdd00;
-  /* Rx === Regex  && Tr === Twitter && Im === Instagram*/
-  --RxTrNoImg: #000;
-  --RxTr: #1da1f2;
-  --RxTrAvecNousNoImg: #fff;
-  --RxTrAvecNous: #ffdd00;
-  --RxIm: #e1306c;
-}
-
-.txtSpan {
-  color: var(--RxTrNoImg)!important;
-  font-weight: bold;
-}
-
-.txtSpanNous {
-  color: var(--RxTrAvecNousNoImg);
-}
-
-.txtSpanWithImg {
-  color: var(--RxTr);
-}
-
-.txtSpanWithImgInst {
-  color: var(--RxIm);
-}
-
 .card {
   width: 100vw;
   height: 100vh;
@@ -94,7 +65,7 @@
 .content {
   margin: 10rem 0 3rem 0;
   color: var(--Text) !important;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   padding: 1.5rem;
 }
 
@@ -103,8 +74,21 @@
   color: var(--Text) !important;
 }
 
-.regex {
+.txtSpan {
   color: var(--RxTrNoImg);
+  font-weight: bold;
+}
+
+.txtSpanNous {
+  color: var(--RxTrAvecNousNoImg);
+}
+
+.txtSpanWithImg {
+  color: var(--RxTr);
+}
+
+.txtSpanWithImgInst {
+  color: var(--RxIm);
 }
 
 .userCard {
