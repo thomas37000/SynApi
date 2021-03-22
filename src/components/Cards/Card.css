@@ -11,9 +11,7 @@
 }
 
 .txtSpan {
-  color: var(--RxTrNoImg);.txtSpanWithImg {
-    color: var(--RxTr);
-  }
+  color: var(--RxTrNoImg);
 }
 
 .txtSpanNous {
@@ -95,6 +93,8 @@
 .content {
   margin: 10rem 0 3rem 0;
   color: var(--Text) !important;
+  background: rgba(0,0,0,0.4);
+  padding: 1.5rem;
 }
 
 .regex {
