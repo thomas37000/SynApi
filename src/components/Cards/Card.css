@@ -12,6 +12,7 @@
 
 .txtSpan {
   color: var(--RxTrNoImg)!important;
+  font-weight: bold;
 }
 
 .txtSpanNous {
