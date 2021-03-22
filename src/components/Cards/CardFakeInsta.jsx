@@ -1,73 +1,65 @@
 /* eslint-disable react/no-danger */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-console */
-/* eslint-disable no-const-assign */
-/* eslint-disable no-extra-boolean-cast */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-curly-brace-presence */
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import './Card.css';
 
 export default function CardFakeInsta() {
-  // const bg = `url(${post.media_url})`;
-  // const bgBefore = {
-  //   '--before': bg,
-  // };
-
-  // const nous = `url(${post.user.name})`;
-  // const avecNous = {
-  //   '--avecNousBg': nous,
-  // };
-
-  // const spanWithImg = `url(${post.content})`;
+  // const spanWithImg = `url('Pisciculture de #carbonne #urbex #volvestre #tourismeenvolvestre
+  // @Nous')`;
   // const spanRegex = {
   //   '--RxTr': spanWithImg,
   // };
 
-  // const regex = /[@#]\w+/g;
-  // const contentApi = `url(${post.content})`;
+  const regex = /[@#]\w+/g;
+  // const contentApi = `url('Pisciculture de #carbonne #urbex #volvestre #tourismeenvolvestre
+  // @Nous')`;
   // const found = contentApi.match(regex);
 
-  // function Hashtag(match) {
-  //   return match.replace(regex, (txt) => {
-  //     return `<span class="txtSpanWithImgInst">${txt}</span>`;
-  //   });
-  // }
-
+  function Hashtag(match) {
+    return match.replace(regex, (txt) => {
+      return `<span class="txtSpanWithImgInst">${txt}</span>`;
+    });
+  }
   return (
     <>
-      <div className="cardWithImg">
+      <div className="cardWithImgINSTA">
         <div className="cardBodyWithImg">
           <div className="contentNoImg">
             <span className="textSpanWithImg">
-              <div>lorem IPSUM</div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: Hashtag(
+                    'Pisciculture de #carbonne #urbex #volvestre #tourismeenvolvestre'
+                  ),
+                }}
+              />
             </span>
           </div>
           <div className="cardImg">
             <div className="getImg">
               <img
-                src="https://img01.ztat.net/article/spp-media-p1/c4ac4b5627e7464ab3746c42af5c8bc2/4e53251913194f70abb0d460395b9e24.jpg?imwidth=762&filter=packshot"
-                alt="pull"
+                src="https://images.alphacoders.com/376/37681.jpg"
+                alt="ubuntu"
               />
             </div>
           </div>
+        </div>
+        <div className="userCard">
+          <img
+            className="logoUser"
+            src="https://logo-marque.com/wp-content/uploads/2020/09/Linux-Logo.png"
+            alt="linux"
+          />
+          <h3 className="name">@ubuntu</h3>
+        </div>
+        <div className="footerCard">
+          <h3 className="hashtag">ubuntu</h3>
+          <img
+            className="logoUser"
+            src="https://logo-marque.com/wp-content/uploads/2020/09/Linux-Logo.png"
+            alt="linux"
+          />
         </div>
       </div>
     </>
   );
 }
-
-CardFakeInsta.propTypes = {
-  post: PropTypes.shape({
-    avatar_url: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    network: PropTypes.string.isRequired,
-    pub_date: PropTypes.string.isRequired,
-    pub_url: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }).isRequired,
-};

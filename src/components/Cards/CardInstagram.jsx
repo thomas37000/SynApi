@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
@@ -13,34 +12,12 @@ export default function CardInstagram({ post }) {
     '--before': bg,
   };
 
-  const spanWithImg = `url(${post.content})`;
-  const spanRegex = {
-    '--RxTr': spanWithImg,
-  };
-
-  const regex = /[@#]\w+/g;
-  const contentApi = `url(${post.content})`;
-  const found = contentApi.match(regex);
-
-  function Hashtag(match) {
-    return match.replace(regex, (txt) => {
-      return `<span class="txtSpanWithImgInst">${txt}</span>`;
-    });
-  }
-
   return (
     <>
       <div className="card">
         <div className="cardBody">
-          <div className="contentNoImg">
-            <span className="textSpanWithImg" style={spanRegex}>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: Hashtag(post.user_description),
-                }}
-                style={spanRegex}
-              />
-            </span>
+          <div className="content">
+            <p>{post.user_description}</p>
           </div>
           <div className="cardImg">
             {!!post.media_url ? (
