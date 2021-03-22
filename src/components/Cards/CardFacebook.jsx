@@ -20,7 +20,11 @@ export default function CardFb({ post }) {
         <div className="cardWithImg" style={bgBefore}>
           <div className="cardBodyWithImg">
             <div className="content">
-              <p>{post.content}</p>
+              {!!post.content ? (
+                <p>{post.content}</p>
+              ) : (
+                <p className="hideContent">{post.content}</p>
+              )}
             </div>
             <div className="cardImg">
               <div className="getImg">
@@ -48,7 +52,7 @@ export default function CardFb({ post }) {
       ) : (
         <div className="cardFb">
           <div className="cardBodyNoImg">
-            <div className="content">
+            <div className="contentNoImg">
               <p>{post.content}</p>
             </div>
             <div className="cardImg">

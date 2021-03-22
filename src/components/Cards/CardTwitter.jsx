@@ -42,12 +42,21 @@ export default function CardTwitter({ post }) {
         <div className="cardWithImg" style={bgBefore}>
           <div className="cardBodyWithImg">
             <div className="content">
-              <span className="textSpanWithImg" style={spanRegex}>
-                <div
-                  dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  style={spanRegex}
-                />
-              </span>
+              {!!post.content ? (
+                <span className="textSpanWithImg" style={spanRegex}>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                    style={spanRegex}
+                  />
+                </span>
+              ) : (
+                <span className="hideContent">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                    style={spanRegex}
+                  />
+                </span>
+              )}
             </div>
             <div className="cardImg">
               {!!post.media_url ? (
@@ -83,7 +92,7 @@ export default function CardTwitter({ post }) {
           {!!post.user.name === 'avecnous' ? (
             <div className="card" style={avecNous}>
               <div className="cardBodyNoImg">
-                <div className="content">
+                <div className="contentNoImg">
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />
@@ -112,7 +121,7 @@ export default function CardTwitter({ post }) {
           ) : (
             <div className="card">
               <div className="cardBodyNoImg">
-                <div className="content">
+                <div className="contentNoImg">
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />

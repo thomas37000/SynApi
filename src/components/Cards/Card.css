@@ -11,7 +11,7 @@
 }
 
 .txtSpan {
-  color: var(--RxTrNoImg);
+  color: var(--RxTrNoImg)!important;
 }
 
 .txtSpanNous {
@@ -93,8 +93,13 @@
 .content {
   margin: 10rem 0 3rem 0;
   color: var(--Text) !important;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   padding: 1.5rem;
+}
+
+.contentNoImg {
+  margin: 10rem 0 3rem 0;
+  color: var(--Text) !important;
 }
 
 .regex {
@@ -151,6 +156,7 @@
 .hideImg {
   display: none;
 }
+
 
 @media screen and (max-width: 768px) {
   .cardImg {
