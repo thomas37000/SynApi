@@ -66,8 +66,9 @@ export default function Tools() {
               </span>
             </p>
           </p>
-          <CirclePicker />
+          <CirclePicker onClick={() => setColors(!colors)} />
         </div>
+        <button type="submit">Submit</button>
       </div>
     </div>
   );
