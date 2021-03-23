@@ -13,6 +13,7 @@ export default function Routter() {
         <Navbar />
         <Switch>
           <Route exact path="/" />
+          <Route path="/profile" />
           <Route path="/twitter" component={SliderTwitter} />
           <Route path="/facebook" component={SliderFacebook} />
           <Route path="/instagram" component={CardFakeInsta} />

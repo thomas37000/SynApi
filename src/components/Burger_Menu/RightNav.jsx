@@ -60,6 +60,9 @@ const RightNav = ({ open }) => {
         <Link to="/">Accueil</Link>
       </li> */}
       <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+      <li>
         <Link to="/twitter">Twitter</Link>
       </li>
       <li>
