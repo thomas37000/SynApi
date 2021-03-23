@@ -1,0 +1,33 @@
+.mainTools {
+  width: 45vw;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+}
+.tools {
+  width: 25vw;
+  height: 1000px;
+}
+
+.form-group {
+  display: grid;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.input-checkbox {
+  display: inline-block;
+  margin-right: 0.625rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+ 
+}
+
+li {
+list-style-type: none;
+}
+
+li:nth-last-child(1){
+  margin-right: 1.5rem;
+}

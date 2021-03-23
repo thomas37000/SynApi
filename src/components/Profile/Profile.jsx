@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardProfile from '../Cards/CardProfile';
+import Tools from './Tools';
 
 const Profile = () => {
   // eslint-disable-next-line no-unused-vars
@@ -42,11 +43,18 @@ const Profile = () => {
   }, [params.t]);
 
   return (
-    <div className="galerie">
-      {items.map((post) => (
-        <CardProfile key={post.pub_id} post={post} session={post.session_id} />
-      ))}
-    </div>
+    <>
+      <div className="galerie">
+        <Tools />
+        {items.map((post) => (
+          <CardProfile
+            key={post.pub_id}
+            post={post}
+            session={post.session_id}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
