@@ -89,7 +89,7 @@ export default function CardTwitter({ post }) {
         </div>
       ) : (
         <>
-          {!!post.user.name === 'avecnous' ? (
+          {!!post.user.name === 'nous' ? (
             <div className="card" style={avecNous}>
               <div className="cardBodyNoImg">
                 <div className="contentNoImg">

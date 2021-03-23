@@ -95,7 +95,7 @@
 }
 
 .txtSpanNous {
-  color: var(--RxTrAvecNousNoImg);
+  color: var(--RxTrNousNoImg);
 }
 
 .txtSpanWithImg {
@@ -104,6 +104,11 @@
 
 .txtSpanWithImgInst {
   color: var(--RxIm);
+  font-weight: bold;
+}
+
+.txtSpanWithImgFb {
+  color: var(--RxFb);
   font-weight: bold;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
@@ -14,6 +15,23 @@ export default function CardFb({ post }) {
     '--before': bg,
   };
 
+  const spanWithImg = `url(${post.content})`;
+  const spanRegex = {
+    '--RxTr': spanWithImg,
+  };
+
+  const regex = /[@#]\w+/g;
+  const contentApi = `url(${post.content})`;
+  const found = contentApi.match(regex);
+
+  function Hashtag(match) {
+    return match.replace(regex, (txt) => {
+      return !!post.media_url
+        ? `<span class="txtSpanWithImgFb">${txt}</span>`
+        : `<span class="txtSpan">${txt}</span>`;
+    });
+  }
+
   return (
     <>
       {!!post.media_url ? (
@@ -21,9 +39,17 @@ export default function CardFb({ post }) {
           <div className="cardBodyWithImg">
             <div className="content">
               {!!post.content ? (
-                <p>{post.content}</p>
+                <span className="textSpanWithImg">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                  />
+                </span>
               ) : (
-                <p className="hideContent">{post.content}</p>
+                <span className="hideContent">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                  />
+                </span>
               )}
             </div>
             <div className="cardImg">
@@ -53,7 +79,9 @@ export default function CardFb({ post }) {
         <div className="cardFb">
           <div className="cardBodyNoImg">
             <div className="contentNoImg">
-              <p>{post.content}</p>
+              <div
+                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+              />
             </div>
             <div className="cardImg">
               <div className="hideImg">

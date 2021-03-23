@@ -6,15 +6,22 @@
   padding: 0;
 }
 
+/* bg === background-color
+ * Rx === Regex  
+ * Tr === Twitter  
+ * Im === Instagram
+ * Fb === Facebook 
+*/
+
 :root {
   --bgNoImg: #1da1f2;
   --bgNoImgFb: #4267b2;
   --bgNoImgNous: #ffdd00;
-  /* Rx === Regex  && Tr === Twitter && Im === Instagram*/
   --RxTrNoImg: #000;
   --RxTr: #1da1f2;
-  --RxTrAvecNousNoImg: #fff;
-  --RxTrAvecNous: #ffdd00;
+  --RxFb: #4267b2;
+  --RxTrNousNoImg: #fff;
+  --RxTrNous: #ffdd00;
   --RxIm: #e1306c;
 }
 
