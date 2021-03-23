@@ -1,18 +1,24 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
+import React, { useState } from 'react';
+import { CirclePicker } from 'react-color';
 import './Tools.css';
 
 export default function Tools() {
+  const [colors, setColors] = useState(false);
+
   return (
     <div className="mainTools">
       <div className="tools">
         <div className="form-group">
-          <p>Change the colors of your Network :</p>
+          <p>
+            Change the colors of your <span className="spanTool">Network</span>{' '}
+            :
+          </p>
           <li>
             <label htmlFor="a">
               <input
-                name="prefer"
-                value="front-end-projects"
+                name=""
+                value=""
                 type="checkbox"
                 className="input-checkbox"
               />
@@ -20,11 +26,10 @@ export default function Tools() {
             </label>
           </li>
           <li>
-            {' '}
             <label htmlFor="b">
               <input
-                name="prefer"
-                value="back-end-projects"
+                name=""
+                value=""
                 type="checkbox"
                 className="input-checkbox"
               />
@@ -34,14 +39,34 @@ export default function Tools() {
           <li>
             <label htmlFor="b">
               <input
-                name="prefer"
-                value="back-end-projects"
+                name=""
+                value=""
                 type="checkbox"
                 className="input-checkbox"
               />
               Twitter
             </label>
           </li>
+        </div>
+        <div className="form-group">
+          <p>
+            Change the colors of the
+            <span className="spanTool spanHashtag"> #</span> or
+            <span className="spanTool spanHashtag"> @</span> :
+          </p>
+          <CirclePicker onClick={() => setColors(!colors)} />
+        </div>
+        <div className="form-group">
+          <p>
+            Change the colors of the
+            <span className="spanTool"> Background</span> Network :
+            <p>
+              <span className="spanTool2">
+                ( Works only when there is no image background )
+              </span>
+            </p>
+          </p>
+          <CirclePicker />
         </div>
       </div>
     </div>
