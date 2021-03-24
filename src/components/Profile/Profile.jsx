@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -5,10 +6,7 @@ import CardProfile from '../Cards/CardProfile';
 import Tools from './Tools';
 
 const Profile = () => {
-  // eslint-disable-next-line no-unused-vars
   const [items, setItems] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [users, setUsers] = useState([]);
 
   const API_URL = `https://slideyour.net/api.php`;
   const params = {
@@ -27,7 +25,6 @@ const Profile = () => {
       .then((res) => res.data)
       .then((data) => {
         setItems(data);
-        setUsers(data.user);
         console.log('Facebook posts', data);
       })
       .catch((error) => {

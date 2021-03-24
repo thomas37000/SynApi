@@ -1,10 +1,15 @@
+/* eslint-disable no-console */
+/* eslint-disable no-return-assign */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-danger */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { CirclePicker } from 'react-color';
 import './Tools.css';
 
 export default function Tools() {
-  const [colors, setColors] = useState(false);
+  const [background, setBackgroundColor] = useState();
+  const [spanColor, setSpanColor] = useState();
 
   return (
     <div className="mainTools">
@@ -54,7 +59,14 @@ export default function Tools() {
             <span className="spanTool spanHashtag"> #</span> or
             <span className="spanTool spanHashtag"> @</span> :
           </p>
-          <CirclePicker onClick={() => setColors(!colors)} />
+          <CirclePicker
+            color={spanColor}
+            onChangeComplete={(color) => setSpanColor(color.hex)}
+            className="circlepicker"
+          />
+          <span className="spanTest" style={{ color: spanColor }}>
+            #Change #Me #Please, @JohnDoe
+          </span>
         </div>
         <div className="form-group">
           <p>
@@ -66,7 +78,14 @@ export default function Tools() {
               </span>
             </p>
           </p>
-          <CirclePicker onClick={() => setColors(!colors)} />
+
+          <CirclePicker
+            color={background}
+            onChangeComplete={(color) => setBackgroundColor(color.hex)}
+            className="circlepicker"
+          />
+
+          <div className="area" style={{ backgroundColor: background }} />
         </div>
         <button type="submit">Submit</button>
       </div>

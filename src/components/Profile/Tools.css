@@ -50,3 +50,16 @@ li:nth-last-child(1) {
   font-size: small;
   color: gray;
 }
+
+.area{
+  padding:100px;
+  background-color: lightgray;
+  border-radius: 20px;
+  margin-top: 3rem;
+}
+
+.spanTest {  
+  margin-top: 3rem;
+  font-weight: bold;
+  font-size: x-large;
+}
