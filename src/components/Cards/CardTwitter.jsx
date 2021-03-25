@@ -7,12 +7,10 @@
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import './Card.css';
 
 export default function CardTwitter({ post }) {
-  const [background, setBackgroundColor] = useState();
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
@@ -93,14 +91,7 @@ export default function CardTwitter({ post }) {
         <>
           {!!post.user.name === 'nous' ? (
             <div className="card" style={avecNous}>
-              <CirclePicker
-                onChange={(color) => setBackgroundColor(color.hex)}
-                className="circlepicker"
-              />
-              <div
-                className="cardBodyNoImg"
-                style={{ backgroundColor: background }}
-              >
+              <div className="cardBodyNoImg">
                 <div className="contentNoImg">
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
@@ -128,11 +119,7 @@ export default function CardTwitter({ post }) {
               </div>
             </div>
           ) : (
-            <div className="card" style={{ backgroundColor: background }}>
-              <CirclePicker
-                onChange={(color) => setBackgroundColor(color.hex)}
-                className="circlepicker"
-              />
+            <div className="card">
               <div className="cardBodyNoImg">
                 <div className="contentNoImg">
                   <div
