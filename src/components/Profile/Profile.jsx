@@ -1,12 +1,17 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ColorContext from '../Context/ColorContext';
 import CardProfile from '../Cards/CardProfile';
 import Tools from './Tools';
 
 const Profile = () => {
   const [items, setItems] = useState([]);
+  console.log('color:', items);
+  const toggleColor = () => setItems(!items);
+  // const [status, setStatus] = useState(false);
 
   const API_URL = `https://slideyour.net/api.php`;
   const params = {
@@ -41,16 +46,19 @@ const Profile = () => {
 
   return (
     <>
-      <div className="galerie">
-        <Tools />
-        {items.map((post) => (
-          <CardProfile
-            key={post.pub_id}
-            post={post}
-            session={post.session_id}
-          />
-        ))}
-      </div>
+      <ColorContext.Provider value={[items, setItems]}>
+        <div className="galerie">
+          <Tools onClick={(color) => setItems(color.hex)} />
+          {items.map((post) => (
+            <CardProfile
+              key={post.pub_id}
+              post={post}
+              session={post.session_id}
+              style={{ color: items }}
+            />
+          ))}
+        </div>
+      </ColorContext.Provider>
     </>
   );
 };

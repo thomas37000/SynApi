@@ -1,16 +1,27 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-plusplus */
 /* eslint-disable react/no-danger */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
+import ColorContext from '../Context/ColorContext';
 import './CardProfile.css';
 
 export default function CardProfile({ post }) {
+  const [spanColor, setSpanColor] = useState();
+
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
+  };
+
+  const spanChange = `url(${post.content})`;
+  const spanRxColor = {
+    '--changeRx': spanChange,
   };
 
   const spanWithImg = `url(${post.content})`;
@@ -29,14 +40,28 @@ export default function CardProfile({ post }) {
         : `<span class="txtSpan">${txt}</span>`;
     });
   }
+
+  const [toggleColor, setToggleColor] = useContext(ColorContext);
+
   return (
     <>
       {!!post.media_url ? (
-        <div className="cardProfile" style={bgBefore}>
-          <div className="cardBodyWithImg">
+        <div className="cardProfile">
+          <CirclePicker
+            onChange={(color) => setSpanColor(color.hex)}
+            onClick={(color) => setToggleColor(color.hex)}
+            className="circlepicker"
+          />
+          <div
+            className="cardBodyWithImg"
+            style={{ backgroundColor: spanColor }}
+          >
             <div className="content">
               {!!post.content ? (
-                <span className="textSpanWithImg">
+                <span
+                  className="textSpanWithImg"
+                  style={{ color: spanRegex.spanColor }}
+                >
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />

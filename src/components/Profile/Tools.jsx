@@ -2,14 +2,16 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-danger */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { CirclePicker } from 'react-color';
+import ColorContext from '../Context/ColorContext';
 import './Tools.css';
 
-export default function Tools() {
+export default function Tools(props) {
   const [background, setBackgroundColor] = useState();
-  const [spanColor, setSpanColor] = useState();
+  const [spanColor, setSpanColor] = useState('#4267b2');
+  const [toggleColor, setToggleColor] = useContext(ColorContext);
 
   return (
     <div className="mainTools">
@@ -61,12 +63,15 @@ export default function Tools() {
           </p>
           <CirclePicker
             color={spanColor}
-            onChangeComplete={(color) => setSpanColor(color.hex)}
+            onChange={(color) => setSpanColor(color.hex)}
+            onClick={(color) => setToggleColor(color.hex)}
             className="circlepicker"
           />
           <span className="spanTest" style={{ color: spanColor }}>
             #Change #Me #Please, @JohnDoe
           </span>
+
+          <button type="submit">Submit</button>
         </div>
         <div className="form-group">
           <p>
