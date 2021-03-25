@@ -4,13 +4,13 @@
 }
 
 .cardProfile {
-  width: 700px;
+  width: 1000px;
   height: 1000px;
 }
 
 .cardProfile::before {
   content: '';
-  width: 700px;
+  width: 900px;
   height: 1000px;
   background-image: var(--before);
   background-size: cover;

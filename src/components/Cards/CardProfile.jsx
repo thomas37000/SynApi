@@ -46,22 +46,15 @@ export default function CardProfile({ post }) {
   return (
     <>
       {!!post.media_url ? (
-        <div className="cardProfile">
+        <div className="cardProfile" style={{ color: spanColor }}>
           <CirclePicker
             onChange={(color) => setSpanColor(color.hex)}
-            onClick={(color) => setToggleColor(color.hex)}
             className="circlepicker"
           />
-          <div
-            className="cardBodyWithImg"
-            style={{ backgroundColor: spanColor }}
-          >
+          <div className="cardBodyWithImg">
             <div className="content">
               {!!post.content ? (
-                <span
-                  className="textSpanWithImg"
-                  style={{ color: spanRegex.spanColor }}
-                >
+                <span className="textSpanWithImg" style={{ color: spanColor }}>
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />
