@@ -44,30 +44,14 @@ export default function CardTwitter({ post }) {
         <div className="cardWithImg" style={bgBefore}>
           <div className="cardBodyWithImg">
             <div className="content">
-              {!!post.content ? (
-                <span>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </span>
-              ) : (
-                <span className="hideContent">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </span>
-              )}
+              <div
+                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+              />
             </div>
             <div className="cardImg">
-              {!!post.media_url ? (
-                <div className="getImg">
-                  <img src={post.media_url} alt="" />
-                </div>
-              ) : (
-                <div className="hideImg">
-                  <img src={post.media_url} alt="" />
-                </div>
-              )}
+              <div className="getImg">
+                <img src={post.media_url} alt="" />
+              </div>
             </div>
           </div>
           <div className="userCard">

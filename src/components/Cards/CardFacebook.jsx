@@ -39,19 +39,9 @@ export default function CardFb({ post }) {
         <div className="cardWithImg" style={bgBefore}>
           <div className="cardBodyWithImg">
             <div className="content">
-              {!!post.content ? (
-                <span>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </span>
-              ) : (
-                <span className="hideContent">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </span>
-              )}
+              <div
+                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+              />
             </div>
             <div className="cardImg">
               <div className="getImg">

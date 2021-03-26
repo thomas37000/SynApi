@@ -52,19 +52,10 @@ export default function CardProfile({ post }) {
           />
           <div className="cardBodyWithImg">
             <div className="content">
-              {!!post.content ? (
-                <span style={{ color: spanColor }}>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </span>
-              ) : (
-                <span className="hideContent">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </span>
-              )}
+              <div
+                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                style={{ color: spanColor }}
+              />
             </div>
           </div>
           <div className="cardImg">

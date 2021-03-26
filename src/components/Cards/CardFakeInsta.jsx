@@ -4,16 +4,7 @@ import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 
 export default function CardFakeInsta() {
-  // const spanWithImg = `url('Pisciculture de #carbonne #urbex #volvestre #tourismeenvolvestre
-  // @Nous')`;
-  // const spanRegex = {
-  //   '--RxTr': spanWithImg,
-  // };
-
   const regex = /[@#]\w+/g;
-  // const contentApi = `url('Pisciculture de #carbonne #urbex #volvestre #tourismeenvolvestre
-  // @Nous')`;
-  // const found = contentApi.match(regex);
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
