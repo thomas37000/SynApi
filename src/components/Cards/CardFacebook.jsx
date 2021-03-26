@@ -7,7 +7,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Card.css';
+import './Card_css/CardFacebook.css';
+import './Card_css/Card.css';
 
 export default function CardFb({ post }) {
   const bg = `url(${post.media_url})`;
@@ -39,7 +40,7 @@ export default function CardFb({ post }) {
           <div className="cardBodyWithImg">
             <div className="content">
               {!!post.content ? (
-                <span className="textSpanWithImg">
+                <span>
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />

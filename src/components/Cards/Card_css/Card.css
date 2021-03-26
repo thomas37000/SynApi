@@ -4,12 +4,6 @@
   background: var(--bgNoImg) !important;
 }
 
-.cardFb {
-  width: 100vw;
-  height: 100vh;
-  background: var(--bgNoImgFb);
-}
-
 .cardNous {
   width: 100vw;
   height: 100vh;
@@ -21,20 +15,6 @@
   width: 100vw;
   height: 100vh;
   background-image: var(--before);
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: -1;
-  filter: blur(5px);
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.cardWithImgINSTA::before {
-  content: '';
-  width: 100vw;
-  height: 100vh;
-  background-image: url('https://images.alphacoders.com/376/37681.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -1;
@@ -102,16 +82,6 @@
   color: var(--RxTr);
 }
 
-.txtSpanWithImgInst {
-  color: var(--RxIm);
-  font-weight: bold;
-}
-
-.txtSpanWithImgFb {
-  color: var(--RxFb);
-  font-weight: bold;
-}
-
 .userCard {
   display: flex;
   align-items: center;
@@ -154,16 +124,9 @@
   height: 400px;
 }
 
-.getImgFb {
-  display: flex;
-  width: 450px;
-  height: 550px;
-}
-
 .hideImg {
   display: none;
 }
-
 
 @media screen and (max-width: 768px) {
   .cardImg {

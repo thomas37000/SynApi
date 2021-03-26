@@ -1,6 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
-import './Card.css';
+import './Card_css/CardInsta.css';
+import './Card_css/Card.css';
 
 export default function CardFakeInsta() {
   // const spanWithImg = `url('Pisciculture de #carbonne #urbex #volvestre #tourismeenvolvestre

@@ -4,7 +4,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Card.css';
+import './Card_css/CardInsta.css';
+import './Card_css/Card.css';
 
 export default function CardInstagram({ post }) {
   const bg = `url(${post.media_url})`;

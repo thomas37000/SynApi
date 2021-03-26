@@ -69,7 +69,6 @@ export default function Tools(props) {
           <span className="spanTest" style={{ color: spanColor }}>
             #Change #Me #Please, @JohnDoe
           </span>
-
           <button type="submit">Submit</button>
         </div>
         <div className="form-group">

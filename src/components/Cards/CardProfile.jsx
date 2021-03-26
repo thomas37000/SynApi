@@ -9,11 +9,10 @@ import React, { useState, useContext } from 'react';
 import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
-import './CardProfile.css';
+import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
-  const [spanColor, setSpanColor] = useState();
-
+  const [toggleColor, setToggleColor] = useContext(ColorContext);
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
@@ -41,12 +40,12 @@ export default function CardProfile({ post }) {
     });
   }
 
-  const [toggleColor, setToggleColor] = useContext(ColorContext);
+  const [spanColor, setSpanColor] = useState();
 
   return (
     <>
       {!!post.media_url ? (
-        <div className="cardProfile" style={{ color: spanColor }}>
+        <div className="cardProfile">
           <CirclePicker
             onChange={(color) => setSpanColor(color.hex)}
             className="circlepicker"
@@ -54,7 +53,7 @@ export default function CardProfile({ post }) {
           <div className="cardBodyWithImg">
             <div className="content">
               {!!post.content ? (
-                <span className="textSpanWithImg" style={{ color: spanColor }}>
+                <span style={{ color: spanColor }}>
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />

@@ -8,7 +8,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Card.css';
+import './Card_css/Card.css';
 
 export default function CardTwitter({ post }) {
   const bg = `url(${post.media_url})`;
@@ -45,7 +45,7 @@ export default function CardTwitter({ post }) {
           <div className="cardBodyWithImg">
             <div className="content">
               {!!post.content ? (
-                <span className="textSpanWithImg">
+                <span>
                   <div
                     dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
                   />

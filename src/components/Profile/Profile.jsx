@@ -46,15 +46,14 @@ const Profile = () => {
 
   return (
     <>
-      <ColorContext.Provider value={[items, setItems]}>
+      <ColorContext.Provider value={[items, toggleColor]}>
         <div className="galerie">
-          <Tools onClick={(color) => setItems(color.hex)} />
+          <Tools />
           {items.map((post) => (
             <CardProfile
               key={post.pub_id}
               post={post}
               session={post.session_id}
-              style={{ color: items }}
             />
           ))}
         </div>
