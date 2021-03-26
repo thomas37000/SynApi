@@ -49,13 +49,13 @@ const Profile = () => {
       <ColorContext.Provider value={[items, toggleColor]}>
         <div className="galerie">
           <Tools />
-          {items.map((post) => (
+          {/* {items.map((post) => (
             <CardProfile
               key={post.pub_id}
               post={post}
               session={post.session_id}
             />
-          ))}
+          ))} */}
         </div>
       </ColorContext.Provider>
     </>

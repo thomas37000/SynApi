@@ -1,8 +1,9 @@
 .mainTools {
-  width: 30vw;
+  width: 100%;
+  height: auto;
   background-color: #fff;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .tools {

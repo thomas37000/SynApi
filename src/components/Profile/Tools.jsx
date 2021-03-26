@@ -8,15 +8,20 @@ import { CirclePicker } from 'react-color';
 import ColorContext from '../Context/ColorContext';
 import './Tools.css';
 
-export default function Tools(props) {
+export default function Tools() {
   const [background, setBackgroundColor] = useState();
-  const [spanColor, setSpanColor] = useState('#4267b2');
-  const [toggleColor, setToggleColor] = useContext(ColorContext);
+  const [spanColor, setSpanColor] = useState();
+  // const [toggleColor, setToggleColor] = useContext(ColorContext);
+
+  const setStyle = () => {
+    setBackgroundColor(background);
+    setSpanColor(spanColor);
+  };
 
   return (
     <div className="mainTools">
       <div className="tools">
-        <div className="form-group">
+        {/* <div className="form-group">
           <p>
             Change the colors of your <span className="spanTool">Network</span>{' '}
             :
@@ -54,7 +59,7 @@ export default function Tools(props) {
               Twitter
             </label>
           </li>
-        </div>
+        </div> */}
         <div className="form-group">
           <p>
             Change the colors of the
@@ -69,7 +74,9 @@ export default function Tools(props) {
           <span className="spanTest" style={{ color: spanColor }}>
             #Change #Me #Please, @JohnDoe
           </span>
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={() => setStyle('#424246', '#fdfdfd')}>
+            Submit
+          </button>
         </div>
         <div className="form-group">
           <p>
@@ -89,8 +96,8 @@ export default function Tools(props) {
           />
 
           <div className="area" style={{ backgroundColor: background }} />
+          <button type="submit">Submit</button>
         </div>
-        <button type="submit">Submit</button>
       </div>
     </div>
   );

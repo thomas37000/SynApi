@@ -32,74 +32,41 @@ export default function CardProfile({ post }) {
 
   return (
     <>
-      {!!post.media_url ? (
-        <div className="cardProfile">
-          <CirclePicker
-            onChange={(color) => setSpanColor(color.hex)}
-            className="circlepicker"
+      <div className="cardProfile">
+        <CirclePicker
+          onChange={(color) => setSpanColor(color.hex)}
+          className="circlepicker"
+        />
+        <div className="cardBodyWithImg">
+          <div className="content">
+            <div
+              dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+              style={{ color: spanColor }}
+            />
+          </div>
+        </div>
+        <div className="cardImg">
+          <div className="getImg">
+            <img src={post.media_url} alt="" />
+          </div>
+        </div>
+        <div className="userCard">
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.user.name}
           />
-          <div className="cardBodyWithImg">
-            <div className="content">
-              <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                style={{ color: spanColor }}
-              />
-            </div>
-          </div>
-          <div className="cardImg">
-            <div className="getImg">
-              <img src={post.media_url} alt="" />
-            </div>
-          </div>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
-          </div>
+          <h3 className="name">@{post.user.name}</h3>
         </div>
-      ) : (
-        <div className="cardFb">
-          <div className="cardBodyNoImg">
-            <div className="contentNoImg">
-              <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-              />
-            </div>
-            <div className="cardImg">
-              <div className="hideImg">
-                <img src={post.media_url} alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
-          </div>
+        <div className="footerCard">
+          <h3 className="hashtag">{post.user.name}</h3>
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.search}
+          />
         </div>
-      )}
+      </div>
     </>
   );
 }
