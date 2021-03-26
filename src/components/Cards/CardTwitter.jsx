@@ -16,11 +16,17 @@ export default function CardTwitter({ post }) {
     '--before': bg,
   };
 
+  // const bgTwitter = `url(${post.media_url})`;
+  // const bgBeforeTwitter = {
+  //   '--bgNoImg': bgTwitter,
+  // };
+
   const nous = `url(${post.user.name})`;
   const avecNous = {
     '--avecNousBg': nous,
   };
 
+  const MediaUrl = `url(${!!post.media_url})`;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
@@ -33,100 +39,37 @@ export default function CardTwitter({ post }) {
 
   return (
     <>
-      {!!post.media_url ? (
-        <div className="cardWithImg" style={bgBefore}>
-          <div className="cardBodyWithImg">
-            <div className="content">
-              <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-              />
-            </div>
-            <div className="cardImg">
-              <div className="getImg">
-                <img src={post.media_url} alt="" />
-              </div>
-            </div>
+      <div
+        className={`${MediaUrl ? 'cardWithImg' : 'card'}`}
+        style={MediaUrl ? bgBefore : '#1da1f2'}
+      >
+        <div className={`${MediaUrl ? 'cardBodyWithImg' : 'cardBodyNoImg'}`}>
+          <div className={`${MediaUrl ? 'content' : 'contentNoImg'}`}>
+            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
+          <div className="cardImg">
+            <div className={`${MediaUrl ? 'getImg' : 'hideImg'}`}>
+              <img src={post.media_url} alt="" />
+            </div>
           </div>
         </div>
-      ) : (
-        <>
-          {!!post.user.name === 'nous' ? (
-            <div className="card" style={avecNous}>
-              <div className="cardBodyNoImg">
-                <div className="contentNoImg">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </div>
-                <div className="hideImg">
-                  <img src={post.media_url} alt="" />
-                </div>
-                <div className="userCard">
-                  <img
-                    className="logoUser"
-                    src={post.user.avatar_url}
-                    alt={post.user.name}
-                  />
-                  <h3 className="name">@{post.user.name}</h3>
-                </div>
-                <div className="footerCard">
-                  <h3 className="hashtag">{post.user.name}</h3>
-                  <img
-                    className="logoUser"
-                    src={post.user.avatar_url}
-                    alt={post.search}
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="card">
-              <div className="cardBodyNoImg">
-                <div className="contentNoImg">
-                  <div
-                    dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                  />
-                </div>
-                <div className="hideImg">
-                  <img src={post.media_url} alt="" />
-                </div>
-                <div className="userCard">
-                  <img
-                    className="logoUser"
-                    src={post.user.avatar_url}
-                    alt={post.user.name}
-                  />
-                  <h3 className="name">@{post.user.name}</h3>
-                </div>
-                <div className="footerCard">
-                  <h3 className="hashtag">{post.user.name}</h3>
-                  <img
-                    className="logoUser"
-                    src={post.user.avatar_url}
-                    alt={post.search}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-        </>
-      )}
+        <div className="userCard">
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.user.name}
+          />
+          <h3 className="name">@{post.user.name}</h3>
+        </div>
+        <div className="footerCard">
+          <h3 className="hashtag">{post.user.name}</h3>
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.search}
+          />
+        </div>
+      </div>
     </>
   );
 }

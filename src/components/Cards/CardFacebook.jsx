@@ -15,6 +15,7 @@ export default function CardFb({ post }) {
     '--before': bg,
   };
 
+  const MediaUrl = `url(${!!post.media_url})`;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
@@ -27,69 +28,37 @@ export default function CardFb({ post }) {
 
   return (
     <>
-      {!!post.media_url ? (
-        <div className="cardWithImg" style={bgBefore}>
-          <div className="cardBodyWithImg">
-            <div className="content">
-              <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-              />
-            </div>
-            <div className="cardImg">
-              <div className="getImg">
-                <img src={post.media_url} alt="" />
-              </div>
-            </div>
+      <div
+        className={`${MediaUrl ? 'cardWithImg' : 'cardFb'}`}
+        style={MediaUrl ? bgBefore : '#4267b2'}
+      >
+        <div className={`${MediaUrl ? 'cardBodyWithImg' : 'cardBodyNoImg'}`}>
+          <div className={`${MediaUrl ? 'content' : 'contentNoImg'}`}>
+            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
+          <div className="cardImg">
+            <div className={`${MediaUrl ? 'getImg' : 'hideImg'}`}>
+              <img src={post.media_url} alt="" />
+            </div>
           </div>
         </div>
-      ) : (
-        <div className="cardFb">
-          <div className="cardBodyNoImg">
-            <div className="contentNoImg">
-              <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-              />
-            </div>
-            <div className="cardImg">
-              <div className="hideImg">
-                <img src={post.media_url} alt="" />
-              </div>
-            </div>
-          </div>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="name">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
-          </div>
+        <div className="userCard">
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.user.name}
+          />
+          <h3 className="name">@{post.user.name}</h3>
         </div>
-      )}
+        <div className="footerCard">
+          <h3 className="hashtag">{post.user.name}</h3>
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.search}
+          />
+        </div>
+      </div>
     </>
   );
 }
