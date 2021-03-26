@@ -64,7 +64,6 @@ export default function Tools(props) {
           <CirclePicker
             color={spanColor}
             onChange={(color) => setSpanColor(color.hex)}
-            onClick={(color) => setToggleColor(color.hex)}
             className="circlepicker"
           />
           <span className="spanTest" style={{ color: spanColor }}>
