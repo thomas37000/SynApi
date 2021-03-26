@@ -13,24 +13,14 @@ import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
+
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
   };
 
   const spanChange = `url(${post.content})`;
-  const spanRxColor = {
-    '--changeRx': spanChange,
-  };
-
-  const spanWithImg = `url(${post.content})`;
-  const spanRegex = {
-    '--RxTr': spanWithImg,
-  };
-
   const regex = /[@#]\w+/g;
-  const contentApi = `url(${post.content})`;
-  const found = contentApi.match(regex);
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {

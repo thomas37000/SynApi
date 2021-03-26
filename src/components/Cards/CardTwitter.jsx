@@ -21,14 +21,7 @@ export default function CardTwitter({ post }) {
     '--avecNousBg': nous,
   };
 
-  const spanWithImg = `url(${post.content})`;
-  const spanRegex = {
-    '--RxTr': spanWithImg,
-  };
-
   const regex = /[@#]\w+/g;
-  const contentApi = `url(${post.content})`;
-  const found = contentApi.match(regex);
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
