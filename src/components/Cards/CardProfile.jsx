@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-danger */
 /* eslint-disable no-extra-boolean-cast */
@@ -19,7 +18,6 @@ export default function CardProfile({ post }) {
     '--before': bg,
   };
 
-  const spanChange = `url(${post.content})`;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
