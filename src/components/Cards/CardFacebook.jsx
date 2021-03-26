@@ -15,7 +15,7 @@ export default function CardFb({ post }) {
     '--before': bg,
   };
 
-  const MediaUrl = `url(${!!post.media_url})`;
+  const bgFacebook = !!post.media_url;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
@@ -29,15 +29,15 @@ export default function CardFb({ post }) {
   return (
     <>
       <div
-        className={`${MediaUrl ? 'cardWithImg' : 'cardFb'}`}
-        style={MediaUrl ? bgBefore : '#4267b2'}
+        className={!!post.media_url ? 'cardWithImg' : 'cardFb'}
+        style={bgBefore}
       >
-        <div className={`${MediaUrl ? 'cardBodyWithImg' : 'cardBodyNoImg'}`}>
-          <div className={`${MediaUrl ? 'content' : 'contentNoImg'}`}>
+        <div className={!!post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
+          <div className={!!post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
           <div className="cardImg">
-            <div className={`${MediaUrl ? 'getImg' : 'hideImg'}`}>
+            <div className={!!post.media_url ? 'getImg' : 'hideImg'}>
               <img src={post.media_url} alt="" />
             </div>
           </div>

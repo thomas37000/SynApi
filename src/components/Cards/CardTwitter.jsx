@@ -16,17 +16,11 @@ export default function CardTwitter({ post }) {
     '--before': bg,
   };
 
-  // const bgTwitter = `url(${post.media_url})`;
-  // const bgBeforeTwitter = {
-  //   '--bgNoImg': bgTwitter,
-  // };
-
   const nous = `url(${post.user.name})`;
   const avecNous = {
     '--avecNousBg': nous,
   };
 
-  const MediaUrl = `url(${!!post.media_url})`;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
@@ -40,15 +34,15 @@ export default function CardTwitter({ post }) {
   return (
     <>
       <div
-        className={`${MediaUrl ? 'cardWithImg' : 'card'}`}
-        style={MediaUrl ? bgBefore : '#1da1f2'}
+        className={!!post.media_url ? 'cardWithImg' : 'card'}
+        style={bgBefore}
       >
-        <div className={`${MediaUrl ? 'cardBodyWithImg' : 'cardBodyNoImg'}`}>
-          <div className={`${MediaUrl ? 'content' : 'contentNoImg'}`}>
+        <div className={!!post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
+          <div className={!!post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
           <div className="cardImg">
-            <div className={`${MediaUrl ? 'getImg' : 'hideImg'}`}>
+            <div className={!!post.media_url ? 'getImg' : 'hideImg'}>
               <img src={post.media_url} alt="" />
             </div>
           </div>
