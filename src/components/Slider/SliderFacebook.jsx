@@ -8,6 +8,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
+import API_URL from '../../api/api';
 import CardFb from '../Cards/CardFacebook';
 
 const SliderFacebook = () => {
@@ -17,7 +18,6 @@ const SliderFacebook = () => {
   // eslint-disable-next-line no-unused-vars
   const [users, setUsers] = useState([]);
 
-  const API_URL = `https://slideyour.net/api.php`;
   const params = {
     s: 'thomas2',
     t: '414d4d57e4577ea404ff0ebdfe25c680',
