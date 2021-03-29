@@ -1,3 +1,3 @@
-const API_URL = 'http://slideyour.net/api.php';
+const API_URL = 'https://slideyour.net/api.php';
 
 export default API_URL;
