@@ -55,7 +55,7 @@
     "prettier": "^2.2.1"
   },
   "optionalDependencies": {
-    "fsevents": "2.1.2"
+    "fsevents": "^2.3.2"
   },
   "homepage": "http://livewall.com/"
 }
