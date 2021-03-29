@@ -9,6 +9,7 @@ import {
   CarouselCaption,
 } from 'reactstrap';
 import CardTwitter from '../Cards/CardTwitter';
+import API_URL from '../../api/api';
 
 const SliderTwitter = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -17,7 +18,6 @@ const SliderTwitter = () => {
   // eslint-disable-next-line no-unused-vars
   const [users, setUsers] = useState([]);
 
-  const API_URL = `https://slideyour.net/api.php`;
   const params = {
     // s: 'thomas2',
     // t: '414d4d57e4577ea404ff0ebdfe25c680',
