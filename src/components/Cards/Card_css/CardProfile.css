@@ -1,0 +1,40 @@
+.galerie {
+  display: flex;
+  justify-content: right;
+}
+
+.cardProfile {
+  width: 1000px;
+  height: 1000px;
+}
+
+.cardProfile::before {
+  content: '';
+  width: 900px;
+  height: 1000px;
+  background-image: var(--before);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  filter: blur(5px);
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.cardBodyWithImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f1f1f1;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.hashtag {
+  color: #fff;
+  font-weight: 700;
+  margin: 1rem 1rem 0 0;
+}
+

@@ -8,9 +8,9 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import CardFb from '../Cards/CardFacebook';
+import CardInstagram from '../Cards/CardInstagram';
 
-const SliderFacebook = () => {
+const SliderInstagram = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [items, setItems] = useState([]);
@@ -19,13 +19,14 @@ const SliderFacebook = () => {
 
   const API_URL = `https://slideyour.net/api.php`;
   const params = {
-    s: 'thomas2',
-    t: '414d4d57e4577ea404ff0ebdfe25c680',
-    // s: 'thomas3',
-    // t: '8845c9cd48230070ac72191467ac1690',
+    // s: 'thomas2',
+    // t: '414d4d57e4577ea404ff0ebdfe25c680',
+    s: 'thomas3',
+    t: '8845c9cd48230070ac72191467ac1690',
     object: 'post',
-    network: 'facebook',
-    per_page: 10,
+    network: 'instagram',
+    username: '',
+    per_page: 30,
   };
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const SliderFacebook = () => {
       .then((data) => {
         setItems(data);
         setUsers(data.user);
-        console.log('Facebook posts', data);
+        console.log('instagram posts', data);
       })
       .catch((error) => {
         let message;
@@ -47,7 +48,7 @@ const SliderFacebook = () => {
           console.log(error);
         }
       });
-  }, [params.t]);
+  }, [params.username]);
 
   const next = () => {
     if (animating) return;
@@ -74,7 +75,11 @@ const SliderFacebook = () => {
         key={post.pub_id}
         post={post}
       >
-        <CardFb key={post.pub_id} post={post} session={post.session_id} />
+        <CardInstagram
+          key={post.pub_id}
+          post={post}
+          session={post.session_id}
+        />
         <CarouselCaption
           captionText={post.caption}
           captionHeader={post.caption}
@@ -105,4 +110,4 @@ const SliderFacebook = () => {
   );
 };
 
-export default SliderFacebook;
+export default SliderInstagram;

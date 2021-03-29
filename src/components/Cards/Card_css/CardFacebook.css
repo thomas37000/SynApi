@@ -1,0 +1,16 @@
+.cardFb {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bgNoImgFb);
+} 
+
+.txtSpanWithImgFb {
+  color: var(--RxFb);
+  font-weight: bold;
+}
+
+.getImgFb {
+  display: flex;
+  width: 450px;
+  height: 550px;
+}

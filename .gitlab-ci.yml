@@ -15,7 +15,14 @@ test:
   stage: test
   image: node
   script:
-    - echo "Testing App"
-    - npm install
-    - CI=true npm test
-    - echo "Test successfully!"
+    - CI=false npm run build
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
+  artifacts:
+    paths:
+      - public
+
+rules:
+  # publish only if it comes from master
+  - if: $CI_COMMIT_BRANCH == "master"     

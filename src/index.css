@@ -6,13 +6,32 @@
   padding: 0;
 }
 
+/* bg === background-color
+ * Rx === Regex  
+ * Tr === Twitter  
+ * Im === Instagram
+ * Fb === Facebook 
+*/
+
+:root {
+  --bgNoImg: #1da1f2;
+  --bgNoImgFb: #4267b2;
+  --bgNoImgNous: #ffdd00;
+  --RxTrNoImg: #000;
+  --RxTr: #1da1f2;
+  --RxFb: #4267b2;
+  --RxTrNousNoImg: #fff;
+  --RxTrNous: #ffdd00;
+  --RxIm: #e1306c;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #333!important; 
+  background: #333 !important;
   /* background-image: url('../src/components/synBackground.png'); */
 }
 

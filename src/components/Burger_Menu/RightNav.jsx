@@ -60,14 +60,20 @@ const RightNav = ({ open }) => {
         <Link to="/">Accueil</Link>
       </li> */}
       <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+      <li>
         <Link to="/twitter">Twitter</Link>
       </li>
       <li>
         <Link to="/facebook">Facebook</Link>
       </li>
-      {/* <li>
-        <Link to="/todolist">Todolist</Link>
-      </li> */}
+      <li>
+        <Link to="/fakeinstagram">Fake Instagram</Link>
+      </li>
+      <li>
+        <Link to="/instagram">Instagram</Link>
+      </li>
     </Slideburger>
   );
 };

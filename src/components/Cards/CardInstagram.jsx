@@ -1,27 +1,25 @@
 /* eslint-disable react/no-danger */
-/* eslint-disable prettier/prettier */
 /* eslint-disable no-extra-boolean-cast */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Card_css/CardFacebook.css';
+import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 
-export default function CardFb({ post }) {
+export default function CardInstagram({ post }) {
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
   };
 
-  const bgFacebook = !!post.media_url;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
       return !!post.media_url
-        ? `<span class="txtSpanWithImgFb">${txt}</span>`
+        ? `<span class="txtSpanWithImgInst">${txt}</span>`
         : `<span class="txtSpan">${txt}</span>`;
     });
   }
@@ -63,7 +61,7 @@ export default function CardFb({ post }) {
   );
 }
 
-CardFb.propTypes = {
+CardInstagram.propTypes = {
   post: PropTypes.shape({
     avatar_url: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,

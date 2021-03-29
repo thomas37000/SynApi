@@ -1,25 +1,8 @@
-:root {
-  --bgNoImg: #1da1f2;
-  --bgNoImgFb: #4267b2;
-  --bgNoImgNous: #ffdd00;
-  /* Rx === Regex  && Tr === Twitter && Im === Instagram*/
-  --RxTrNoImg: #000;
-  --RxTr: #1da1f2;
-  --RxTrAvecNousNoImg: #fff;
-  --RxTrAvecNous: #ffdd00;
-  --RxIm: #e1306c;
-}
-
-.card {
+/* Tr === twitter */
+.cardTr {
   width: 100vw;
   height: 100vh;
   background: var(--bgNoImg) !important;
-}
-
-.cardFb {
-  width: 100vw;
-  height: 100vh;
-  background: var(--bgNoImgFb);
 }
 
 .cardNous {
@@ -76,11 +59,28 @@
 
 .content {
   margin: 10rem 0 3rem 0;
-  color: var(--Text)!important;
+  color: var(--Text) !important;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
 }
 
-.regex {
+.contentNoImg {
+  margin: 10rem 0 3rem 0;
+  color: var(--Text) !important;
+  font-weight: normal;
+}
+
+.txtSpan {
   color: var(--RxTrNoImg);
+  font-weight: bold;
+}
+
+.txtSpanNous {
+  color: var(--RxTrNousNoImg);
+}
+
+.txtSpanWithImg {
+  color: var(--RxTr);
 }
 
 .userCard {
@@ -112,6 +112,7 @@
   height: 50px;
   border-radius: 50%;
   margin-top: 1rem;
+  background-color: #fff;
 }
 
 .cardImg {
@@ -122,12 +123,6 @@
   display: flex;
   width: 450px;
   height: 400px;
-}
-
-.getImgFb {
-  display: flex;
-  width: 450px;
-  height: 550px;
 }
 
 .hideImg {
