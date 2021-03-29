@@ -34,7 +34,7 @@ export default function CardTwitter({ post }) {
   return (
     <>
       <div
-        className={!!post.media_url ? 'cardWithImg' : 'card'}
+        className={!!post.media_url ? 'cardWithImg' : 'cardTr'}
         style={bgBefore}
       >
         <div className={!!post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>

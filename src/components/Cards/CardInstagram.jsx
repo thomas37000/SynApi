@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-curly-brace-presence */
@@ -13,33 +14,47 @@ export default function CardInstagram({ post }) {
     '--before': bg,
   };
 
+  const regex = /[@#]\w+/g;
+
+  function Hashtag(match) {
+    return match.replace(regex, (txt) => {
+      return !!post.media_url
+        ? `<span class="txtSpanWithImgInst">${txt}</span>`
+        : `<span class="txtSpan">${txt}</span>`;
+    });
+  }
+
   return (
     <>
-      <div className="card">
-        <div className="cardBody">
-          <div className="content">
-            <p>{post.user_description}</p>
+      <div
+        className={!!post.media_url ? 'cardWithImg' : 'cardFb'}
+        style={bgBefore}
+      >
+        <div className={!!post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
+          <div className={!!post.media_url ? 'content' : 'contentNoImg'}>
+            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
           <div className="cardImg">
-            {!!post.media_url ? (
-              <div className="getImg">
-                <img src={post.media_url} alt="" />
-              </div>
-            ) : (
-              <div className="hideImg">
-                <img src={post.media_url} alt="" />
-              </div>
-            )}
+            <div className={!!post.media_url ? 'getImg' : 'hideImg'}>
+              <img src={post.media_url} alt="" />
+            </div>
           </div>
         </div>
-        <p className="card-text">{post.text}</p>
         <div className="userCard">
-          <img className="logoUser" src={post.avatar_url} alt={post.name} />
-          <h3 className="name">@{post.name}</h3>
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.user.name}
+          />
+          <h3 className="name">@{post.user.name}</h3>
         </div>
         <div className="footerCard">
-          <h3 className="hashtag">{post.name}</h3>
-          <img className="logoUser" src={post.avatar_url} alt={post.search} />
+          <h3 className="hashtag">{post.user.name}</h3>
+          <img
+            className="logoUser"
+            src={post.user.avatar_url}
+            alt={post.search}
+          />
         </div>
       </div>
     </>

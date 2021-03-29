@@ -1,4 +1,5 @@
-.card {
+/* Tr === twitter */
+.cardTr {
   width: 100vw;
   height: 100vh;
   background: var(--bgNoImg) !important;
