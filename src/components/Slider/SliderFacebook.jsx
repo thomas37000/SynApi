@@ -9,6 +9,7 @@ import {
   CarouselCaption,
 } from 'reactstrap';
 import API_URL from '../../api/api';
+import params from '../../api/paramsFb';
 import CardFb from '../Cards/CardFacebook';
 
 const SliderFacebook = () => {
@@ -17,16 +18,6 @@ const SliderFacebook = () => {
   const [items, setItems] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [users, setUsers] = useState([]);
-
-  const params = {
-    s: 'thomas2',
-    t: '414d4d57e4577ea404ff0ebdfe25c680',
-    // s: 'thomas3',
-    // t: '8845c9cd48230070ac72191467ac1690',
-    object: 'post',
-    network: 'facebook',
-    per_page: 10,
-  };
 
   useEffect(() => {
     axios

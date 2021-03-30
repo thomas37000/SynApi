@@ -1,4 +1,4 @@
-const Params = {
+const params = {
   s: 'thomas2',
   t: '414d4d57e4577ea404ff0ebdfe25c680',
   // s: 'thomas3',
@@ -8,4 +8,4 @@ const Params = {
   per_page: 10,
 };
 
-export default Params;
+export default params;
