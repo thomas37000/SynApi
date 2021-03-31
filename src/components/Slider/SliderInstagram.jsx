@@ -8,16 +8,27 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import API_URL from '../../api/api';
-import params from '../../api/paramsInsta';
 import CardInstagram from '../Cards/CardInstagram';
 
 const SliderInstagram = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [items, setItems] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [users, setUsers] = useState([]);
+
+  const {
+    REACT_APP_API_URL,
+    REACT_APP_API_USER,
+    REACT_APP_API_TOKEN,
+  } = process.env;
+
+  const API_URL = `${REACT_APP_API_URL}`;
+  const params = {
+    s: `${REACT_APP_API_USER}`,
+    t: `${REACT_APP_API_TOKEN}`,
+    object: 'post',
+    network: 'instagram',
+    per_page: 10,
+  };
 
   useEffect(() => {
     axios
@@ -25,7 +36,6 @@ const SliderInstagram = () => {
       .then((res) => res.data)
       .then((data) => {
         setItems(data);
-        setUsers(data.user);
         console.log('instagram posts', data);
       })
       .catch((error) => {
