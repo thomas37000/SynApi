@@ -12,6 +12,7 @@ import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
+  const [spanColor, setSpanColor] = useState();
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -23,12 +24,18 @@ export default function CardProfile({ post }) {
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
       return !!post.media_url
-        ? `<span class="txtSpanWithImgFb">${txt}</span>`
+        ? `<span class="txtSpanWithImg" style={{color: spanColor}}>${txt}</span>`
         : `<span class="txtSpan">${txt}</span>`;
     });
   }
 
-  const [spanColor, setSpanColor] = useState();
+  // function ChangeColor(match) {
+  //   return match.replace(regex, (txt) => {
+  //     return !!post.media_url
+  //       ? `<span class="changeColor">${txt}</span>`
+  //       : Hashtag();
+  //   });
+  // }
 
   return (
     <>
@@ -39,10 +46,7 @@ export default function CardProfile({ post }) {
         />
         <div className="cardBodyWithImg">
           <div className="content">
-            <div
-              dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-              style={{ color: spanColor }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
         </div>
         <div className="cardImg">

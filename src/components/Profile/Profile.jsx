@@ -13,24 +13,26 @@ const Profile = () => {
   const toggleColor = () => setItems(!items);
   // const [status, setStatus] = useState(false);
 
-  const API_URL = `https://slideyour.net/api.php`;
+  const {
+    REACT_APP_API_URL,
+    REACT_APP_API_USER,
+    REACT_APP_API_TOKEN,
+  } = process.env;
+
+  const API_URL = `${REACT_APP_API_URL}`;
   const params = {
-    s: 'thomas2',
-    t: '414d4d57e4577ea404ff0ebdfe25c680',
-    // s: 'thomas3',
-    // t: '8845c9cd48230070ac72191467ac1690',
+    s: `${REACT_APP_API_USER}`,
+    t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
-    network: 'facebook',
+    network: 'twitter',
     per_page: 1,
   };
 
   useEffect(() => {
     axios
       .get(`${API_URL}`, { params })
-      .then((res) => res.data)
-      .then((data) => {
-        setItems(data);
-        console.log('Facebook posts', data);
+      .then((res) => {
+        setItems(res.data);
       })
       .catch((error) => {
         let message;
@@ -42,20 +44,20 @@ const Profile = () => {
           console.log(error);
         }
       });
-  }, [params.t]);
+  }, []);
 
   return (
     <>
       <ColorContext.Provider value={[items, toggleColor]}>
         <div className="galerie">
           <Tools />
-          {/* {items.map((post) => (
+          {items.map((post) => (
             <CardProfile
               key={post.pub_id}
               post={post}
               session={post.session_id}
             />
-          ))} */}
+          ))}
         </div>
       </ColorContext.Provider>
     </>
