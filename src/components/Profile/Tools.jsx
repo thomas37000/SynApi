@@ -18,6 +18,8 @@ export default function Tools() {
     setSpanColor(spanColor);
   };
 
+  const changeColor = document.getElementById('btn');
+
   return (
     <div className="mainTools">
       <div className="tools">
@@ -74,7 +76,12 @@ export default function Tools() {
           <span className="spanTest" style={{ color: spanColor }}>
             #Change #Me #Please, @JohnDoe
           </span>
-          <button type="submit" onClick={() => setStyle('#424246', '#fdfdfd')}>
+          <button
+            id="btn"
+            className="btnColor"
+            type="submit"
+            onClick={() => setStyle('#424246', '#fdfdfd')}
+          >
             Submit
           </button>
         </div>
@@ -96,7 +103,9 @@ export default function Tools() {
           />
 
           <div className="area" style={{ backgroundColor: background }} />
-          <button type="submit">Submit</button>
+          <button id="btn" className="btnColor" type="submit">
+            Submit
+          </button>
         </div>
       </div>
     </div>

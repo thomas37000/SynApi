@@ -33,10 +33,9 @@ const SliderTwitter = () => {
   useEffect(() => {
     axios
       .get(`${API_URL}`, { params })
-      .then((res) => res.data)
-      .then((data) => {
-        setItems(data);
-        console.log('twitter posts', data);
+      .then((res) => {
+        setItems(res.data);
+        console.log('twitter posts', res.data);
       })
       .catch((error) => {
         let message;

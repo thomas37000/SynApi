@@ -17,14 +17,14 @@ const SliderInstagram = () => {
 
   const {
     REACT_APP_API_URL,
-    REACT_APP_API_USER,
-    REACT_APP_API_TOKEN,
+    REACT_APP_API_INSTA,
+    REACT_APP_API_INSTAA,
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
   const params = {
-    s: `${REACT_APP_API_USER}`,
-    t: `${REACT_APP_API_TOKEN}`,
+    s: `${REACT_APP_API_INSTA}`,
+    t: `${REACT_APP_API_INSTAA}`,
     object: 'post',
     network: 'instagram',
     per_page: 10,
@@ -33,10 +33,9 @@ const SliderInstagram = () => {
   useEffect(() => {
     axios
       .get(`${API_URL}`, { params })
-      .then((res) => res.data)
-      .then((data) => {
-        setItems(data);
-        console.log('instagram posts', data);
+      .then((res) => {
+        setItems(res.data);
+        console.log('instagram posts', res.data);
       })
       .catch((error) => {
         let message;

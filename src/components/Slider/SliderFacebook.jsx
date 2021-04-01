@@ -35,10 +35,9 @@ const SliderFacebook = () => {
   useEffect(() => {
     axios
       .get(`${API_URL}`, { params })
-      .then((res) => res.data)
-      .then((data) => {
-        setItems(data);
-        console.log('Facebook posts', data);
+      .then((res) => {
+        setItems(res.data);
+        console.log('Facebook posts', res.data);
       })
       .catch((error) => {
         let message;

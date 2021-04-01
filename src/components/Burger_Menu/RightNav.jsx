@@ -69,9 +69,6 @@ const RightNav = ({ open }) => {
         <Link to="/facebook">Facebook</Link>
       </li>
       <li>
-        <Link to="/fakeinstagram">Fake Instagram</Link>
-      </li>
-      <li>
         <Link to="/instagram">Instagram</Link>
       </li>
     </Slideburger>
