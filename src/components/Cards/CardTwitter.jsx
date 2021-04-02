@@ -1,11 +1,7 @@
 /* eslint-disable react/no-danger */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-console */
-/* eslint-disable no-const-assign */
 /* eslint-disable no-extra-boolean-cast */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable react/prop-types */
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/Card.css';
@@ -16,33 +12,47 @@ export default function CardTwitter({ post }) {
     '--before': bg,
   };
 
-  const nous = `url(${post.user.name})`;
-  const avecNous = {
-    '--avecNousBg': nous,
-  };
+  // const avecNous = {
+  //   '--avecNousBg': nous,
+  // };
 
   const regex = /[@#]\w+/g;
 
+  // function Hashtag(match) {
+  //   return match.replace(regex, (txt) => {
+  //     return post.media_url
+  //       ? `<span class="txtSpanWithImg">${txt}</span>`
+  //       : `<span class="txtSpan">${txt}</span>`;
+  //   });
+  // }
+
+  // const nous = `url(${post.user.name})`;
+
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      return !!post.media_url
-        ? `<span class="txtSpanWithImg">${txt}</span>`
-        : `<span class="txtSpan">${txt}</span>`;
+      // eslint-disable-next-line no-extra-boolean-cast
+      if (post.media_url) {
+        return `<span class="txtSpanWithImg">${txt}</span>`;
+      }
+      if (post.media_url || post.user.name === 'agencenous') {
+        return `<span class="txtSpanWithImgNous">${txt}</span>`;
+      }
+      return `<span class="txtSpan">${txt}</span>`;
     });
   }
 
   return (
     <>
       <div
-        className={!!post.media_url ? 'cardWithImg' : 'cardTr'}
+        className={post.media_url ? 'cardWithImg' : 'cardTr'}
         style={bgBefore}
       >
-        <div className={!!post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
-          <div className={!!post.media_url ? 'content' : 'contentNoImg'}>
+        <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
+          <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
           <div className="cardImg">
-            <div className={!!post.media_url ? 'getImg' : 'hideImg'}>
+            <div className={post.media_url ? 'getImg' : 'hideImg'}>
               <img src={post.media_url} alt="" />
             </div>
           </div>

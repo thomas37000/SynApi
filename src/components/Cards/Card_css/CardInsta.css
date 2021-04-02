@@ -16,3 +16,10 @@
   color: var(--RxIm);
   font-weight: bold;
 }
+
+/* ne marche pas, mais getImg marche ? */
+.getImgInsta {
+  width: 600px;
+  height: 600px; 
+}
+

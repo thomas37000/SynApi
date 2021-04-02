@@ -3,12 +3,14 @@
   width: 100vw;
   height: 100vh;
   background: var(--bgNoImg) !important;
+  color: #f1f1f1;
 }
 
 .cardNous {
   width: 100vw;
   height: 100vh;
   background: var(--bgNoImgNous);
+  color: #000;
 }
 
 .cardWithImg::before {
@@ -40,7 +42,6 @@
   display: grid;
   justify-content: center;
   align-items: center;
-  color: #f1f1f1;
   margin: 0 5rem;
   font-size: 35px;
   text-align: center;
@@ -70,21 +71,39 @@
   font-weight: normal;
 }
 
-. Span {
+.txtSpan {
   color: var(--RxTrNoImg);
   font-weight: bold;
 }
 
 .txtSpanNous {
   color: var(--RxTrNousNoImg);
+  font-weight: bold;
 }
 
 .txtSpanWithImg {
   color: var(--RxTr);
 }
 
-.changeColor {
-  color: var(--spanColor);
+.txtSpanWithImgNous {
+  color: var(--RxTrNous);
+}
+
+.txtColorPicker {
+  color: var(--change,red);
+}
+
+#btn {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.test {
+  background-color: #fff;
+  color: var(--change,red);
+  width: 150px;
+  margin: 0 auto;
 }
 
 .userCard {

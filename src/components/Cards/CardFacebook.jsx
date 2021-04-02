@@ -15,12 +15,12 @@ export default function CardFb({ post }) {
     '--before': bg,
   };
 
-  const bgFacebook = !!post.media_url;
+  const bgFacebook = post.media_url;
   const regex = /[@#]\w+/g;
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      return !!post.media_url
+      return post.media_url
         ? `<span class="txtSpanWithImgFb">${txt}</span>`
         : `<span class="txtSpan">${txt}</span>`;
     });
@@ -29,15 +29,15 @@ export default function CardFb({ post }) {
   return (
     <>
       <div
-        className={!!post.media_url ? 'cardWithImg' : 'cardFb'}
+        className={post.media_url ? 'cardWithImg' : 'cardFb'}
         style={bgBefore}
       >
-        <div className={!!post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
-          <div className={!!post.media_url ? 'content' : 'contentNoImg'}>
+        <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
+          <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
           </div>
           <div className="cardImg">
-            <div className={!!post.media_url ? 'getImg' : 'hideImg'}>
+            <div className={post.media_url ? 'getImg' : 'hideImg'}>
               <img src={post.media_url} alt="" />
             </div>
           </div>

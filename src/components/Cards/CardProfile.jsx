@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-danger */
 /* eslint-disable no-extra-boolean-cast */
@@ -24,18 +25,15 @@ export default function CardProfile({ post }) {
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
       return !!post.media_url
-        ? `<span class="txtSpanWithImg" style={{color: spanColor}}>${txt}</span>`
+        ? `<span class="txtColorPicker">${txt}</span>`
         : `<span class="txtSpan">${txt}</span>`;
     });
   }
-
-  // function ChangeColor(match) {
-  //   return match.replace(regex, (txt) => {
-  //     return !!post.media_url
-  //       ? `<span class="changeColor">${txt}</span>`
-  //       : Hashtag();
-  //   });
-  // }
+  const changeColor = () => {
+    document.getElementById('btn').addEventListener('click', () => {
+      document.documentElement.style.setProperty('--change', 'green');
+    });
+  };
 
   return (
     <>
@@ -44,6 +42,13 @@ export default function CardProfile({ post }) {
           onChange={(color) => setSpanColor(color.hex)}
           className="circlepicker"
         />
+
+        {/* <button id="btn" className="btnColor" type="submit">
+          change color #
+        </button>
+
+        <p className="test">#lorem ipsum</p> */}
+
         <div className="cardBodyWithImg">
           <div className="content">
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
