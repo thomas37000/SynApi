@@ -3,8 +3,7 @@
 /* eslint-disable prefer-template */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/Card.css';
 
@@ -14,25 +13,13 @@ export default function CardTwitter({ post }) {
     '--before': bg,
   };
 
-  // const avecNous = {
-  //   '--avecNousBg': nous,
-  // };
-
   const regex = /[@#]\w+/g;
-
-  // function Hashtag(match) {
-  //   return match.replace(regex, (txt) => {
-  //     return post.media_url
-  //       ? `<span class="txtSpanWithImg">${txt}</span>`
-  //       : `<span class="txtSpan">${txt}</span>`;
-  //   });
-  // }
-
-  // const nous = `url(${post.user.name})`;
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      // eslint-disable-next-line no-extra-boolean-cast
+      if (post.media_url && post.user.name === 'agencenous') {
+        return `<span class="txtSpanWithImgNous">${txt}</span>`;
+      }
       if (post.media_url) {
         return `<span class="txtSpanWithImg">${txt}</span>`;
       }
@@ -43,32 +30,20 @@ export default function CardTwitter({ post }) {
     });
   }
 
-  // function changeColorBg(txt) {
-  //   if (post.media_url) {
-  //     return `<div class="cardWithImg">${txt}</div>`;
-  //   }
-  //   if (post.media_url || post.user.name === 'agencenous') {
-  //     return `<div class="cardNous">${txt}</div>`;
-  //   }
-  //   return `<div class="cardTr">${txt}</div>`;
-  // }
-
   return (
     <>
       <div
-        className={post.media_url ? 'cardWithImg' : 'cardNous'}
+        className={
+          post.media_url
+            ? ' cardWithImg'
+            : post.user.name === 'agencenous'
+            ? ' cardNous'
+            : post.media_url
+            ? ' cardWithImg'
+            : 'cardTr'
+        }
         style={bgBefore}
       >
-        {/* <div
-          className={
-            post.media_url === 3
-              ? ' cardWithImg'
-              : post.media_url === 4
-              ? ' cardWithImg'
-              : 'cardNous'
-          }
-          style={bgBefore}
-        /> */}
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />

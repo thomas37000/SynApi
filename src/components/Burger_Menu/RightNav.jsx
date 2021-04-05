@@ -37,7 +37,7 @@ const Slideburger = styled.ul`
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
     top: 0;
     right: 0;
-    height: 50vh;
+    height: auto;
     width: 80%;
     padding-top: 5.5rem;
     text-align: center;
