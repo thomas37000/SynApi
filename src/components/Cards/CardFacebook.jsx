@@ -1,6 +1,5 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable prettier/prettier */
-/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */

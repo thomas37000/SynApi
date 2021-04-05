@@ -1,5 +1,7 @@
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable prefer-template */
 /* eslint-disable react/no-danger */
-/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
@@ -34,19 +36,39 @@ export default function CardTwitter({ post }) {
       if (post.media_url) {
         return `<span class="txtSpanWithImg">${txt}</span>`;
       }
-      if (post.media_url || post.user.name === 'agencenous') {
-        return `<span class="txtSpanWithImgNous">${txt}</span>`;
+      if (post.user.name === 'agencenous') {
+        return `<span class="txtSpanNous">${txt}</span>`;
       }
       return `<span class="txtSpan">${txt}</span>`;
     });
   }
 
+  // function changeColorBg(txt) {
+  //   if (post.media_url) {
+  //     return `<div class="cardWithImg">${txt}</div>`;
+  //   }
+  //   if (post.media_url || post.user.name === 'agencenous') {
+  //     return `<div class="cardNous">${txt}</div>`;
+  //   }
+  //   return `<div class="cardTr">${txt}</div>`;
+  // }
+
   return (
     <>
       <div
-        className={post.media_url ? 'cardWithImg' : 'cardTr'}
+        className={post.media_url ? 'cardWithImg' : 'cardNous'}
         style={bgBefore}
       >
+        {/* <div
+          className={
+            post.media_url === 3
+              ? ' cardWithImg'
+              : post.media_url === 4
+              ? ' cardWithImg'
+              : 'cardNous'
+          }
+          style={bgBefore}
+        /> */}
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />

@@ -37,3 +37,18 @@
   font-weight: 700;
   margin: 1rem 1rem 0 0;
 }
+
+.profileName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: #f1f1f1;
+}
+.profileName span {
+  margin-right: 1rem;
+}
+
+.userProfile {
+  color: var(--RxTrNous);
+}
