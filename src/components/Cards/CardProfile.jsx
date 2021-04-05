@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
 /* eslint-disable no-plusplus */
@@ -39,50 +41,63 @@ export default function CardProfile({ post }) {
   return (
     <>
       <div className="cardProfile">
-        <div className="profileName">
-          <span>profil name: </span>
-          <h2 className="userProfile">{post.user.name}</h2>
-        </div>
+        <div
+          className={
+            post.media_url
+              ? ' cardWithImg'
+              : post.user.name === 'agencenous'
+              ? ' cardNous'
+              : post.media_url
+              ? ' cardWithImg'
+              : 'cardTr'
+          }
+          style={{ backgroundColor: spanColor, bgBefore }}
+        >
+          <div className="profileName">
+            <span>profil name: </span>
+            <h2 className="userProfile">{post.user.name}</h2>
+          </div>
 
-        <CirclePicker
-          onChange={(color) => setSpanColor(color.hex)}
-          className="circlepicker"
-        />
+          <CirclePicker
+            onChange={(color) => setSpanColor(color.hex)}
+            className="circlepicker"
+          />
 
-        {/* <button id="btn" className="btnColor" type="submit">
+          {/* <button id="btn" className="btnColor" type="submit">
           change color #
         </button>
 
         <p className="test">#lorem ipsum</p> */}
 
-        <div className="cardBodyWithImg">
-          <div className="content">
-            <div
-              dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-              style={{ color: spanColor }}
+          <div className="cardBodyWithImg">
+            <div className="content">
+              <div
+                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                // style={{ color: spanColor }}
+              />
+            </div>
+          </div>
+          <div className="cardImg">
+            <div className="getImg">
+              <img src={!!post.media_url} alt="" />
+            </div>
+          </div>
+          <div className="userCard">
+            <img
+              className="logoUser"
+              src={post.user.avatar_url}
+              alt={post.user.name}
+            />
+            <h3 className="name">@{post.user.name}</h3>
+          </div>
+          <div className="footerCard">
+            <h3 className="hashtag">{post.user.name}</h3>
+            <img
+              className="logoUser"
+              src={post.user.avatar_url}
+              alt={post.search}
             />
           </div>
-        </div>
-        <div className="cardImg">
-          <div className="getImg">
-            <img src={!!post.media_url} alt="" />
-          </div>
-        </div>
-        <div className="userCard">
-          <img
-            className="logoUser"
-            src={post.user.avatar_url}
-            alt={post.user.name}
-          />
-          <h3 className="name">@{post.user.name}</h3>
-        </div>
-        <div className="footerCard">
-          <h3 className="hashtag">{post.user.name}</h3>
-          <img
-            className="logoUser"
-            src={post.user.avatar_url}
-            alt={post.search}
-          />
         </div>
       </div>
     </>
