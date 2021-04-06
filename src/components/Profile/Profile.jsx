@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ColorContext from '../Context/ColorContext';
 import CardProfile from '../Cards/CardProfile';
-import Tools from './Tools';
+// import Tools from './Tools';
 
 const Profile = () => {
   const [items, setItems] = useState([]);
@@ -50,7 +50,7 @@ const Profile = () => {
     <>
       <ColorContext.Provider value={[items, toggleColor]}>
         <div className="galerie">
-          <Tools />
+          {/* <Tools /> */}
           {items.map((post) => (
             <CardProfile
               key={post.pub_id}

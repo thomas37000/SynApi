@@ -15,7 +15,7 @@ import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState();
+  const [spanColor, setSpanColor] = useState(false);
 
   const bg = `url(${!!post.media_url})`;
   const bgBefore = {
@@ -26,7 +26,7 @@ export default function CardProfile({ post }) {
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      return !!post.media_url
+      return post.media_url
         ? `<span class="txtSpanWithImg">${txt}</span>`
         : `<span class="txtSpan">${txt}</span>`;
     });
@@ -36,6 +36,11 @@ export default function CardProfile({ post }) {
     document.getElementById('btn').addEventListener('click', () => {
       document.documentElement.style.setProperty('--change', 'green');
     });
+  };
+
+  // restore color background / text / # or @ by default
+  const restore = () => {
+    setSpanColor(!spanColor);
   };
 
   return (
@@ -53,21 +58,86 @@ export default function CardProfile({ post }) {
           }
           style={{ backgroundColor: spanColor, bgBefore }}
         >
-          <div className="profileName">
-            <span>profil name: </span>
-            <h2 className="userProfile">{post.user.name}</h2>
+          <div className="settings">
+            <div className="profileName">
+              {/* <span>profil name: </span>
+              <h2 className="userProfile">{post.user.name}</h2> */}
+              <div className="userCard">
+                <img
+                  className="logoUser"
+                  src={post.user.avatar_url}
+                  alt={post.user.name}
+                />
+                <h3 className="userProfile">@{post.user.name}</h3>
+              </div>
+            </div>
+            <div className="colorSettings">
+              <div className="form-group">
+                <p>
+                  Change the colors of the
+                  <span className="spanTool"> Background</span> Network :
+                  <p>
+                    <span className="spanTool2">
+                      ( Works only when there is no image background )
+                    </span>
+                  </p>
+                </p>
+                <CirclePicker
+                  onChange={(color) => setSpanColor(color.hex)}
+                  className="circlepicker"
+                />
+                <div className="btnSettings">
+                  <button
+                    id="btn"
+                    className="btnColor submit"
+                    type="submit"
+                    onClick=""
+                  >
+                    Submit
+                  </button>
+                  <button
+                    id="btn"
+                    className="btnColor cancel"
+                    type="submit"
+                    onClick={() => restore()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <p>
+                  Change the colors of the
+                  <span className="spanTool spanHashtag"> #</span> or
+                  <span className="spanTool spanHashtag"> @</span> :
+                </p>
+                <CirclePicker
+                  color={spanColor}
+                  onChange={(color) => setSpanColor(color.hex)}
+                  className="circlepicker"
+                />
+                <div className="btnSettings">
+                  <button
+                    id="btn"
+                    className="btnColor submit"
+                    type="submit"
+                    onClick=""
+                  >
+                    Submit
+                  </button>
+                  <button
+                    id="btn"
+                    className="btnColor cancel"
+                    type="submit"
+                    onClick={() => restore()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <CirclePicker
-            onChange={(color) => setSpanColor(color.hex)}
-            className="circlepicker"
-          />
-
-          {/* <button id="btn" className="btnColor" type="submit">
-          change color #
-        </button>
-
-        <p className="test">#lorem ipsum</p> */}
 
           <div className="cardBodyWithImg">
             <div className="content">
@@ -78,8 +148,8 @@ export default function CardProfile({ post }) {
             </div>
           </div>
           <div className="cardImg">
-            <div className="getImg">
-              <img src={!!post.media_url} alt="" />
+            <div className={post.media_url ? 'getImg' : 'hideImg'}>
+              <img src={post.media_url} alt="" />
             </div>
           </div>
           <div className="userCard">

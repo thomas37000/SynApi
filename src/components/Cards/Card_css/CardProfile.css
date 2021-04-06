@@ -3,11 +3,6 @@
   justify-content: right;
 }
 
-.cardProfile {
-  width: 1000px;
-  height: 1000px;
-}
-
 .cardProfile::before {
   content: '';
   width: 900px;
@@ -38,17 +33,69 @@
   margin: 1rem 1rem 0 0;
 }
 
+.settings {
+  display: grid;
+  justify-content: center;
+  background-color: #f1f1f1;
+}
+
 .profileName {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
   color: #f1f1f1;
+  margin: 0 0 1rem 0;
 }
-.profileName span {
+
+/* .profileName span {
   margin-right: 1rem;
-}
+  color: #000;
+} */
 
 .userProfile {
   color: var(--RxTrNoImg);
+  font-weight: bold;
+  margin: 0 1rem;
 }
+
+.colorSettings {
+  display: flex;
+  align-items: center;
+}
+
+.form-group {
+  margin: 0 5rem;
+}
+
+.btnSettings {
+  margin: 1rem 0;
+}
+
+.btnColor {
+  margin: 0 1rem;
+  background-color: tomato;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
+}
+
+.submit:hover {
+  background-color: green;
+}
+
+.cancel:hover {
+  background-color: red;
+}
+
+.spanTool2 {
+  font-size: small;
+  color: gray;
+}
+
+@media screen and (max-width: 768px) {
+  .colorSettings {
+    display: grid;
+  }
+}
+
