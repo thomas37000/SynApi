@@ -30,6 +30,18 @@ export default function CardTwitter({ post }) {
     });
   }
 
+  const reTweet = /[R@]\w+/g;
+  // eslint-disable-next-line no-unused-vars
+  function RT(match) {
+    return match.replace(reTweet, (txt) => {
+      if (post.content === 'RT') {
+        return `<h3 className="nameTest">${txt}</h3>`;
+      }
+      return `<h3 className="nameTest">${txt}</h3>`;
+    });
+  }
+  // console.log(post.content.includes('RT'));
+
   return (
     <>
       <div
@@ -60,7 +72,8 @@ export default function CardTwitter({ post }) {
             src={post.user.avatar_url}
             alt={post.user.name}
           />
-          <h3 className="name">@{post.user.name}</h3>
+          {/* <h3 className="name">@{post.user.name}</h3> */}
+          <div dangerouslySetInnerHTML={{ __html: RT(post.user.name) }} />
         </div>
         <div className="footerCard">
           <h3 className="hashtag">{post.user.name}</h3>

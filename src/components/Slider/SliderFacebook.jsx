@@ -76,7 +76,12 @@ const SliderFacebook = () => {
         key={post.pub_id}
         post={post}
       >
-        <CardFb key={post.pub_id} post={post} session={post.session_id} />
+        <CardFb
+          {...post}
+          key={post.pub_id}
+          post={post}
+          session={post.session_id}
+        />
         <CarouselCaption
           captionText={post.caption}
           captionHeader={post.caption}

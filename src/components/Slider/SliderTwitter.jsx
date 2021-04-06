@@ -74,7 +74,12 @@ const SliderTwitter = () => {
         key={post.pub_id}
         post={post}
       >
-        <CardTwitter key={post.pub_id} post={post} session={post.session_id} />
+        <CardTwitter
+          {...post}
+          key={post.pub_id}
+          post={post}
+          session={post.session_id}
+        />
         <CarouselCaption
           captionText={post.caption}
           captionHeader={post.caption}

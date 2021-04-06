@@ -57,14 +57,12 @@
 
 .content {
   margin: 5rem 0 3rem 0;
-  color: var(--Text) !important;
   background: rgba(0, 0, 0, 0.5);
   padding: 1.5rem;
 }
 
 .contentNoImg {
   margin: 5rem 0 3rem 0;
-  color: var(--Text) !important;
   font-weight: normal;
 }
 
@@ -97,6 +95,12 @@
 
 .name {
   color: #fff;
+  font-weight: 700;
+  margin: 1rem 0 0 1rem;
+}
+
+.nameTest {
+  color: red;
   font-weight: 700;
   margin: 1rem 0 0 1rem;
 }

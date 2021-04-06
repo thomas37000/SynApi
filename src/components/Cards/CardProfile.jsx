@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable prettier/prettier */
@@ -7,7 +8,7 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
@@ -15,9 +16,11 @@ import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState(false);
+  const [spanColor, setSpanColor] = useState();
+  const [BgColor, setBgColor] = useState(post.BgColor);
+  const [networks, setNetworks] = useState('facebook');
 
-  const bg = `url(${!!post.media_url})`;
+  const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
   };
@@ -26,26 +29,37 @@ export default function CardProfile({ post }) {
 
   function Hashtag(match) {
     return match.replace(regex, (txt) => {
-      return post.media_url
-        ? `<span class="txtSpanWithImg">${txt}</span>`
-        : `<span class="txtSpan">${txt}</span>`;
+      if (post.media_url && post.user.name === 'agencenous') {
+        return `<span class="txtSpanWithImgNous">${txt}</span>`;
+      }
+      if (post.media_url) {
+        return `<span class="txtSpanWithImg">${txt}</span>`;
+      }
+      if (post.user.name === 'agencenous') {
+        return `<span class="txtSpanNous">${txt}</span>`;
+      }
+      return `<span class="txtSpan">${txt}</span>`;
     });
   }
-
-  const changeColor = () => {
-    document.getElementById('btn').addEventListener('click', () => {
-      document.documentElement.style.setProperty('--change', 'green');
-    });
-  };
 
   // restore color background / text / # or @ by default
   const restore = () => {
     setSpanColor(!spanColor);
+    setBgColor(!BgColor);
+  };
+
+  const SubmitBg = () => {
+    setBgColor(BgColor);
+    console.log('change BgColor', BgColor);
+  };
+
+  const SubmitSpanColor = () => {
+    console.log('change SpanColor', spanColor);
   };
 
   return (
     <>
-      <div className="cardProfile">
+      <div className="galerie">
         <div
           className={
             post.media_url
@@ -56,12 +70,10 @@ export default function CardProfile({ post }) {
               ? ' cardWithImg'
               : 'cardTr'
           }
-          style={{ backgroundColor: spanColor, bgBefore }}
+          style={{ backgroundColor: BgColor, bgBefore }}
         >
           <div className="settings">
             <div className="profileName">
-              {/* <span>profil name: </span>
-              <h2 className="userProfile">{post.user.name}</h2> */}
               <div className="userCard">
                 <img
                   className="logoUser"
@@ -74,6 +86,45 @@ export default function CardProfile({ post }) {
             <div className="colorSettings">
               <div className="form-group">
                 <p>
+                  Change the colors of your{' '}
+                  <span className="spanTool">Network</span> :
+                </p>
+                <li>
+                  <label htmlFor="a">
+                    <input
+                      name="facebook"
+                      value={networks}
+                      type="checkbox"
+                      className="input-checkbox"
+                    />
+                    Facebook
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="b">
+                    <input
+                      name="instagram"
+                      value={networks}
+                      type="checkbox"
+                      className="input-checkbox"
+                    />
+                    Instagram
+                  </label>
+                </li>
+                <li>
+                  <label htmlFor="b">
+                    <input
+                      name="twitter"
+                      value={networks}
+                      type="checkbox"
+                      className="input-checkbox"
+                    />
+                    Twitter
+                  </label>
+                </li>
+              </div>
+              <div className="form-group">
+                <p>
                   Change the colors of the
                   <span className="spanTool"> Background</span> Network :
                   <p>
@@ -82,8 +133,10 @@ export default function CardProfile({ post }) {
                     </span>
                   </p>
                 </p>
+
                 <CirclePicker
-                  onChange={(color) => setSpanColor(color.hex)}
+                  onChange={(color) => setBgColor(color.hex)}
+                  onSubmit={(e) => SubmitBg(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -91,10 +144,12 @@ export default function CardProfile({ post }) {
                     id="btn"
                     className="btnColor submit"
                     type="submit"
-                    onClick=""
+                    value={BgColor}
+                    onClick={() => SubmitBg(BgColor)}
                   >
                     Submit
                   </button>
+
                   <button
                     id="btn"
                     className="btnColor cancel"
@@ -109,12 +164,13 @@ export default function CardProfile({ post }) {
               <div className="form-group">
                 <p>
                   Change the colors of the
-                  <span className="spanTool spanHashtag"> #</span> or
+                  <span className="spanTool spanHashtag"> #</span> and
                   <span className="spanTool spanHashtag"> @</span> :
                 </p>
                 <CirclePicker
                   color={spanColor}
                   onChange={(color) => setSpanColor(color.hex)}
+                  onSubmit={(e) => SubmitSpanColor(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -122,10 +178,12 @@ export default function CardProfile({ post }) {
                     id="btn"
                     className="btnColor submit"
                     type="submit"
-                    onClick=""
+                    value={spanColor}
+                    onClick={() => SubmitSpanColor(spanColor)}
                   >
                     Submit
                   </button>
+
                   <button
                     id="btn"
                     className="btnColor cancel"
@@ -139,11 +197,11 @@ export default function CardProfile({ post }) {
             </div>
           </div>
 
-          <div className="cardBodyWithImg">
-            <div className="content">
+          <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
+            <div className={post.media_url ? 'content' : 'contentNoImg'}>
               <div
                 dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                // style={{ color: spanColor }}
+                style={{ color: spanColor }}
               />
             </div>
           </div>

@@ -75,6 +75,7 @@ const SliderInstagram = () => {
         post={post}
       >
         <CardInstagram
+          {...post}
           key={post.pub_id}
           post={post}
           session={post.session_id}

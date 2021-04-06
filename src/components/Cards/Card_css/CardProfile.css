@@ -3,10 +3,10 @@
   justify-content: right;
 }
 
-.cardProfile::before {
+.cardWithImg::before {
   content: '';
-  width: 900px;
-  height: 1000px;
+  width: 100vw;
+  height: 100vh;
   background-image: var(--before);
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@
   filter: blur(5px);
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
 }
 
 .cardBodyWithImg {
@@ -68,7 +68,7 @@
 }
 
 .btnSettings {
-  margin: 1rem 0;
+  margin: 2rem 0 1rem 0;
 }
 
 .btnColor {

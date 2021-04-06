@@ -24,7 +24,7 @@ const Profile = () => {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
-    network: 'twitter',
+    network: 'twitter' || 'facebook' || 'twitter',
     per_page: 1,
   };
 
@@ -53,6 +53,7 @@ const Profile = () => {
           {/* <Tools /> */}
           {items.map((post) => (
             <CardProfile
+              {...post}
               key={post.pub_id}
               post={post}
               session={post.session_id}

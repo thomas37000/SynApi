@@ -14,7 +14,11 @@ export default function Routter() {
         <Switch>
           <Route exact path="/" />
           <Route path="/profile" component={Profile} />
-          <Route path="/twitter" component={SliderTwitter} />
+          {/* <Route path="/twitter" component={SliderTwitter} /> */}
+          <Route
+            path="/twitter"
+            render={(props) => <SliderTwitter {...props} />}
+          />
           <Route path="/facebook" component={SliderFacebook} />
           <Route path="/instagram" component={SliderInstagram} />
         </Switch>
