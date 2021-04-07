@@ -13,10 +13,10 @@ import { Link } from 'react-router-dom';
 import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
-import './Card_css/CardProfile.css';
 import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
 import BtnLoadInstagram from '../Buttons/ButtonInstagram';
+import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
@@ -80,8 +80,7 @@ export default function CardProfile({ post }) {
               ? ' cardWithImg'
               : 'cardTr'
           }
-          // eslint-disable-next-line prefer-template
-          style={({ backgroundColor: BgColor }, bgBefore)}
+          style={ post.media_url ? bgBefore : { backgroundColor: BgColor }}
         >
           <div className="settings">
             <div className="profileName">
@@ -91,7 +90,7 @@ export default function CardProfile({ post }) {
                   src={post.user.avatar_url}
                   alt={post.user.name}
                 />
-                <h3 className="userProfile">@{post.user.name}</h3>
+                <h3 className="userProfile">{post.user.name}</h3>
               </div>
             </div>
             <div className="colorSettings">

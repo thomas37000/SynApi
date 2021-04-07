@@ -32,23 +32,17 @@ const SliderFacebook = () => {
     per_page: 10,
   };
 
-  useEffect(() => {
-    axios
-      .get(`${API_URL}`, { params })
-      .then((res) => {
+  const getApi = async (onSuccess, onError) => {
+    await axios.get(`${API_URL}`, { params }).then(
+      (res) => {
         setItems(res.data);
-        console.log('Facebook posts', res.data);
-      })
-      .catch((error) => {
-        let message;
-        if (error) {
-          message = "vous n' avez pas accès à cette page";
-        } else {
-          message = error.response.data.errorMessage;
-          console.log(message);
-          console.log(error);
-        }
-      });
+      },
+      (error) => onError(error)
+    );
+  };
+
+  useEffect(() => {
+    getApi();
   }, []);
 
   const next = () => {

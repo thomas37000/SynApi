@@ -11,7 +11,6 @@ const Profile = () => {
   const [items, setItems] = useState([]);
   console.log('color:', items);
   const toggleColor = () => setItems(!items);
-  // const [status, setStatus] = useState(false);
 
   const {
     REACT_APP_API_URL,
@@ -28,26 +27,21 @@ const Profile = () => {
     s: `${REACT_APP_API_INSTA}`,
     t: `${REACT_APP_API_INSTAA}`,
     object: 'post',
-    network: 'twitter' && 'facebook' && 'instagram',
+    network: 'facebook' && 'instagram' && 'twitter',
     per_page: 1,
   };
 
-  useEffect(() => {
-    axios
-      .get(`${API_URL}`, { params })
-      .then((res) => {
+  const getApi = async (onSuccess, onError) => {
+    await axios.get(`${API_URL}`, { params }).then(
+      (res) => {
         setItems(res.data);
-      })
-      .catch((error) => {
-        let message;
-        if (error) {
-          message = "vous n' avez pas accès à cette page";
-        } else {
-          message = error.response.data.errorMessage;
-          console.log(message);
-          console.log(error);
-        }
-      });
+      },
+      (error) => onError(error)
+    );
+  };
+
+  useEffect(() => {
+    getApi();
   }, []);
 
   return (
@@ -57,7 +51,6 @@ const Profile = () => {
           {/* <Tools /> */}
           {items.map((post) => (
             <CardProfile
-              {...post}
               key={post.pub_id}
               post={post}
               session={post.session_id}

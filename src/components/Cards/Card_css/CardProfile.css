@@ -96,21 +96,22 @@ li:nth-last-child(1) {
   margin: 2rem 0 1rem 0;
 }
 
-.btnColor {
+.submit {
   margin: 0 1rem;
-  background-color: tomato;
+  background-color: green;
   padding: 0.5rem;
   border-radius: 10px;
   color: #fff;
   border: none;
 }
 
-.submit:hover {
-  background-color: green;
-}
-
-.cancel:hover {
+.cancel {
+  margin: 0 1rem;
   background-color: red;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
 }
 
 .spanTool2 {
