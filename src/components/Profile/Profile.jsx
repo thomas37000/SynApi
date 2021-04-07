@@ -15,16 +15,20 @@ const Profile = () => {
 
   const {
     REACT_APP_API_URL,
-    REACT_APP_API_USER,
-    REACT_APP_API_TOKEN,
+    // REACT_APP_API_USER,
+    // REACT_APP_API_TOKEN,
+    REACT_APP_API_INSTA,
+    REACT_APP_API_INSTAA,
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
   const params = {
-    s: `${REACT_APP_API_USER}`,
-    t: `${REACT_APP_API_TOKEN}`,
+    // s: `${REACT_APP_API_USER}`,
+    // t: `${REACT_APP_API_TOKEN}`,
+    s: `${REACT_APP_API_INSTA}`,
+    t: `${REACT_APP_API_INSTAA}`,
     object: 'post',
-    network: 'twitter' || 'facebook' || 'instagram',
+    network: 'twitter' && 'facebook' && 'instagram',
     per_page: 1,
   };
 

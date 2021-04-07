@@ -14,12 +14,15 @@ import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
 import './Card_css/CardProfile.css';
+import BtnLoadTwitter from '../Buttons/ButtonTwitter';
+import BtnLoadFacebook from '../Buttons/ButtonFacebook';
+import BtnLoadInstagram from '../Buttons/ButtonInstagram';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
   const [spanColor, setSpanColor] = useState();
   const [BgColor, setBgColor] = useState(post.BgColor);
-  const [networks, setNetworks] = useState('facebook');
+  const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -32,6 +35,9 @@ export default function CardProfile({ post }) {
     return match.replace(regex, (txt) => {
       if (post.media_url && post.user.name === 'agencenous') {
         return `<span class="txtSpanWithImgNous">${txt}</span>`;
+      }
+      if (post.media_url) {
+        return `<span class="txtSpanWithImgInst">${txt}</span>`;
       }
       if (post.media_url) {
         return `<span class="txtSpanWithImg">${txt}</span>`;
@@ -61,10 +67,6 @@ export default function CardProfile({ post }) {
     console.log('change SpanColor', spanColor);
   };
 
-  // const onClickFacebook = () => {
-  //  return
-  // };
-
   return (
     <>
       <div className="galerie">
@@ -78,7 +80,8 @@ export default function CardProfile({ post }) {
               ? ' cardWithImg'
               : 'cardTr'
           }
-          style={{ backgroundColor: BgColor, bgBefore }}
+          // eslint-disable-next-line prefer-template
+          style={({ backgroundColor: BgColor }, bgBefore)}
         >
           <div className="settings">
             <div className="profileName">
@@ -97,30 +100,9 @@ export default function CardProfile({ post }) {
                   Change the colors of your{' '}
                   <span className="spanTool">Network</span> :
                 </p>
-                <button
-                  id="btn"
-                  className="btnTwitter"
-                  type="submit"
-                  // onClick={() => restoreBg()}
-                >
-                  Twitter
-                </button>
-                <button
-                  id="btn"
-                  className="btnFacebook"
-                  type="submit"
-                  // onClick={() => restoreBg()}
-                >
-                  Facebook
-                </button>
-                <button
-                  id="btn"
-                  className="btnInsta"
-                  type="submit"
-                  // onClick={() => restoreBg()}
-                >
-                  Instagram
-                </button>
+                <BtnLoadTwitter />
+                <BtnLoadFacebook />
+                <BtnLoadInstagram />
               </div>
               <div className="form-group">
                 <p>

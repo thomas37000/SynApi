@@ -1,0 +1,27 @@
+.btnColor, .btnFacebook, .btnTwitter, .btnInsta {
+  margin: 0 1rem;
+  background-color: tomato;
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
+}
+
+.btnTwitter {
+  background-color: var(--Tr);
+  margin-bottom: 10px;
+}
+
+.btnFacebook {
+  background-color: var(--Fb);
+  margin-bottom: 10px;
+}
+
+.btnInsta {
+  background-color: var(--Im);
+}
+
+.btnTwitter:hover, .btnFacebook:hover, .btnInsta:hover {
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
+}
