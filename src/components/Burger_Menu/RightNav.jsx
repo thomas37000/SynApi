@@ -20,10 +20,23 @@ const Slideburger = styled.ul`
   }
   a:hover {
     color: #fff!important;
+    font-weight: bold;
   }
 
   li:hover {
     background: #ffcc00;
+  }
+
+  .twitter:hover {
+    background-color: var(--Tr);
+  }
+
+  .facebook:hover {
+    background-color: var(--Fb);
+  }
+
+  .instagram:hover {
+    background-color: var(--Im);
   }
 
   .logoBurger {
@@ -62,13 +75,13 @@ const RightNav = ({ open }) => {
       <li>
         <Link to="/profile">Profile</Link>
       </li>
-      <li>
+      <li className="twitter">
         <Link to="/twitter">Twitter</Link>
       </li>
-      <li>
+      <li className="facebook">
         <Link to="/facebook">Facebook</Link>
       </li>
-      <li>
+      <li className="instagram">
         <Link to="/instagram">Instagram</Link>
       </li>
     </Slideburger>

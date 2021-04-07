@@ -67,17 +67,61 @@
   margin: 0 5rem;
 }
 
+.network {
+  display: grid;
+}
+
+.input-checkbox {
+  display: inline-block;
+  margin-right: 0.625rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+}
+
+li {
+  list-style-type: none;
+}
+
+li label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li:nth-last-child(1) {
+  margin-right: 1.5rem;
+}
+
 .btnSettings {
   margin: 2rem 0 1rem 0;
 }
 
-.btnColor {
+.btnColor, .btnFacebook, .btnTwitter, .btnInsta {
   margin: 0 1rem;
   background-color: tomato;
   padding: 0.5rem;
   border-radius: 10px;
   color: #fff;
   border: none;
+}
+
+.btnTwitter {
+  background-color: var(--Tr);
+  margin-bottom: 10px;
+}
+
+.btnFacebook {
+  background-color: var(--Fb);
+  margin-bottom: 10px;
+}
+
+.btnInsta {
+  background-color: var(--Im);
+}
+
+.btnTwitter:hover, .btnFacebook:hover, .btnInsta:hover {
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .submit:hover {

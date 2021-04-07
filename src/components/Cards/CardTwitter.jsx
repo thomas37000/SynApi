@@ -30,14 +30,14 @@ export default function CardTwitter({ post }) {
     });
   }
 
-  const reTweet = /[R@]\w+/g;
+  const reTweet = /[@]\w+/g;
   // eslint-disable-next-line no-unused-vars
   function RT(match) {
     return match.replace(reTweet, (txt) => {
       if (post.content === 'RT') {
         return `<h3 className="nameTest">${txt}</h3>`;
       }
-      return `<h3 className="nameTest">${txt}</h3>`;
+      return `<h3 className="name">${txt}</h3>`;
     });
   }
   // console.log(post.content.includes('RT'));

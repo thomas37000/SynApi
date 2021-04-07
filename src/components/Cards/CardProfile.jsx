@@ -9,6 +9,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { CirclePicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
@@ -43,8 +44,11 @@ export default function CardProfile({ post }) {
   }
 
   // restore color background / text / # or @ by default
-  const restore = () => {
+  const restoreSpanColor = () => {
     setSpanColor(!spanColor);
+  };
+
+  const restoreBg = () => {
     setBgColor(!BgColor);
   };
 
@@ -56,6 +60,10 @@ export default function CardProfile({ post }) {
   const SubmitSpanColor = () => {
     console.log('change SpanColor', spanColor);
   };
+
+  // const onClickFacebook = () => {
+  //  return
+  // };
 
   return (
     <>
@@ -84,44 +92,35 @@ export default function CardProfile({ post }) {
               </div>
             </div>
             <div className="colorSettings">
-              <div className="form-group">
+              <div className="form-group network">
                 <p>
                   Change the colors of your{' '}
                   <span className="spanTool">Network</span> :
                 </p>
-                <li>
-                  <label htmlFor="a">
-                    <input
-                      name="facebook"
-                      value={networks}
-                      type="checkbox"
-                      className="input-checkbox"
-                    />
-                    Facebook
-                  </label>
-                </li>
-                <li>
-                  <label htmlFor="b">
-                    <input
-                      name="instagram"
-                      value={networks}
-                      type="checkbox"
-                      className="input-checkbox"
-                    />
-                    Instagram
-                  </label>
-                </li>
-                <li>
-                  <label htmlFor="b">
-                    <input
-                      name="twitter"
-                      value={networks}
-                      type="checkbox"
-                      className="input-checkbox"
-                    />
-                    Twitter
-                  </label>
-                </li>
+                <button
+                  id="btn"
+                  className="btnTwitter"
+                  type="submit"
+                  // onClick={() => restoreBg()}
+                >
+                  Twitter
+                </button>
+                <button
+                  id="btn"
+                  className="btnFacebook"
+                  type="submit"
+                  // onClick={() => restoreBg()}
+                >
+                  Facebook
+                </button>
+                <button
+                  id="btn"
+                  className="btnInsta"
+                  type="submit"
+                  // onClick={() => restoreBg()}
+                >
+                  Instagram
+                </button>
               </div>
               <div className="form-group">
                 <p>
@@ -154,7 +153,7 @@ export default function CardProfile({ post }) {
                     id="btn"
                     className="btnColor cancel"
                     type="submit"
-                    onClick={() => restore()}
+                    onClick={() => restoreBg()}
                   >
                     Cancel
                   </button>
@@ -188,7 +187,7 @@ export default function CardProfile({ post }) {
                     id="btn"
                     className="btnColor cancel"
                     type="submit"
-                    onClick={() => restore()}
+                    onClick={() => restoreSpanColor()}
                   >
                     Cancel
                   </button>
