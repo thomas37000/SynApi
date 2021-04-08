@@ -34,6 +34,7 @@ const SliderTwitter = () => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
         setItems(res.data);
+        console.log(res.data);
       },
       (error) => onError(error)
     );

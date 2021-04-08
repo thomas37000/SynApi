@@ -11,6 +11,7 @@ const Profile = () => {
   const [items, setItems] = useState([]);
   console.log('color:', items);
   const toggleColor = () => setItems(!items);
+  const [status, setStatus] = useState(null);
 
   const {
     REACT_APP_API_URL,
@@ -27,6 +28,7 @@ const Profile = () => {
     s: `${REACT_APP_API_INSTA}`,
     t: `${REACT_APP_API_INSTAA}`,
     object: 'post',
+    // onClick qui permet d' avoir la valeur Fb par ex
     network: 'facebook' && 'instagram' && 'twitter',
     per_page: 1,
   };
@@ -44,6 +46,9 @@ const Profile = () => {
     getApi();
   }, []);
 
+  const onChange = () => {
+    setStatus(status);
+  };
   return (
     <>
       <ColorContext.Provider value={[items, toggleColor]}>
@@ -54,6 +59,8 @@ const Profile = () => {
               key={post.pub_id}
               post={post}
               session={post.session_id}
+              onChange={() => onChange()}
+              value={status}
             />
           ))}
         </div>

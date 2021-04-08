@@ -80,7 +80,7 @@ export default function CardProfile({ post }) {
               ? ' cardWithImg'
               : 'cardTr'
           }
-          style={ post.media_url ? bgBefore : { backgroundColor: BgColor }}
+          style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
         >
           <div className="settings">
             <div className="profileName">

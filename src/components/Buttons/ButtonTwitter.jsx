@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import './ButtonNetworks.css';
 
 function BtnLoadTwitter() {
-  // const [networks, setNetworks] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [networks, setNetworks] = useState('');
   return (
     <button
       id="btn"
       className="btnTwitter"
       type="submit"
-      // onClick={() => setNetworks(!networks)}
+      onClick={() => setNetworks('twitter')}
     >
       Twitter
     </button>
