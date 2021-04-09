@@ -14,33 +14,39 @@ export default function CardTwitter({ post }) {
   };
 
   const regex = /[@#]\w+/g;
+  const deleteRT = /\D+?:/ms;
 
   function Hashtag(match) {
-    return match.replace(regex, (txt) => {
+    return match.replace(regex && deleteRT, (txt) => {
       if (post.media_url && post.user.name === 'agencenous') {
-        return `<span class="txtSpanWithImgNous">${txt}</span>`;
+        return `<span class="txtSpanWithImgNous txtSpanDeleteRT">${txt}</span>`;
       }
       if (post.media_url) {
-        return `<span class="txtSpanWithImg">${txt}</span>`;
+        return `<span class="txtSpanWithImg txtSpanDeleteRT">${txt}</span>`;
       }
       if (post.user.name === 'agencenous') {
-        return `<span class="txtSpanNous">${txt}</span>`;
+        return `<span class="txtSpanNous txtSpanDeleteRT">${txt}</span>`;
       }
-      return `<span class="txtSpan">${txt}</span>`;
+      return `<span class="txtSpan txtSpanDeleteRT">${txt}</span>`;
     });
   }
 
-  const reTweet = /[@]\w+/g;
+  // const reTweet = /[a-zA-Z0-9_]\w+/g;
+  // const deleteRT = /\D+?:/ms;
 
-  // eslint-disable-next-line no-unused-vars
-  function RT(match) {
-    return match.replace(reTweet, (txt) => {
-      if (post.content) {
-        return `<h3 className="reTweet">@ ${txt}</h3>`;
-      }
-      return `<h3 className="name">@ ${txt}</h3>`;
-    });
-  }
+  // function RT(match) {
+  //   return match.replace(deleteRT, (txt) => {
+  //     // if (post.content) {
+  //     //   return `<h3 id="reTweet">@ ${txt}</h3>`;
+  //     // }
+  //     // return `<h3 id="name">@ ${txt}</h3>`;
+
+  //     if (post.media_url) {
+  //       return `<span class="txtSpanDeleteRT">${txt}</span>`;
+  //     }
+  //     return `<span class="txtSpanDeleteRT">${txt}</span>`;
+  //   });
+  // }
 
   return (
     <>
@@ -59,6 +65,7 @@ export default function CardTwitter({ post }) {
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
+            {/* style={post.media_url ? bgBefore : { backgroundColor: BgColor }} */}
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
@@ -72,8 +79,8 @@ export default function CardTwitter({ post }) {
             src={post.user.avatar_url}
             alt={post.user.name}
           />
-          {/* <h3 className="name">@{post.user.name}</h3> */}
-          <div dangerouslySetInnerHTML={{ __html: RT(post.user.name) }} />
+          <h3 className="name">@{post.user.name}</h3>
+          {/* <div dangerouslySetInnerHTML={{ __html: RT(post.user.name) }} /> */}
         </div>
         <div className="footerCard">
           <h3 className="hashtag">{post.user.name}</h3>
