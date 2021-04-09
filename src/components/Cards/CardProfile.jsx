@@ -17,6 +17,7 @@ import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
 import BtnLoadInstagram from '../Buttons/ButtonInstagram';
 import './Card_css/CardProfile.css';
+import './Card_css/Card.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
@@ -29,24 +30,21 @@ export default function CardProfile({ post }) {
     '--before': bg,
   };
 
-  const regex = /[@#]\w+/g;
+  const mention = /[@]\w+/g;
+  const hashtag = /[#]\w+/g;
+  const retweet = /(RT @)\w+:/g;
 
-  function Hashtag(match) {
-    return match.replace(regex, (txt) => {
-      if (post.media_url && post.user.name === 'agencenous') {
-        return `<span class="txtSpanWithImgNous">${txt}</span>`;
-      }
-      if (post.media_url) {
-        return `<span class="txtSpanWithImgInst">${txt}</span>`;
-      }
-      if (post.media_url) {
-        return `<span class="txtSpanWithImg">${txt}</span>`;
-      }
-      if (post.user.name === 'agencenous') {
-        return `<span class="txtSpanNous">${txt}</span>`;
-      }
-      return `<span class="txtSpan">${txt}</span>`;
-    });
+  function Highlight(match) {
+    return match
+      .replace(retweet, (txt) => {
+        return `<span class="txtRetweet">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtMention">${txt}</span>`;
+      })
+      .replace(hashtag, (txt) => {
+        return `<span class="txtHashtag txtHashtagNoImg">${txt}</span>`;
+      });
   }
 
   // restore color background / text / # or @ by default
@@ -71,15 +69,7 @@ export default function CardProfile({ post }) {
     <>
       <div className="galerie">
         <div
-          className={
-            post.media_url
-              ? ' cardWithImg'
-              : post.user.name === 'agencenous'
-              ? ' cardNous'
-              : post.media_url
-              ? ' cardWithImg'
-              : 'cardTr'
-          }
+          className={post.media_url ? ' cardWithImg' : 'cardTr'}
           style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
         >
           <div className="settings">
@@ -180,7 +170,7 @@ export default function CardProfile({ post }) {
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
               <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
+                dangerouslySetInnerHTML={{ __html: Highlight(post.content) }}
                 style={{ color: spanColor }}
               />
             </div>

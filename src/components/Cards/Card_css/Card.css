@@ -1,13 +1,8 @@
 /* Tr === twitter */
 .cardTr {
   height: 100vh;
-  background: var(--bgNoImg) !important;
+  background: var(--bgNoImg);
   color: #f1f1f1;
-}
-
-.cardNous {
-  background: var(--bgNoImgNous) ;
-  color: #000;
 }
 
 .cardWithImg::before {
@@ -66,32 +61,25 @@
   font-weight: normal;
 }
 
-.txtSpan {
-  color: var(--RxTrNoImg);
-  font-weight: bold;
-}
-
-.txtSpanNous {
-  color: var(--RxTrNousNoImg);
-  font-weight: bold;
-}
-
-.txtSpanWithImg {
+.txtHashtag {
   color: var(--RxTr);
+  font-weight: bold;
 }
 
-.txtSpanWithImgNous {
-  color: var(--RxTrNous);
+.cardBodyNoImg .txtHashtag {
+  color: var(--RxNoImg);
+  font-weight: bold;
 }
 
-.txtSpanDeleteRT {
-  /* display: none; */
-  background-color: red;
-  color: #fff;
+.cardBodyWithImg .txtRetweet,
+.cardBodyWithImg .txtMention,
+.cardBodyNoImg .txtRetweet,
+.cardBodyNoImg .txtMention {
+  display: none;
 }
 
 .txtColorPicker {
-  color: var(--change,red);
+  color: var(--change, red);
 }
 
 .userCard {
@@ -158,8 +146,6 @@
     font-size: 25px;
   }
   .getImg {
-    display: flex;
-    width: 350px;
-    height: 300px;
+    display: none;
   }
 }

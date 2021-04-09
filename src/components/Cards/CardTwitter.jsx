@@ -13,59 +13,44 @@ export default function CardTwitter({ post }) {
     '--before': bg,
   };
 
-  const regex = /[@#]\w+/g;
-  const deleteRT = /\D+?:/ms;
+  const mention = /[@]\w+/g;
+  const hashtag = /[#]\w+/g;
+  const retweet = /(RT @)\w+:/g;
 
-  function Hashtag(match) {
-    return match.replace(regex && deleteRT, (txt) => {
-      if (post.media_url && post.user.name === 'agencenous') {
-        return `<span class="txtSpanWithImgNous txtSpanDeleteRT">${txt}</span>`;
-      }
-      if (post.media_url) {
-        return `<span class="txtSpanWithImg txtSpanDeleteRT">${txt}</span>`;
-      }
-      if (post.user.name === 'agencenous') {
-        return `<span class="txtSpanNous txtSpanDeleteRT">${txt}</span>`;
-      }
-      return `<span class="txtSpan txtSpanDeleteRT">${txt}</span>`;
-    });
+  function Highlight(match) {
+    return match
+      .replace(retweet, (txt) => {
+        return `<span class="txtRetweet">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtMention">${txt}</span>`;
+      })
+      .replace(hashtag, (txt) => {
+        return `<span class="txtHashtag txtHashtagNoImg">${txt}</span>`;
+      });
   }
 
-  // const reTweet = /[a-zA-Z0-9_]\w+/g;
-  // const deleteRT = /\D+?:/ms;
-
-  // function RT(match) {
-  //   return match.replace(deleteRT, (txt) => {
-  //     // if (post.content) {
-  //     //   return `<h3 id="reTweet">@ ${txt}</h3>`;
-  //     // }
-  //     // return `<h3 id="name">@ ${txt}</h3>`;
-
-  //     if (post.media_url) {
-  //       return `<span class="txtSpanDeleteRT">${txt}</span>`;
-  //     }
-  //     return `<span class="txtSpanDeleteRT">${txt}</span>`;
-  //   });
-  // }
+  function RT(match) {
+    return match
+      .replace(retweet, (txt) => {
+        return `<h3 id="reTweet">@ ${txt}</h3>`;
+      })
+      .replace(mention, (txt) => {
+        return `<h3 id="name">@ ${txt}</h3>`;
+      });
+  }
 
   return (
     <>
       <div
-        className={
-          post.media_url
-            ? ' cardWithImg'
-            : post.user.name === 'agencenous'
-            ? ' cardNous'
-            : post.media_url
-            ? ' cardWithImg'
-            : 'cardTr'
-        }
+        className={post.media_url ? ' cardWithImg' : 'cardTr'}
         style={bgBefore}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
-            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
-            {/* style={post.media_url ? bgBefore : { backgroundColor: BgColor }} */}
+            <div
+              dangerouslySetInnerHTML={{ __html: Highlight(post.content) }}
+            />
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
@@ -79,8 +64,8 @@ export default function CardTwitter({ post }) {
             src={post.user.avatar_url}
             alt={post.user.name}
           />
-          <h3 className="name">@{post.user.name}</h3>
-          {/* <div dangerouslySetInnerHTML={{ __html: RT(post.user.name) }} /> */}
+          {/* <h3 className="name">@{post.user.name}</h3> */}
+          <div dangerouslySetInnerHTML={{ __html: RT(post.user.name) }} />
         </div>
         <div className="footerCard">
           <h3 className="hashtag">{post.user.name}</h3>

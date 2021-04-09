@@ -3,6 +3,10 @@
   justify-content: right;
 }
 
+.cardTr {
+  height: auto;
+}
+
 .cardWithImg::before {
   content: '';
   width: 100vw;
@@ -53,7 +57,7 @@
 } */
 
 .userProfile {
-  color: var(--RxTrNoImg);
+  color: var(--RxNoImg);
   font-weight: bold;
   margin: 0 1rem;
 }
