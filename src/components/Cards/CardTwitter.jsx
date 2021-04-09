@@ -23,7 +23,7 @@ export default function CardTwitter({ post }) {
         return `<span class="txtRetweet">${txt}</span>`;
       })
       .replace(mention, (txt) => {
-        return `<span class="txtMention">${txt}</span>`;
+        return `<span class="txtHashtag">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
         return `<span class="txtHashtag txtHashtagNoImg">${txt}</span>`;
