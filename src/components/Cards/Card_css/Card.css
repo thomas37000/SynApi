@@ -61,12 +61,13 @@
   font-weight: normal;
 }
 
-.txtHashtag {
+.txtHashtag, .txtMention {
   color: var(--RxTr);
   font-weight: bold;
 }
 
-.cardBodyNoImg .txtHashtag {
+.cardBodyNoImg .txtHashtag, 
+.cardBodyNoImg .txtMention {
   color: var(--RxNoImg);
   font-weight: bold;
 }
@@ -76,6 +77,12 @@
   display: none;
 }
 
+.reTweet {
+  color: #fff;
+  font-weight: bold;
+  margin: 1rem 0 0 1rem;
+}
+
 .txtColorPicker {
   color: var(--change, red);
 }
@@ -83,20 +90,6 @@
 .userCard {
   display: flex;
   align-items: center;
-}
-
-.name {
-  color: #fff;
-  font-weight: 700;
-  margin: 1rem 0 0 1rem;
-  background-color: red;
-}
-
-.reTweet {
-  color: #fff;
-  background-color: green;
-  font-weight: bold;
-  margin: 1rem 0 0 1rem;
 }
 
 .footerCard {

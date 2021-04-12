@@ -1,10 +1,16 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable prefer-template */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/Card.css';
 
 export default function CardTwitter({ post }) {
+  const [userTwitter, setUserTwitter] = useState(true);
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
@@ -29,6 +35,17 @@ export default function CardTwitter({ post }) {
       });
   }
 
+  // const contentMention = contentApi.split(' ');
+  const contentApi = post.content;
+  const contentMentionSlice = contentApi.slice(2, contentApi.indexOf(':'));
+  const contentMentionSplit = contentMentionSlice.toString().split(' ');
+
+  // function ChangeUser(match) {
+  //   return match.replace(retweet, (txt) => {
+  //     return `<h3 id="reTweet">${txt}</h3>`;
+  //   });
+  // }
+
   return (
     <>
       <div
@@ -47,19 +64,20 @@ export default function CardTwitter({ post }) {
             </div>
           </div>
         </div>
+        {/* img user avatar twitter */}
+        {/* https://pbs.twimg.com/profile_images/1284754382572093451/PCBYvMp4_reasonably_small.jpg */}
         <div className="userCard">
           <img
             className="logoUser"
             src={post.user.avatar_url}
             alt={post.user.name}
           />
-          <h3 className="reTweet">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: originalUserName,
-              }}
-            />
-          </h3>
+
+          <div
+            dangerouslySetInnerHTML={{
+              __html: originalUserName,
+            }}
+          />
         </div>
         <div className="footerCard">
           <h3 className="hashtag">{post.user.name}</h3>
