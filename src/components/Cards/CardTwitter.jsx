@@ -60,13 +60,11 @@ export default function CardTwitter({ post }) {
           <img
             className="logoUser"
             src={post.user.avatar_url}
-            // src={post.reposter.avatar_url}
             alt={post.user.name}
           />
           <h3 className="reTweet">
             <div
               dangerouslySetInnerHTML={{
-                // eslint-disable-next-line no-unneeded-ternary
                 __html: originalUserName,
               }}
             />

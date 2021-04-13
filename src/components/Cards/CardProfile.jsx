@@ -17,12 +17,12 @@ import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
 import BtnLoadInstagram from '../Buttons/ButtonInstagram';
 import './Card_css/CardProfile.css';
-import './Card_css/Card.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
   const [spanColor, setSpanColor] = useState();
-  const [BgColor, setBgColor] = useState(post.BgColor);
+  const [BgColor, setBgColor] = useState();
+  const [TxtColor, setTxtColor] = useState();
   const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
@@ -39,7 +39,7 @@ export default function CardProfile({ post }) {
       .replace(retweet, (txt) => {
         return `<span class="txtRetweet">${txt}</span>`;
       })
-      .replace(mention, (txt) => {
+      .replace(mention,spanColor, (txt) => {
         return `<span class="txtHashtag">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
@@ -56,13 +56,23 @@ export default function CardProfile({ post }) {
     setBgColor(!BgColor);
   };
 
+  const restoreTxt = () => {
+    setTxtColor(!TxtColor);
+  };
+
   const SubmitBg = () => {
     setBgColor(BgColor);
     console.log('change BgColor', BgColor);
   };
 
   const SubmitSpanColor = () => {
+    setSpanColor(spanColor);
     console.log('change SpanColor', spanColor);
+  };
+
+  const SubmitTxtColor = () => {
+    setTxtColor(TxtColor);
+    console.log('change Text Color', TxtColor);
   };
 
   return (
@@ -85,7 +95,7 @@ export default function CardProfile({ post }) {
             </div>
             <div className="colorSettings">
               <div className="form-group network">
-                <p>
+                <p className="instructions">
                   Change the colors of your{' '}
                   <span className="spanTool">Network</span> :
                 </p>
@@ -94,7 +104,7 @@ export default function CardProfile({ post }) {
                 <BtnLoadInstagram />
               </div>
               <div className="form-group">
-                <p>
+                <p className="instructions">
                   Change the colors of the
                   <span className="spanTool"> Background</span> Network :
                   <p>
@@ -130,12 +140,42 @@ export default function CardProfile({ post }) {
                   </button>
                 </div>
               </div>
+              <div className="form-group">
+                <p className="instructions">
+                  Change the colors of the{' '}
+                  <span className="spanTool"> Text</span> :
+                </p>
+
+                <CirclePicker
+                  onChange={(color) => setTxtColor(color.hex)}
+                  onSubmit={(e) => SubmitBg(e)}
+                  className="circlepicker"
+                />
+                <div className="btnSettings">
+                  <button
+                    id="btn"
+                    className="btnColor submit"
+                    type="submit"
+                    value={TxtColor}
+                    onClick={() => SubmitTxtColor(TxtColor)}
+                  >
+                    Submit
+                  </button>
+
+                  <button
+                    id="btn"
+                    className="btnColor cancel"
+                    type="submit"
+                    onClick={() => restoreTxt()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
 
               <div className="form-group">
-                <p>
-                  Change the colors of the
-                  <span className="spanTool spanHashtag"> #</span> and
-                  <span className="spanTool spanHashtag"> @</span> :
+                <p className="instructions">
+                  Change the colors of the # and @ :
                 </p>
                 <CirclePicker
                   color={spanColor}
@@ -169,32 +209,36 @@ export default function CardProfile({ post }) {
 
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
-              <div
-                dangerouslySetInnerHTML={{ __html: Highlight(post.content) }}
-                style={{ color: spanColor }}
-              />
+              <div className="groupColor">
+                <div className="spanGroup">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: Highlight(post.content),
+                    }}
+                    style={{ color: TxtColor }}
+                  />
+                </div>
+                <div className="spanGroup">
+                  <span
+                    className="txtHashtag spanHashtag"
+                    style={{ color: spanColor }}
+                  >
+                    #{post.network}
+                  </span>
+                  <span
+                    className="txtMention spanMention"
+                    style={{ color: spanColor }}
+                  >
+                    @{post.user.name}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
               <img src={post.media_url} alt="" />
             </div>
-          </div>
-          <div className="userCard">
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.user.name}
-            />
-            <h3 className="reTweet">@{post.user.name}</h3>
-          </div>
-          <div className="footerCard">
-            <h3 className="hashtag">{post.user.name}</h3>
-            <img
-              className="logoUser"
-              src={post.user.avatar_url}
-              alt={post.search}
-            />
           </div>
         </div>
       </div>
