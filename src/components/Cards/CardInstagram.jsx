@@ -52,7 +52,7 @@ export default function CardInstagram({ post }) {
           <img
             className="logoUser"
             src={post.user.avatar_url}
-            alt={post.search}
+            alt={post.user.name}
           />
         </div>
       </div>

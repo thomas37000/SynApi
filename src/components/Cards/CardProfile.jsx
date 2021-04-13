@@ -186,7 +186,7 @@ export default function CardProfile({ post }) {
               src={post.user.avatar_url}
               alt={post.user.name}
             />
-            <h3 className="name">@{post.user.name}</h3>
+            <h3 className="reTweet">@{post.user.name}</h3>
           </div>
           <div className="footerCard">
             <h3 className="hashtag">{post.user.name}</h3>

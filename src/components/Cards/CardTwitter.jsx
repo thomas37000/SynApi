@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 import React from 'react';
@@ -14,6 +15,12 @@ export default function CardTwitter({ post }) {
   const hashtag = /[#]\w+/g;
   const retweet = /(RT @)\w+:/g;
   let originalUserName = post.user.name;
+  const contentApi = post.content;
+  // const mentionSlice = contentApi.slice(2, contentApi.indexOf(':'));
+  // const mentionSplit = mentionSlice.toString().split(',');
+
+  // console.log('slice', mentionSlice);
+  // console.log('split', mentionSplit);
 
   function Highlight(match) {
     return match
@@ -38,7 +45,9 @@ export default function CardTwitter({ post }) {
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div
-              dangerouslySetInnerHTML={{ __html: Highlight(post.content) }}
+              dangerouslySetInnerHTML={{
+                __html: Highlight(contentApi),
+              }}
             />
           </div>
           <div className="cardImg">
@@ -51,11 +60,13 @@ export default function CardTwitter({ post }) {
           <img
             className="logoUser"
             src={post.user.avatar_url}
+            // src={post.reposter.avatar_url}
             alt={post.user.name}
           />
           <h3 className="reTweet">
             <div
               dangerouslySetInnerHTML={{
+                // eslint-disable-next-line no-unneeded-ternary
                 __html: originalUserName,
               }}
             />
