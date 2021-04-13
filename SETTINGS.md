@@ -4,7 +4,7 @@ like `Enable advanced repost`.
 If you choose `yes` you will see in the Slider that the post is duplicated because is a repost. In the data it will name `reposter`
 Also it will load the `replied_post` on the duplicated post with the content and link url of the replied_post.
 
-![](images/Enable%20advanced%20repost%20.png)
+<img src="src/components/images/Enable advanced repost .png">
 
 
 
