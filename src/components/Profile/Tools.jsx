@@ -16,6 +16,7 @@ export default function Tools() {
   const [spanColor, setSpanColor] = useState();
   const [BgColor, setBgColor] = useState();
   const [TxtColor, setTxtColor] = useState();
+  const [mentionColor, setMentionColor] = useState();
   const [networks, setNetworks] = useState([]);
 
   const changeColor = document.getElementById('btn');
@@ -33,19 +34,15 @@ export default function Tools() {
     setTxtColor(!TxtColor);
   };
 
-  const SubmitBg = () => {
-    setBgColor(BgColor);
-    console.log('change BgColor', BgColor);
-  };
-
-  const SubmitSpanColor = () => {
-    setSpanColor(spanColor);
-    console.log('change SpanColor', spanColor);
-  };
-
-  const SubmitTxtColor = () => {
-    setTxtColor(TxtColor);
-    console.log('change Text Color', TxtColor);
+  const SubmitColor = () => {
+    setToggleColor(BgColor, mentionColor, spanColor, TxtColor);
+    console.log(
+      'change Text Color',
+      BgColor,
+      mentionColor,
+      spanColor,
+      TxtColor
+    );
   };
 
   return (
@@ -73,7 +70,7 @@ export default function Tools() {
 
           <CirclePicker
             onChange={(color) => setBgColor(color.hex)}
-            onSubmit={(e) => SubmitBg(e)}
+            onSubmit={(e) => SubmitColor(e)}
             className="circlepicker"
           />
           <div className="btnSettings">
@@ -82,7 +79,7 @@ export default function Tools() {
               className="btnColor submit"
               type="submit"
               value={BgColor}
-              onClick={() => SubmitBg(BgColor)}
+              onClick={() => SubmitColor(BgColor)}
             >
               Submit
             </button>
@@ -104,7 +101,7 @@ export default function Tools() {
 
           <CirclePicker
             onChange={(color) => setTxtColor(color.hex)}
-            onSubmit={(e) => SubmitBg(e)}
+            onSubmit={(e) => SubmitColor(e)}
             className="circlepicker"
           />
           <div className="btnSettings">
@@ -113,7 +110,7 @@ export default function Tools() {
               className="btnColor submit"
               type="submit"
               value={TxtColor}
-              onClick={() => SubmitTxtColor(TxtColor)}
+              onClick={() => SubmitColor(TxtColor)}
             >
               Submit
             </button>
@@ -134,7 +131,7 @@ export default function Tools() {
           <CirclePicker
             color={spanColor}
             onChange={(color) => setSpanColor(color.hex)}
-            onSubmit={(e) => SubmitSpanColor(e)}
+            onSubmit={(e) => SubmitColor(e)}
             className="circlepicker"
           />
           <div className="btnSettings">
@@ -143,7 +140,7 @@ export default function Tools() {
               className="btnColor submit"
               type="submit"
               value={spanColor}
-              onClick={() => SubmitSpanColor(spanColor)}
+              onClick={() => SubmitColor(spanColor)}
             >
               Submit
             </button>

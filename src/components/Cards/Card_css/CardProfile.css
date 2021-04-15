@@ -127,11 +127,6 @@ li:nth-last-child(1) {
   color: gray;
 }
 
-.groupColor {
-  display: flex;
-  margin-top: -5rem;
-}
-
 .spanGroup {
   display: grid;
   justify-content: space-around;
