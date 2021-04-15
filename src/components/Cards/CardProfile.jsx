@@ -10,12 +10,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CirclePicker } from 'react-color';
+import { CirclePicker, CompactPicker, SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
 import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
 import BtnLoadInstagram from '../Buttons/ButtonInstagram';
+import useLocalState from '../Context/LocalStrorage';
 import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
@@ -33,19 +34,27 @@ export default function CardProfile({ post }) {
   const mention = /[@]\w+/g;
   const hashtag = /[#]\w+/g;
   const retweet = /(RT @)\w+:/g;
+  // const convertHexColor = toString().spanColor;
 
   function Highlight(match) {
+    // console.log(`MATCH`,match);
     return match
       .replace(retweet, (txt) => {
         return `<span class="txtRetweet">${txt}</span>`;
       })
-      .replace(mention,spanColor, (txt) => {
-        return `<span class="txtHashtag">${txt}</span>`;
+      .replace(mention, (txt) => {
+        // console.log('MENTION', spanColor);
+        return `<span class="txtMention" ${spanColor}>${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
-        return `<span class="txtHashtag txtHashtagNoImg">${txt}</span>`;
+        // console.log('SPANCOLOR', spanColor, txt);
+      // si spancOlor et txt( === string )
+        return `<span class="txtHashtag txtHashtagNoImg" style="color:${spanColor}">${txt}</span>`;
       });
+    // il faut un autre replace pour détecter et changer les #
   }
+
+  // console.log(Highlight);
 
   // restore color background / text / # or @ by default
   const restoreSpanColor = () => {
@@ -61,17 +70,17 @@ export default function CardProfile({ post }) {
   };
 
   const SubmitBg = () => {
-    setBgColor(BgColor);
+    setToggleColor(BgColor);
     console.log('change BgColor', BgColor);
   };
 
   const SubmitSpanColor = () => {
-    setSpanColor(spanColor);
+    setToggleColor(spanColor);
     console.log('change SpanColor', spanColor);
   };
 
   const SubmitTxtColor = () => {
-    setTxtColor(TxtColor);
+    setToggleColor(TxtColor);
     console.log('change Text Color', TxtColor);
   };
 
@@ -87,6 +96,7 @@ export default function CardProfile({ post }) {
               <div className="userCard">
                 <img
                   className="logoUser"
+                  // warning proptypes (absent!!!!)
                   src={post.user.avatar_url}
                   alt={post.user.name}
                 />
@@ -114,7 +124,7 @@ export default function CardProfile({ post }) {
                   </p>
                 </p>
 
-                <CirclePicker
+                <CompactPicker
                   onChange={(color) => setBgColor(color.hex)}
                   onSubmit={(e) => SubmitBg(e)}
                   className="circlepicker"
@@ -177,7 +187,7 @@ export default function CardProfile({ post }) {
                 <p className="instructions">
                   Change the colors of the # and @ :
                 </p>
-                <CirclePicker
+                <SketchPicker
                   color={spanColor}
                   onChange={(color) => setSpanColor(color.hex)}
                   onSubmit={(e) => SubmitSpanColor(e)}

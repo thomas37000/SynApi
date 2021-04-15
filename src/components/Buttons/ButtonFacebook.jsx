@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import './ButtonNetworks.css';
 
 function BtnLoadFacebook() {
-  // const [networks, setNetworks] = useState([]);
+  const [networks, setNetworks] = useState([]);
   return (
     <button
       id="btn"
       className="btnFacebook"
       type="submit"
-      // onClick={() => setNetworks(!networks)}
+      onClick={() => setNetworks(!networks)}
     >
       Facebook
     </button>

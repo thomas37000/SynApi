@@ -150,6 +150,10 @@ li:nth-last-child(1) {
 }
 
 @media screen and (max-width: 768px) {
+  .galerie {
+    display: block;
+  }
+  
   .colorSettings {
     display: grid;
   }

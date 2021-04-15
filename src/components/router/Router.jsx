@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -7,28 +6,26 @@ import SliderFacebook from '../Slider/SliderFacebook';
 import SliderTwitter from '../Slider/SliderTwitter';
 import Navbar from '../Burger_Menu/NavBar';
 import Profile from '../Profile/Profile';
+import ColorContext from '../Context/ColorContext';
 
 export default function Routter() {
-  // eslint-disable-next-line no-unused-vars
+  const [toggleColor, setToggleColor] = useState();
+  console.log('toggleColor context:', toggleColor);
+  // const toggleChange = () => setToggleColor(!toggleColor);
 
-  const [status, setStatus] = useState(null);
   return (
-    // faire la méthode Redux ou Context
-    <div>
+    // <DashboardContext.Provider value={{ states }}>{props.children}</DashboardContext.Provider>;
+    <ColorContext.Provider value={[toggleColor, setToggleColor]}>
       <Router>
         <Navbar />
         <Switch>
           <Route exact path="/" />
           <Route path="/profile" component={Profile} />
-          <Route path="/twitter" component={SliderTwitter} status={status} />
-          {/* <Route
-            path="/twitter"
-            render={(props) => <SliderTwitter {...props} />}
-          /> */}
+          <Route path="/twitter" component={SliderTwitter} />
           <Route path="/facebook" component={SliderFacebook} />
           <Route path="/instagram" component={SliderInstagram} />
         </Switch>
       </Router>
-    </div>
+    </ColorContext.Provider>
   );
 }

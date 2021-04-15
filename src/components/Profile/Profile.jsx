@@ -3,15 +3,11 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ColorContext from '../Context/ColorContext';
 import CardProfile from '../Cards/CardProfile';
 // import Tools from './Tools';
 
-const Profile = () => {
+const Profile = (spanColor) => {
   const [items, setItems] = useState([]);
-  console.log('color:', items);
-  const toggleColor = () => setItems(!items);
-  const [status, setStatus] = useState(null);
 
   const {
     REACT_APP_API_URL,
@@ -46,25 +42,20 @@ const Profile = () => {
     getApi();
   }, []);
 
-  const onChange = () => {
-    setStatus(status);
-  };
   return (
     <>
-      <ColorContext.Provider value={[items, toggleColor]}>
-        <div className="galerie">
-          {/* <Tools /> */}
-          {items.map((post) => (
-            <CardProfile
-              key={post.pub_id}
-              post={post}
-              session={post.session_id}
-              onChange={() => onChange()}
-              value={status}
-            />
-          ))}
-        </div>
-      </ColorContext.Provider>
+      <div>
+        {/* <Tools /> */}
+        {items.map((post) => (
+          <CardProfile
+            color={spanColor}
+            key={post.pub_id}
+            post={post}
+            session={post.session_id}
+            // onChange={() => onChange()}
+          />
+        ))}
+      </div>
     </>
   );
 };
