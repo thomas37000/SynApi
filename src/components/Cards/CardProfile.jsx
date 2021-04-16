@@ -16,17 +16,21 @@ import ColorContext from '../Context/ColorContext';
 import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
 import BtnLoadInstagram from '../Buttons/ButtonInstagram';
+import BtnSubmit from '../Buttons/ButtonSubmit';
 import useLocalState from '../Context/LocalStrorage';
+import Settings from '../Profile/Settings';
 import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState();
-  const [BgColor, setBgColor] = useState();
-  const [TxtColor, setTxtColor] = useState();
-  const [mentionColor, setMentionColor] = useState();
-  const [networks, setNetworks] = useState([]);
+  const [spanColor, setSpanColor] = useState(sessionStorage.getItem('SpanColor'));
+  const [BgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
+  const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [mentionColor, setMentionColor] = useState(
+    sessionStorage.getItem('MentionColor')
+  );
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -70,14 +74,27 @@ export default function CardProfile({ post }) {
 
   const SubmitColor = () => {
     setToggleColor(BgColor, mentionColor, spanColor, TxtColor);
+    // sessionStorage.setItem('text', TxtColor);
+    // console.log(sessionStorage);
     console.log(
-      'change Text Color',
+      'BG Color',
       BgColor,
+      'Mention Color',
       mentionColor,
+      'Span Color',
       spanColor,
+      'Text Color',
       TxtColor
     );
   };
+
+  useEffect(() => {
+    sessionStorage.setItem('BgColor', BgColor);
+    sessionStorage.setItem('MentionColor', mentionColor);
+    sessionStorage.setItem('SpanColor', spanColor);
+    sessionStorage.setItem('TxtColor', TxtColor);
+    console.log(sessionStorage);
+  }, [BgColor, mentionColor, spanColor, TxtColor]);
 
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker);
@@ -102,27 +119,15 @@ export default function CardProfile({ post }) {
           style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
         >
           <div className="settings">
+            <Settings />
             <div className="colorSettings">
               <div className="form-group network">
-                <p className="instructions">
-                  Change the colors of your{' '}
-                  <span className="spanTool">Network</span> :
-                </p>
                 <BtnLoadTwitter />
                 <BtnLoadFacebook />
                 <BtnLoadInstagram />
               </div>
-              <div className="form-group">
-                <p className="instructions">
-                  Change the colors of the
-                  <span className="spanTool"> Background</span> Network :
-                  <p>
-                    <span className="spanTool2">
-                      ( Works only when there is no image background )
-                    </span>
-                  </p>
-                </p>
 
+              <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
                   onSubmit={(e) => SubmitBg(e)}
@@ -150,17 +155,13 @@ export default function CardProfile({ post }) {
                 </div>
               </div>
               <div className="form-group">
-                <p className="instructions">
-                  Change the colors of the{' '}
-                  <span className="spanTool"> Text</span> :
-                </p>
-
                 <SketchPicker
                   onChange={(color) => setTxtColor(color.hex)}
                   onSubmit={(e) => SubmitBg(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
+                  {/* <BtnSubmit value={TxtColor} onClick={() => SubmitColor(TxtColor)}/> */}
                   <button
                     id="btn"
                     className="submit"
@@ -183,9 +184,6 @@ export default function CardProfile({ post }) {
               </div>
 
               <div className="form-group">
-                <p className="instructions">
-                  Change the colors of the # and @ :
-                </p>
                 <SketchPicker
                   // color={mentionColor}
                   onChange={(color) =>
