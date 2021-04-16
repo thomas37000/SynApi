@@ -76,7 +76,7 @@ export default function Tools() {
           <div className="btnSettings">
             <button
               id="btn"
-              className="btnColor submit"
+              className="submit"
               type="submit"
               value={BgColor}
               onClick={() => SubmitColor(BgColor)}
@@ -86,7 +86,7 @@ export default function Tools() {
 
             <button
               id="btn"
-              className="btnColor cancel"
+              className="cancel"
               type="submit"
               onClick={() => restoreBg()}
             >
@@ -107,7 +107,7 @@ export default function Tools() {
           <div className="btnSettings">
             <button
               id="btn"
-              className="btnColor submit"
+              className="submit"
               type="submit"
               value={TxtColor}
               onClick={() => SubmitColor(TxtColor)}
@@ -117,7 +117,7 @@ export default function Tools() {
 
             <button
               id="btn"
-              className="btnColor cancel"
+              className="cancel"
               type="submit"
               onClick={() => restoreTxt()}
             >
@@ -137,7 +137,7 @@ export default function Tools() {
           <div className="btnSettings">
             <button
               id="btn"
-              className="btnColor submit"
+              className="submit"
               type="submit"
               value={spanColor}
               onClick={() => SubmitColor(spanColor)}
@@ -147,7 +147,7 @@ export default function Tools() {
 
             <button
               id="btn"
-              className="btnColor cancel"
+              className="cancel"
               type="submit"
               onClick={() => restoreSpanColor()}
             >

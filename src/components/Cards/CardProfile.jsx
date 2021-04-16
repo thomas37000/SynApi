@@ -26,6 +26,7 @@ export default function CardProfile({ post }) {
   const [TxtColor, setTxtColor] = useState();
   const [mentionColor, setMentionColor] = useState();
   const [networks, setNetworks] = useState([]);
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -78,6 +79,21 @@ export default function CardProfile({ post }) {
     );
   };
 
+  const handleClick = () => {
+    setDisplayColorPicker(!displayColorPicker);
+  };
+
+  const popover = {
+    position: 'absolute',
+    zIndex: '2',
+  };
+  const cover = {
+    position: 'fixed',
+    top: '0px',
+    right: '0px',
+    bottom: '0px',
+    left: '0px',
+  };
   return (
     <>
       <div className="galerie">
@@ -107,7 +123,7 @@ export default function CardProfile({ post }) {
                   </p>
                 </p>
 
-                <CompactPicker
+                <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
                   onSubmit={(e) => SubmitBg(e)}
                   className="circlepicker"
@@ -115,7 +131,7 @@ export default function CardProfile({ post }) {
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="btnColor submit"
+                    className="submit"
                     type="submit"
                     value={BgColor}
                     onClick={() => SubmitColor(BgColor)}
@@ -125,7 +141,7 @@ export default function CardProfile({ post }) {
 
                   <button
                     id="btn"
-                    className="btnColor cancel"
+                    className="cancel"
                     type="submit"
                     onClick={() => restoreBg()}
                   >
@@ -139,7 +155,7 @@ export default function CardProfile({ post }) {
                   <span className="spanTool"> Text</span> :
                 </p>
 
-                <CirclePicker
+                <SketchPicker
                   onChange={(color) => setTxtColor(color.hex)}
                   onSubmit={(e) => SubmitBg(e)}
                   className="circlepicker"
@@ -147,7 +163,7 @@ export default function CardProfile({ post }) {
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="btnColor submit"
+                    className="submit"
                     type="submit"
                     value={TxtColor}
                     onClick={() => SubmitColor(TxtColor)}
@@ -157,7 +173,7 @@ export default function CardProfile({ post }) {
 
                   <button
                     id="btn"
-                    className="btnColor cancel"
+                    className="cancel"
                     type="submit"
                     onClick={() => restoreTxt()}
                   >
@@ -181,7 +197,7 @@ export default function CardProfile({ post }) {
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="btnColor submit"
+                    className="submit"
                     type="submit"
                     value={spanColor}
                     onClick={() => SubmitColor(spanColor)}
@@ -191,7 +207,7 @@ export default function CardProfile({ post }) {
 
                   <button
                     id="btn"
-                    className="btnColor cancel"
+                    className="cancel"
                     type="submit"
                     onClick={() => {
                       restoreSpanColor();

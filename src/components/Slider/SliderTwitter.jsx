@@ -17,14 +17,14 @@ const SliderTwitter = () => {
 
   const {
     REACT_APP_API_URL,
-    REACT_APP_API_INSTA,
-    REACT_APP_API_INSTAA,
+    REACT_APP_API_USER,
+    REACT_APP_API_TOKEN,
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
   const params = {
-    s: `${REACT_APP_API_INSTA}`,
-    t: `${REACT_APP_API_INSTAA}`,
+    s: `${REACT_APP_API_USER}`,
+    t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
     network: 'twitter',
     per_page: 10,
