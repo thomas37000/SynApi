@@ -22,23 +22,37 @@ import Settings from '../Profile/Settings';
 import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
-  const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState(
-    sessionStorage.getItem('SpanColor')
-  );
-  // const [spanColor, setSpanColor] = useState({
-  //   spanColor: "",
-  // })
-  const [BgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
-  const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
-  const [mentionColor, setMentionColor] = useState(
-    sessionStorage.getItem('MentionColor')
-  );
+  const defaultColors = {
+    txt: sessionStorage.getItem('txtColor') || '#fff',
+    Tr: '#1da1f2',
+    Fb: '#4267b2',
+    Im: '#e1306c',
+    bgNoImg: sessionStorage.getItem('BgColor') || '#1da1f2',
+    bgNoImgFb: '#4267b2',
+    rxTr: sessionStorage.getItem('spanColor') || '#1da1f2',
+    RxFb: '#4267b2',
+    RxIm: '#e1306c',
+    RxNoImg: '#000',
+    spanColor: sessionStorage.getItem('mentionColor') || '#1da1f2',
+  };
+
+  const [spanColor, setSpanColor] = useState(defaultColors.rxTr);
+
+  // à corriger !!!!
+  // par convention il faut les mettre CamelCase ( en minuscule la 1° lettre)
+
+  // pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
+  // https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
+
+  const [BgColor, setBgColor] = useState(defaultColors.bgNoImg);
+  const [TxtColor, setTxtColor] = useState(defaultColors.txt);
+  const [mentionColor, setMentionColor] = useState(defaultColors.spanColor);
+  const [jsonObj, setJsonObj] = useState({});
   const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
-    '--before': bg,
+    before: bg,
   };
 
   const mention = /[@]\w+/g;
@@ -78,51 +92,76 @@ export default function CardProfile({ post }) {
   };
 
   const SubmitColor = () => {
-    setToggleColor(BgColor, mentionColor, spanColor, TxtColor);
+    // setToggleColor(BgColor, mentionColor, spanColor, TxtColor);
+
+    const jsonColor = JSON.stringify(jsonObj);
+    console.log('JSON', jsonColor);
     // sessionStorage.setItem('text', TxtColor);
     // console.log(sessionStorage);
-    console.log(
-      'BG Color',
-      BgColor,
-      'Mention Color',
-      mentionColor,
-      'Span Color',
-      spanColor,
-      'Text Color',
-      TxtColor
-    );
+    const postApi = async (onSuccess, onError) => {
+      await axios
+        // JSON {"BgColor":"#417505","mentionColor":"#f5a623","spanColor":"#f5a623","TxtColor":"#f5a623"}
+        // https://github.com/axios/axios#request-config
+        .post(`${API_URL}`, { params })
+        .then((res) => {
+          setItems(res.data);
+          console.log('getApi', res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    };
   };
+
+  // https://github.com/axios/axios#request-config
+  // POST
+  // const headers = {
+  //   'Content-Type': 'application/json',
+  //   'Authorization': 'JWT fefege...'
+  // }
+
+  // axios.post
+  // (Helper.getUserAPI(), data, {
+  //     headers: headers
+  //   })
+  //   .then((response) => {
+  //     dispatch({
+  //       type: FOUND_USER,
+  //       data:
+  // response.data
+  // [0]
+  //     })
+  //   })
+  //   .catch((error) => {
+  //     dispatch({
+  //       type: ERROR_FINDING_USER
+  //     })
+  //   })
+
+  // const json = JSON.stringify({ answer: 42 });
+  // const res = await
+  // axios.post
+  // ('
+  // https://httpbin.org/post
+  // ', json);
 
   useEffect(() => {
     sessionStorage.setItem('BgColor', BgColor);
     sessionStorage.setItem('MentionColor', mentionColor);
     sessionStorage.setItem('SpanColor', spanColor);
     sessionStorage.setItem('TxtColor', TxtColor);
-    console.log(sessionStorage);
+    // console.log(sessionStorage);
+    setJsonObj({
+      BgColor,
+      mentionColor,
+      spanColor,
+      TxtColor,
+    });
+    // console.log('POST JSON STATE', setJsonObj);
   }, [BgColor, mentionColor, spanColor, TxtColor]);
-
-  // useEffect(() => {
-  //   const jsonColor = JSON.stringify(
-  //     BgColor,
-  //     mentionColor,
-  //     spanColor,
-  //     TxtColor
-  //   );
-  //   const parseJsonColor = JSON.parse(jsonColor, (prop, val) => {
-  //     console.log('JSON', `${prop}`);
-  //     return val;
-  //   });
-  // }, []);
-
-  const jsonColor = JSON.stringify(
-    BgColor && mentionColor && spanColor && TxtColor
-  );
-  console.log('JSON', jsonColor);
-  
-  const parseJsonColor = JSON.parse(jsonColor, (prop, val) => {
-    console.log('parseJSON', prop, val);
-    return val;
-  });
 
   return (
     <>
@@ -149,16 +188,6 @@ export default function CardProfile({ post }) {
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="submit"
-                    type="submit"
-                    value={BgColor}
-                    onClick={() => SubmitColor(BgColor)}
-                  >
-                    Submit
-                  </button>
-
-                  <button
-                    id="btn"
                     className="cancel"
                     type="submit"
                     onClick={() => restoreBg()}
@@ -174,17 +203,6 @@ export default function CardProfile({ post }) {
                   className="circlepicker"
                 />
                 <div className="btnSettings">
-                  {/* <BtnSubmit value={TxtColor} onClick={() => SubmitColor(TxtColor)}/> */}
-                  <button
-                    id="btn"
-                    className="submit"
-                    type="submit"
-                    value={TxtColor}
-                    onClick={() => SubmitColor(TxtColor)}
-                  >
-                    Submit
-                  </button>
-
                   <button
                     id="btn"
                     className="cancel"
@@ -208,16 +226,6 @@ export default function CardProfile({ post }) {
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="submit"
-                    type="submit"
-                    value={spanColor}
-                    onClick={() => SubmitColor(spanColor)}
-                  >
-                    Submit
-                  </button>
-
-                  <button
-                    id="btn"
                     className="cancel"
                     type="submit"
                     onClick={() => {
@@ -230,6 +238,15 @@ export default function CardProfile({ post }) {
                 </div>
               </div>
             </div>
+            <button
+              id="btn"
+              className="submit"
+              type="submit"
+              value={TxtColor}
+              onClick={() => SubmitColor(TxtColor)}
+            >
+              Submit
+            </button>
           </div>
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>

@@ -25,12 +25,18 @@ const Profile = (spanColor) => {
   };
 
   const getApi = async (onSuccess, onError) => {
-    await axios.get(`${API_URL}`, { params }).then(
-      (res) => {
+    await axios
+      .get(`${API_URL}`, { params })
+      .then((res) => {
         setItems(res.data);
-      },
-      (error) => onError(error)
-    );
+        console.log('getApi', res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   useEffect(() => {

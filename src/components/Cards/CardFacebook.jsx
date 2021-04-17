@@ -17,7 +17,7 @@ export default function CardFb({ post }) {
   const [mentionColor, setMentionColor] = useState(
     sessionStorage.getItem('MentionColor')
   );
-  
+
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
@@ -54,6 +54,10 @@ export default function CardFb({ post }) {
   return (
     <>
       <div
+        // context vérifie quelle class retournée
+        // créér une foction getCardClass qui retournera donc la bonne class
+        // en fonction du network
+        // className={post.media_url ? 'cardWithImg' : getCardClass('fb')}
         className={post.media_url ? 'cardWithImg' : 'cardFb'}
         style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
       >
