@@ -9,7 +9,8 @@ Si vous cliquez sur `yes` vous verrez dans le Slider que le post a était dupliq
 Aussi il chargera `replied_post` dans le post qui a était dupliqué avec le contenu et le lien url du replied_post ( toujours dans le console.log()).
 
 <img src="src/components/images/Enable advanced repost .png">
-<img src="src/components/images/post repost .png">
+<p></p>
+<img src="src/components/images/post repost.png">
 
 
 
