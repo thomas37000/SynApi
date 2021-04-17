@@ -34,6 +34,7 @@ const SliderInstagram = () => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
         setItems(res.data);
+        console.log('instagram', res.data);
       },
       (error) => onError(error)
     );

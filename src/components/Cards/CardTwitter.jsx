@@ -1,11 +1,21 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/Card.css';
 
 export default function CardTwitter({ post }) {
+  const [spanColor, setSpanColor] = useState(
+    sessionStorage.getItem('SpanColor')
+  );
+  const [BgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
+  const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [mentionColor, setMentionColor] = useState(
+    sessionStorage.getItem('MentionColor')
+  );
+
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
@@ -16,6 +26,7 @@ export default function CardTwitter({ post }) {
   const retweet = /(RT @)\w+:/g;
   let originalUserName = post.user.name;
   const contentApi = post.content;
+  const test = (`${TxtColor}`, contentApi);
   // const mentionSlice = contentApi.slice(2, contentApi.indexOf(':'));
   // const mentionSplit = mentionSlice.toString().split(',');
 
@@ -28,11 +39,11 @@ export default function CardTwitter({ post }) {
         originalUserName = txt;
         return `<span class="txtRetweet">${txt}</span>`;
       })
-      .replace(mention, (txt) => {
-        return `<span class="txtMention">${txt}</span>`;
-      })
       .replace(hashtag, (txt) => {
-        return `<span class="txtHashtag">${txt}</span>`;
+        return `<span class="txtHashtag" style="color:${spanColor}">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtMention" style="color:${mentionColor}">${txt}</span>`;
       });
   }
 
@@ -40,7 +51,7 @@ export default function CardTwitter({ post }) {
     <>
       <div
         className={post.media_url ? ' cardWithImg' : 'cardTr'}
-        style={bgBefore}
+        style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
@@ -48,6 +59,7 @@ export default function CardTwitter({ post }) {
               dangerouslySetInnerHTML={{
                 __html: Highlight(contentApi),
               }}
+              style={{ color: TxtColor }}
             />
           </div>
           <div className="cardImg">

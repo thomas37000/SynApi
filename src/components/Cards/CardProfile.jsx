@@ -23,13 +23,17 @@ import './Card_css/CardProfile.css';
 
 export default function CardProfile({ post }) {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState(sessionStorage.getItem('SpanColor'));
+  const [spanColor, setSpanColor] = useState(
+    sessionStorage.getItem('SpanColor')
+  );
+  // const [spanColor, setSpanColor] = useState({
+  //   spanColor: "",
+  // })
   const [BgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
   const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
   const [mentionColor, setMentionColor] = useState(
     sessionStorage.getItem('MentionColor')
   );
-  const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
@@ -40,11 +44,12 @@ export default function CardProfile({ post }) {
   const mention = /[@]\w+/g;
   const hashtag = /[#]\w+/g;
   const retweet = /(RT @)\w+:/g;
-  const originalUserName = post.user.name;
+  let originalUserName = post.user.name;
 
   function Highlight(match) {
     return match
       .replace(retweet, (txt) => {
+        originalUserName = txt;
         return `<span class="txtRetweet">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
@@ -96,21 +101,29 @@ export default function CardProfile({ post }) {
     console.log(sessionStorage);
   }, [BgColor, mentionColor, spanColor, TxtColor]);
 
-  const handleClick = () => {
-    setDisplayColorPicker(!displayColorPicker);
-  };
+  // useEffect(() => {
+  //   const jsonColor = JSON.stringify(
+  //     BgColor,
+  //     mentionColor,
+  //     spanColor,
+  //     TxtColor
+  //   );
+  //   const parseJsonColor = JSON.parse(jsonColor, (prop, val) => {
+  //     console.log('JSON', `${prop}`);
+  //     return val;
+  //   });
+  // }, []);
 
-  const popover = {
-    position: 'absolute',
-    zIndex: '2',
-  };
-  const cover = {
-    position: 'fixed',
-    top: '0px',
-    right: '0px',
-    bottom: '0px',
-    left: '0px',
-  };
+  const jsonColor = JSON.stringify(
+    BgColor && mentionColor && spanColor && TxtColor
+  );
+  console.log('JSON', jsonColor);
+  
+  const parseJsonColor = JSON.parse(jsonColor, (prop, val) => {
+    console.log('parseJSON', prop, val);
+    return val;
+  });
+
   return (
     <>
       <div className="galerie">
