@@ -62,13 +62,13 @@
 }
 
 .txtHashtag, .txtMention {
-  color: var(--RxTr);
+  color: var(--rxTr);
   font-weight: bold;
 }
 
 .cardBodyNoImg .txtHashtag, 
 .cardBodyNoImg .txtMention {
-  color: var(--RxNoImg);
+  color: var(--rxNoImg);
   font-weight: bold;
 }
 

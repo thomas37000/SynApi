@@ -9,17 +9,17 @@
 }
 
 .btnTwitter {
-  background-color: var(--Tr);
+  background-color: var(--tr);
   margin-bottom: 10px;
 }
 
 .btnFacebook {
-  background-color: var(--Fb);
+  background-color: var(--fb);
   margin-bottom: 10px;
 }
 
 .btnInsta {
-  background-color: var(--Im);
+  background-color: var(--im);
 }
 
 .btnTwitter:hover, .btnFacebook:hover, .btnInsta:hover {

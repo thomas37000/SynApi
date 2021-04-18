@@ -10,8 +10,8 @@ export default function CardTwitter({ post }) {
   const [spanColor, setSpanColor] = useState(
     sessionStorage.getItem('SpanColor')
   );
-  const [BgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
-  const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
+  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
   const [mentionColor, setMentionColor] = useState(
     sessionStorage.getItem('MentionColor')
   );
@@ -26,14 +26,14 @@ export default function CardTwitter({ post }) {
   const retweet = /(RT @)\w+:/g;
   let originalUserName = post.user.name;
   const contentApi = post.content;
-  const test = (`${TxtColor}`, contentApi);
+  const test = (`${txtColor}`, contentApi);
   // const mentionSlice = contentApi.slice(2, contentApi.indexOf(':'));
   // const mentionSplit = mentionSlice.toString().split(',');
 
   // console.log('slice', mentionSlice);
   // console.log('split', mentionSplit);
 
-  function Highlight(match) {
+  function highlight(match) {
     return match
       .replace(retweet, (txt) => {
         originalUserName = txt;
@@ -51,15 +51,15 @@ export default function CardTwitter({ post }) {
     <>
       <div
         className={post.media_url ? ' cardWithImg' : 'cardTr'}
-        style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
+        style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div
               dangerouslySetInnerHTML={{
-                __html: Highlight(contentApi),
+                __html: highlight(contentApi),
               }}
-              style={{ color: TxtColor }}
+              style={{ color: txtColor }}
             />
           </div>
           <div className="cardImg">

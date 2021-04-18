@@ -44,7 +44,7 @@
 }
 
 .userProfile {
-  color: var(--RxNoImg);
+  color: var(--rxNoImg);
   font-weight: bold;
   margin: 0 1rem;
 }

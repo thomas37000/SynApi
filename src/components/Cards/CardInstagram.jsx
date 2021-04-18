@@ -11,7 +11,7 @@ export default function CardInstagram({ post }) {
   const [spanColor, setSpanColor] = useState(
     sessionStorage.getItem('SpanColor')
   );
-  const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
   const [mentionColor, setMentionColor] = useState(
     sessionStorage.getItem('MentionColor')
   );
@@ -35,7 +35,7 @@ export default function CardInstagram({ post }) {
   const hashtag = /[#]\w+/g;
   const retweet = /(RT @)\w+:/g;
 
-  function Highlight(match) {
+  function highlight(match) {
     return match
       .replace(retweet, (txt) => {
         return `<span class="txtRetweet">${txt}</span>`;
@@ -57,8 +57,8 @@ export default function CardInstagram({ post }) {
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div
-              dangerouslySetInnerHTML={{ __html: Highlight(post.content) }}
-              style={{ color: TxtColor }}
+              dangerouslySetInnerHTML={{ __html: highlight(post.content) }}
+              style={{ color: txtColor }}
             />
           </div>
           <div className="cardImg">

@@ -12,8 +12,8 @@ export default function CardFb({ post }) {
   const [spanColor, setSpanColor] = useState(
     sessionStorage.getItem('SpanColor')
   );
-  const [BgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
-  const [TxtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
+  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
   const [mentionColor, setMentionColor] = useState(
     sessionStorage.getItem('MentionColor')
   );
@@ -38,7 +38,7 @@ export default function CardFb({ post }) {
   const hashtag = /[#]\w+/g;
   const retweet = /(RT @)\w+:/g;
 
-  function Highlight(match) {
+  function highlight(match) {
     return match
       .replace(retweet, (txt) => {
         return `<span class="txtRetweet">${txt}</span>`;
@@ -59,13 +59,13 @@ export default function CardFb({ post }) {
         // en fonction du network
         // className={post.media_url ? 'cardWithImg' : getCardClass('fb')}
         className={post.media_url ? 'cardWithImg' : 'cardFb'}
-        style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
+        style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <div
-              dangerouslySetInnerHTML={{ __html: Highlight(post.content) }}
-              style={{ color: TxtColor }}
+              dangerouslySetInnerHTML={{ __html: highlight(post.content) }}
+              style={{ color: txtColor }}
             />
           </div>
           <div className="cardImg">

@@ -20,39 +20,37 @@ import BtnSubmit from '../Buttons/ButtonSubmit';
 import useLocalState from '../Context/LocalStrorage';
 import Settings from '../Profile/Settings';
 import './Card_css/CardProfile.css';
+// à corriger !!!!
+// par convention il faut les mettre CamelCase ( en minuscule la 1° lettre)
+
+// pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
+// https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
 
 export default function CardProfile({ post }) {
   const defaultColors = {
     txt: sessionStorage.getItem('txtColor') || '#fff',
-    Tr: '#1da1f2',
-    Fb: '#4267b2',
-    Im: '#e1306c',
+    tr: '#1da1f2',
+    fb: '#4267b2',
+    im: '#e1306c',
     bgNoImg: sessionStorage.getItem('BgColor') || '#1da1f2',
     bgNoImgFb: '#4267b2',
-    rxTr: sessionStorage.getItem('spanColor') || '#1da1f2',
-    RxFb: '#4267b2',
-    RxIm: '#e1306c',
-    RxNoImg: '#000',
-    spanColor: sessionStorage.getItem('mentionColor') || '#1da1f2',
+    rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
+    rxFb: '#4267b2',
+    rxIm: '#e1306c',
+    rxNoImg: '#000',
+    spanColor: sessionStorage.getItem('spanColor') || '#1da1f2',
   };
 
-  const [spanColor, setSpanColor] = useState(defaultColors.rxTr);
-
-  // à corriger !!!!
-  // par convention il faut les mettre CamelCase ( en minuscule la 1° lettre)
-
-  // pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
-  // https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
-
-  const [BgColor, setBgColor] = useState(defaultColors.bgNoImg);
-  const [TxtColor, setTxtColor] = useState(defaultColors.txt);
-  const [mentionColor, setMentionColor] = useState(defaultColors.spanColor);
+  const [spanColor, setSpanColor] = useState(defaultColors.spanColor);
+  const [bgColor, setBgColor] = useState(defaultColors.bgNoImg);
+  const [txtColor, setTxtColor] = useState(defaultColors.txt);
+  const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
   const [jsonObj, setJsonObj] = useState({});
   const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
-    before: bg,
+    '--before': bg,
   };
 
   const mention = /[@]\w+/g;
@@ -60,7 +58,7 @@ export default function CardProfile({ post }) {
   const retweet = /(RT @)\w+:/g;
   let originalUserName = post.user.name;
 
-  function Highlight(match) {
+  function highlight(match) {
     return match
       .replace(retweet, (txt) => {
         originalUserName = txt;
@@ -80,28 +78,29 @@ export default function CardProfile({ post }) {
   };
 
   const restoreBg = () => {
-    setBgColor(!BgColor);
+    setBgColor(!bgColor);
   };
 
   const restoreTxt = () => {
-    setTxtColor(!TxtColor);
+    setTxtColor(!txtColor);
   };
 
   const restoreMention = () => {
     setMentionColor(!mentionColor);
   };
 
-  const SubmitColor = () => {
-    // setToggleColor(BgColor, mentionColor, spanColor, TxtColor);
+  const submitColor = () => {
+    // setToggleColor(bgColor, mentionColor, spanColor, txtColor);
 
     const jsonColor = JSON.stringify(jsonObj);
     console.log('JSON', jsonColor);
-    // sessionStorage.setItem('text', TxtColor);
+    // sessionStorage.setItem('text', txtColor);
     // console.log(sessionStorage);
+
+     // https://github.com/axios/axios#request-config
+    
     const postApi = async (onSuccess, onError) => {
       await axios
-        // JSON {"BgColor":"#417505","mentionColor":"#f5a623","spanColor":"#f5a623","TxtColor":"#f5a623"}
-        // https://github.com/axios/axios#request-config
         .post(`${API_URL}`, { params })
         .then((res) => {
           setItems(res.data);
@@ -149,26 +148,26 @@ export default function CardProfile({ post }) {
   // ', json);
 
   useEffect(() => {
-    sessionStorage.setItem('BgColor', BgColor);
+    sessionStorage.setItem('BgColor', bgColor);
     sessionStorage.setItem('MentionColor', mentionColor);
     sessionStorage.setItem('SpanColor', spanColor);
-    sessionStorage.setItem('TxtColor', TxtColor);
+    sessionStorage.setItem('TxtColor', txtColor);
     // console.log(sessionStorage);
     setJsonObj({
-      BgColor,
+      bgColor,
       mentionColor,
       spanColor,
-      TxtColor,
+      txtColor,
     });
     // console.log('POST JSON STATE', setJsonObj);
-  }, [BgColor, mentionColor, spanColor, TxtColor]);
+  }, [bgColor, mentionColor, spanColor, txtColor]);
 
   return (
     <>
       <div className="galerie">
         <div
           className={post.media_url ? ' cardWithImg' : 'cardTr'}
-          style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
+          style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
         >
           <div className="settings">
             <Settings />
@@ -182,7 +181,7 @@ export default function CardProfile({ post }) {
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
-                  onSubmit={(e) => SubmitBg(e)}
+                  onSubmit={(e) => submitBg(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -199,7 +198,7 @@ export default function CardProfile({ post }) {
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setTxtColor(color.hex)}
-                  onSubmit={(e) => SubmitBg(e)}
+                  onSubmit={(e) => submitBg(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -220,7 +219,7 @@ export default function CardProfile({ post }) {
                   onChange={(color) =>
                     setSpanColor(color.hex) || setMentionColor(color.hex)
                   }
-                  onSubmit={(e) => SubmitColor(e)}
+                  onSubmit={(e) => submitColor(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -242,8 +241,8 @@ export default function CardProfile({ post }) {
               id="btn"
               className="submit"
               type="submit"
-              value={TxtColor}
-              onClick={() => SubmitColor(TxtColor)}
+              value={txtColor}
+              onClick={() => submitColor(txtColor)}
             >
               Submit
             </button>
@@ -252,9 +251,9 @@ export default function CardProfile({ post }) {
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: Highlight(post.content),
+                  __html: highlight(post.content),
                 }}
-                style={{ color: TxtColor }}
+                style={{ color: txtColor }}
               />
             </div>
             <div className="cardImg">
