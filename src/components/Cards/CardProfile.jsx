@@ -38,17 +38,20 @@ export default function CardProfile({ post }) {
     rxIm: '#e1306c',
     rxNoImg: '#000',
     hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+    fontFamily: sessionStorage.getItem('fontFamily') || 'Arial',
   };
 
-  const defaultTypo =  {
-    typo: sessionStorage.getItem('typo') || 'Arial',
-  };
+  // const defaultTypo =  {
+  //   typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
+  // };
 
   const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
   const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
   const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
-  const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
+  const [activeFontFamily, setActiveFontFamily] = useState(
+    defaultColors.fontFamily
+  );
   const [jsonObj, setJsonObj] = useState({});
   const [networks, setNetworks] = useState([]);
 
@@ -94,12 +97,8 @@ export default function CardProfile({ post }) {
   };
 
   const submitColor = () => {
-    // setToggleColor(bgColor, mentionColor,hashtagColor, txtColor);
-
     const jsonColor = JSON.stringify(jsonObj);
     console.log('JSON', jsonColor);
-    // sessionStorage.setItem('text', txtColor);
-    // console.log(sessionStorage);
 
     // https://github.com/axios/axios#request-config
 
@@ -147,12 +146,12 @@ export default function CardProfile({ post }) {
   // ', json);
 
   useEffect(() => {
-    sessionStorage.setItem('bgColor', bgColor);
+    sessionStorage.setItem('backgroundColor', bgColor);
     sessionStorage.setItem('mentionColor', mentionColor);
     sessionStorage.setItem('hashtagColor', hashtagColor);
     sessionStorage.setItem('txtColor', txtColor);
-    sessionStorage.setItem('typography', activeFontFamily);
-    // console.log(sessionStorage);
+    sessionStorage.setItem('fontFamily', activeFontFamily);
+    console.log('json', sessionStorage);
     setJsonObj({
       bgColor,
       mentionColor,
@@ -160,7 +159,6 @@ export default function CardProfile({ post }) {
       txtColor,
       activeFontFamily,
     });
-    // console.log('POST JSON STATE', setJsonObj);
   }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
 
   return (
@@ -182,15 +180,17 @@ export default function CardProfile({ post }) {
               <FontPicker
                 apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
                 activeFontFamily={activeFontFamily}
-                onChange={() => setActiveFontFamily(activeFontFamily)}
-                onSubmit={(e) => submitBg(e)}
-                className='typo'
+                onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
+                // onChange={() => setActiveFontFamily(activeFontFamily)}
+
+                // onSubmit={(e) => submitColor(e)}
+                className="typo"
               />
 
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
-                  onSubmit={(e) => submitBg(e)}
+                  // onSubmit={(e) => submitColor(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -207,7 +207,7 @@ export default function CardProfile({ post }) {
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setTxtColor(color.hex)}
-                  onSubmit={(e) => submitBg(e)}
+                  // onSubmit={(e) => submitColor(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -228,7 +228,7 @@ export default function CardProfile({ post }) {
                   onChange={(color) =>
                     setHashtagColor(color.hex) || setMentionColor(color.hex)
                   }
-                  onSubmit={(e) => submitColor(e)}
+                  // onSubmit={(e) => submitColor(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
@@ -250,8 +250,7 @@ export default function CardProfile({ post }) {
               id="btn"
               className="submit"
               type="submit"
-              value={txtColor}
-              onClick={() => submitColor(txtColor)}
+              onClick={() => submitColor()}
             >
               Submit
             </button>

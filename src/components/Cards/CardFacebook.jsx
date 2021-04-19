@@ -12,10 +12,10 @@ export default function CardFb({ post }) {
   const [hashtagColor, setHashtagColor] = useState(
     sessionStorage.getItem('hashtagColor')
   );
-  const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
-  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [bgColor, setBgColor] = useState(sessionStorage.getItem('bgColor'));
+  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('txtColor'));
   const [mentionColor, setMentionColor] = useState(
-    sessionStorage.getItem('MentionColor')
+    sessionStorage.getItem('mentionColor')
   );
 
   const bg = `url(${post.media_url})`;
@@ -63,10 +63,14 @@ export default function CardFb({ post }) {
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
-            <div
-              dangerouslySetInnerHTML={{ __html: highlight(post.content) }}
-              style={{ color: txtColor }}
-            />
+            <p className="apply-font">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: highlight(post.content),
+                }}
+                style={{ color: txtColor }}
+              />
+            </p>
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>

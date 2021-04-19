@@ -55,12 +55,14 @@ export default function CardTwitter({ post }) {
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: highlight(contentApi),
-              }}
-              style={{ color: txtColor }}
-            />
+            <p className="apply-font">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: highlight(contentApi),
+                }}
+                style={{ color: txtColor }}
+              />
+            </p>
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
