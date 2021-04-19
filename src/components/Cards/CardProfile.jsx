@@ -12,6 +12,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CirclePicker, CompactPicker, SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
+import FontPicker from 'font-picker-react';
 import ColorContext from '../Context/ColorContext';
 import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
@@ -39,10 +40,15 @@ export default function CardProfile({ post }) {
     hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
   };
 
+  const defaultTypo =  {
+    typo: sessionStorage.getItem('typo') || 'Arial',
+  };
+
   const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
   const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
   const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
+  const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
   const [jsonObj, setJsonObj] = useState({});
   const [networks, setNetworks] = useState([]);
 
@@ -141,19 +147,21 @@ export default function CardProfile({ post }) {
   // ', json);
 
   useEffect(() => {
-    sessionStorage.setItem('BgColor', bgColor);
-    sessionStorage.setItem('MentionColor', mentionColor);
-    sessionStorage.setItem('hashtagColor',hashtagColor);
-    sessionStorage.setItem('TxtColor', txtColor);
+    sessionStorage.setItem('bgColor', bgColor);
+    sessionStorage.setItem('mentionColor', mentionColor);
+    sessionStorage.setItem('hashtagColor', hashtagColor);
+    sessionStorage.setItem('txtColor', txtColor);
+    sessionStorage.setItem('typography', activeFontFamily);
     // console.log(sessionStorage);
     setJsonObj({
       bgColor,
       mentionColor,
       hashtagColor,
       txtColor,
+      activeFontFamily,
     });
     // console.log('POST JSON STATE', setJsonObj);
-  }, [bgColor, mentionColor,hashtagColor, txtColor]);
+  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
 
   return (
     <>
@@ -165,11 +173,19 @@ export default function CardProfile({ post }) {
           <div className="settings">
             <Settings />
             <div className="colorSettings">
-              <div className="form-group network">
+              {/* <div className="form-group network">
                 <BtnLoadTwitter />
                 <BtnLoadFacebook />
                 <BtnLoadInstagram />
-              </div>
+              </div> */}
+
+              <FontPicker
+                apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
+                activeFontFamily={activeFontFamily}
+                onChange={() => setActiveFontFamily(activeFontFamily)}
+                onSubmit={(e) => submitBg(e)}
+                className='typo'
+              />
 
               <div className="form-group">
                 <SketchPicker
@@ -242,12 +258,14 @@ export default function CardProfile({ post }) {
           </div>
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: highlight(post.content),
-                }}
-                style={{ color: txtColor }}
-              />
+              <p className="apply-font">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(post.content),
+                  }}
+                  style={{ color: txtColor }}
+                />
+              </p>
             </div>
             <div className="cardImg">
               <div className={post.media_url ? 'getImg' : 'hideImg'}>

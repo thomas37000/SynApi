@@ -6,11 +6,15 @@ const Settings = () => {
   return (
     <div className="settingsCategory">
       <p className="instructions">
+        Change the
+        <span className="spanTool">Typography</span>
+      </p>
+      {/* <p className="instructions">
         Change the colors
         <p>
           of your <span className="spanTool">Network</span> :
         </p>
-      </p>
+      </p> */}
       <p className="instructions">
         Change the colors
         <p>

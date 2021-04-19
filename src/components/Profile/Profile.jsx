@@ -29,7 +29,6 @@ const Profile = (hashtagColor) => {
       .get(`${API_URL}`, { params })
       .then((res) => {
         setItems(res.data);
-        console.log('getApi', res.data);
       })
       .catch((error) => {
         console.log(error);
