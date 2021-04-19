@@ -29,7 +29,6 @@
     bgNoImgFb === background-color sans image Facebook === #4267b2
 
 ## defaults colors (dans CardProfile.jsx ou index.css)
- const defaultColors = {
     txt: '#fff',
     tr: '#1da1f2',
     fb: '#4267b2',
@@ -41,8 +40,7 @@
     rxIm: '#e1306c',
     rxNoImg: '#000',
     hashtagColor: '#1da1f2',
-  };
-
+  
 ## noms des states
  ### bgColor
     bgColor correspond au background-color
