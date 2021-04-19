@@ -28,15 +28,15 @@ const Slideburger = styled.ul`
   }
 
   .twitter:hover {
-    background-color: var(--Tr);
+    background-color: var(--tr);
   }
 
   .facebook:hover {
-    background-color: var(--Fb);
+    background-color: var(--fb);
   }
 
   .instagram:hover {
-    background-color: var(--Im);
+    background-color: var(--im);
   }
 
   .logoBurger {

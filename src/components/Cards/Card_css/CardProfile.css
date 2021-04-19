@@ -38,8 +38,8 @@
 }
 
 .settings {
-  display: grid;
-  justify-content: center;
+  /* display: grid;
+  justify-content: center; */
   background-color: #f1f1f1;
 }
 
@@ -96,12 +96,13 @@ li:nth-last-child(1) {
 }
 
 .submit {
-  margin: 0 1rem;
+  margin-bottom: 1rem;
   background-color: green;
   padding: 0.5rem;
   border-radius: 10px;
   color: #fff;
   border: none;
+  width: 150px;
 }
 
 .cancel {
@@ -137,6 +138,7 @@ li:nth-last-child(1) {
 
 .instructions {
   color: #000;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 768px) {

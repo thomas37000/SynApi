@@ -20,8 +20,6 @@ import BtnSubmit from '../Buttons/ButtonSubmit';
 import useLocalState from '../Context/LocalStrorage';
 import Settings from '../Profile/Settings';
 import './Card_css/CardProfile.css';
-// à corriger !!!!
-// par convention il faut les mettre CamelCase ( en minuscule la 1° lettre)
 
 // pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
 // https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
@@ -32,17 +30,17 @@ export default function CardProfile({ post }) {
     tr: '#1da1f2',
     fb: '#4267b2',
     im: '#e1306c',
-    bgNoImg: sessionStorage.getItem('BgColor') || '#1da1f2',
+    bgNoImgTr: sessionStorage.getItem('bgColor') || '#1da1f2',
     bgNoImgFb: '#4267b2',
     rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
     rxFb: '#4267b2',
     rxIm: '#e1306c',
     rxNoImg: '#000',
-    spanColor: sessionStorage.getItem('spanColor') || '#1da1f2',
+    hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
   };
 
-  const [spanColor, setSpanColor] = useState(defaultColors.spanColor);
-  const [bgColor, setBgColor] = useState(defaultColors.bgNoImg);
+  const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
+  const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
   const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
   const [jsonObj, setJsonObj] = useState({});
@@ -65,7 +63,7 @@ export default function CardProfile({ post }) {
         return `<span class="txtRetweet">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
-        return `<span class="txtHashtag" style="color:${spanColor}">${txt}</span>`;
+        return `<span class="txtHashtag" style="color:${hashtagColor}">${txt}</span>`;
       })
       .replace(mention, (txt) => {
         return `<span class="txtMention" style="color:${mentionColor}">${txt}</span>`;
@@ -73,8 +71,8 @@ export default function CardProfile({ post }) {
   }
 
   // restore color background / text / # or @ by default
-  const restoreSpanColor = () => {
-    setSpanColor(!spanColor);
+  const restorehashtagColor = () => {
+    setHashtagColor(!hashtagColor);
   };
 
   const restoreBg = () => {
@@ -90,15 +88,15 @@ export default function CardProfile({ post }) {
   };
 
   const submitColor = () => {
-    // setToggleColor(bgColor, mentionColor, spanColor, txtColor);
+    // setToggleColor(bgColor, mentionColor,hashtagColor, txtColor);
 
     const jsonColor = JSON.stringify(jsonObj);
     console.log('JSON', jsonColor);
     // sessionStorage.setItem('text', txtColor);
     // console.log(sessionStorage);
 
-     // https://github.com/axios/axios#request-config
-    
+    // https://github.com/axios/axios#request-config
+
     const postApi = async (onSuccess, onError) => {
       await axios
         .post(`${API_URL}`, { params })
@@ -134,12 +132,7 @@ export default function CardProfile({ post }) {
   // [0]
   //     })
   //   })
-  //   .catch((error) => {
-  //     dispatch({
-  //       type: ERROR_FINDING_USER
-  //     })
-  //   })
-
+  //   .catch((error) => {)
   // const json = JSON.stringify({ answer: 42 });
   // const res = await
   // axios.post
@@ -150,17 +143,17 @@ export default function CardProfile({ post }) {
   useEffect(() => {
     sessionStorage.setItem('BgColor', bgColor);
     sessionStorage.setItem('MentionColor', mentionColor);
-    sessionStorage.setItem('SpanColor', spanColor);
+    sessionStorage.setItem('hashtagColor',hashtagColor);
     sessionStorage.setItem('TxtColor', txtColor);
     // console.log(sessionStorage);
     setJsonObj({
       bgColor,
       mentionColor,
-      spanColor,
+      hashtagColor,
       txtColor,
     });
     // console.log('POST JSON STATE', setJsonObj);
-  }, [bgColor, mentionColor, spanColor, txtColor]);
+  }, [bgColor, mentionColor,hashtagColor, txtColor]);
 
   return (
     <>
@@ -217,7 +210,7 @@ export default function CardProfile({ post }) {
                 <SketchPicker
                   // color={mentionColor}
                   onChange={(color) =>
-                    setSpanColor(color.hex) || setMentionColor(color.hex)
+                    setHashtagColor(color.hex) || setMentionColor(color.hex)
                   }
                   onSubmit={(e) => submitColor(e)}
                   className="circlepicker"
@@ -228,7 +221,7 @@ export default function CardProfile({ post }) {
                     className="cancel"
                     type="submit"
                     onClick={() => {
-                      restoreSpanColor();
+                      restorehashtagColor();
                       restoreMention();
                     }}
                   >

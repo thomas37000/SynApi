@@ -9,8 +9,8 @@ import './Card_css/CardFacebook.css';
 import './Card_css/Card.css';
 
 export default function CardFb({ post }) {
-  const [spanColor, setSpanColor] = useState(
-    sessionStorage.getItem('SpanColor')
+  const [hashtagColor, setHashtagColor] = useState(
+    sessionStorage.getItem('hashtagColor')
   );
   const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
   const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
@@ -44,7 +44,7 @@ export default function CardFb({ post }) {
         return `<span class="txtRetweet">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
-        return `<span class="txtSpanWithImgFb" style="color:${spanColor}">${txt}</span>`;
+        return `<span class="txtSpanWithImgFb" style="color:${hashtagColor}">${txt}</span>`;
       })
       .replace(mention, (txt) => {
         return `<span class="txtSpan" style="color:${mentionColor}">${txt}</span>`;

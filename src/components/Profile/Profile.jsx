@@ -6,7 +6,7 @@ import axios from 'axios';
 import CardProfile from '../Cards/CardProfile';
 // import Tools from './Tools';
 
-const Profile = (spanColor) => {
+const Profile = (hashtagColor) => {
   const [items, setItems] = useState([]);
 
   const {
@@ -49,7 +49,7 @@ const Profile = (spanColor) => {
         {/* <Tools /> */}
         {items.map((post) => (
           <CardProfile
-            color={spanColor}
+            color={hashtagColor}
             key={post.pub_id}
             post={post}
             session={post.session_id}

@@ -13,7 +13,7 @@ import '../Cards/Card_css/CardProfile.css';
 
 export default function Tools() {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState();
+  const [hashtagColor, setHashtagColor] = useState();
   const [bgColor, setBgColor] = useState();
   const [txtColor, setTxtColor] = useState();
   const [mentionColor, setMentionColor] = useState();
@@ -22,8 +22,8 @@ export default function Tools() {
   const changeColor = document.getElementById('btn');
 
   // restore color background / text / # or @ by default
-  const restoreSpanColor = () => {
-    setSpanColor(!spanColor);
+  const restoreHashtagColor = () => {
+    setHashtagColor(!hashtagColor);
   };
 
   const restoreBg = () => {
@@ -35,12 +35,12 @@ export default function Tools() {
   };
 
   const submitColor = () => {
-    setToggleColor(bgColor, mentionColor, spanColor, txtColor);
+    setToggleColor(bgColor, mentionColor, hashtagColor, txtColor);
     console.log(
       'change Text Color',
       bgColor,
       mentionColor,
-      spanColor,
+      hashtagColor,
       txtColor
     );
   };
@@ -129,8 +129,8 @@ export default function Tools() {
         <div className="form-group">
           <p className="instructions">Change the colors of the # and @ :</p>
           <CirclePicker
-            color={spanColor}
-            onChange={(color) => setSpanColor(color.hex)}
+            color={hashtagColor}
+            onChange={(color) => setHashtagColor(color.hex)}
             onSubmit={(e) => submitColor(e)}
             className="circlepicker"
           />
@@ -139,8 +139,8 @@ export default function Tools() {
               id="btn"
               className="submit"
               type="submit"
-              value={spanColor}
-              onClick={() => submitColor(spanColor)}
+              value={hashtagColor}
+              onClick={() => submitColor(hashtagColor)}
             >
               Submit
             </button>
@@ -149,7 +149,7 @@ export default function Tools() {
               id="btn"
               className="cancel"
               type="submit"
-              onClick={() => restoreSpanColor()}
+              onClick={() => restoreHashtagColor()}
             >
               Cancel
             </button>

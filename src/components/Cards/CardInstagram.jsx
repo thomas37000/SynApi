@@ -8,8 +8,8 @@ import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 
 export default function CardInstagram({ post }) {
-  const [spanColor, setSpanColor] = useState(
-    sessionStorage.getItem('SpanColor')
+  const [hashtagColor, setHashtagColor] = useState(
+    sessionStorage.getItem('hashtagColor')
   );
   const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
   const [mentionColor, setMentionColor] = useState(
@@ -41,7 +41,7 @@ export default function CardInstagram({ post }) {
         return `<span class="txtRetweet">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
-        return `<span class="txtSpanWithImgInst" style="color:${spanColor}">${txt}</span>`;
+        return `<span class="txtSpanWithImgInst" style="color:${hashtagColor}">${txt}</span>`;
       })
       .replace(mention, (txt) => {
         return `<span class="txtSpan" style="color:${mentionColor}">${txt}</span>`;

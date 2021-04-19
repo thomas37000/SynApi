@@ -1,7 +1,7 @@
 /* Tr === twitter */
 .cardTr {
   height: 100vh;
-  background: var(--bgNoImg);
+  background: var(--bgNoImgTr);
   color: #f1f1f1;
 }
 

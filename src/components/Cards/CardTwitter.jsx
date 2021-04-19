@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import './Card_css/Card.css';
 
 export default function CardTwitter({ post }) {
-  const [spanColor, setSpanColor] = useState(
-    sessionStorage.getItem('SpanColor')
+  const [hashtagColor, setHashtagColor] = useState(
+    sessionStorage.getItem('hashtagColor')
   );
   const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
   const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
@@ -40,7 +40,7 @@ export default function CardTwitter({ post }) {
         return `<span class="txtRetweet">${txt}</span>`;
       })
       .replace(hashtag, (txt) => {
-        return `<span class="txtHashtag" style="color:${spanColor}">${txt}</span>`;
+        return `<span class="txtHashtag" style="color:${hashtagColor}">${txt}</span>`;
       })
       .replace(mention, (txt) => {
         return `<span class="txtMention" style="color:${mentionColor}">${txt}</span>`;
