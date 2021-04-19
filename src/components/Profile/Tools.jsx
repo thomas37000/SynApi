@@ -13,35 +13,43 @@ import '../Cards/Card_css/CardProfile.css';
 
 export default function Tools() {
   const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState();
-  const [BgColor, setBgColor] = useState();
+  const [hashtagColor, setHashtagColor] = useState();
+  const [bgColor, setBgColor] = useState();
+  const [txtColor, setTxtColor] = useState();
+  const [mentionColor, setMentionColor] = useState();
   const [networks, setNetworks] = useState([]);
 
   const changeColor = document.getElementById('btn');
 
   // restore color background / text / # or @ by default
-  const restoreSpanColor = () => {
-    setSpanColor(!spanColor);
+  const restoreHashtagColor = () => {
+    setHashtagColor(!hashtagColor);
   };
 
   const restoreBg = () => {
-    setBgColor(!BgColor);
+    setBgColor(!bgColor);
   };
 
-  const SubmitBg = () => {
-    setBgColor(BgColor);
-    console.log('change BgColor', BgColor);
+  const restoreTxt = () => {
+    setTxtColor(!txtColor);
   };
 
-  const SubmitSpanColor = () => {
-    console.log('change SpanColor', spanColor);
+  const submitColor = () => {
+    setToggleColor(bgColor, mentionColor, hashtagColor, txtColor);
+    console.log(
+      'change Text Color',
+      bgColor,
+      mentionColor,
+      hashtagColor,
+      txtColor
+    );
   };
 
   return (
     <div className="settings">
       <div className="colorSettings">
         <div className="form-group network">
-          <p>
+          <p className="instructions">
             Change the colors of your <span className="spanTool">Network</span>{' '}
             :
           </p>
@@ -50,7 +58,7 @@ export default function Tools() {
           <BtnLoadInstagram />
         </div>
         <div className="form-group">
-          <p>
+          <p className="instructions">
             Change the colors of the
             <span className="spanTool"> Background</span> Network :
             <p>
@@ -62,23 +70,23 @@ export default function Tools() {
 
           <CirclePicker
             onChange={(color) => setBgColor(color.hex)}
-            onSubmit={(e) => SubmitBg(e)}
+            onSubmit={(e) => submitColor(e)}
             className="circlepicker"
           />
           <div className="btnSettings">
             <button
               id="btn"
-              className="btnColor submit"
+              className="submit"
               type="submit"
-              value={BgColor}
-              onClick={() => SubmitBg(BgColor)}
+              value={bgColor}
+              onClick={() => submitColor(bgColor)}
             >
               Submit
             </button>
 
             <button
               id="btn"
-              className="btnColor cancel"
+              className="cancel"
               type="submit"
               onClick={() => restoreBg()}
             >
@@ -86,35 +94,62 @@ export default function Tools() {
             </button>
           </div>
         </div>
-
         <div className="form-group">
-          <p>
-            Change the colors of the
-            <span className="spanTool spanHashtag"> #</span> and
-            <span className="spanTool spanHashtag"> @</span> :
+          <p className="instructions">
+            Change the colors of the <span className="spanTool"> Text</span> :
           </p>
+
           <CirclePicker
-            color={spanColor}
-            onChange={(color) => setSpanColor(color.hex)}
-            onSubmit={(e) => SubmitSpanColor(e)}
+            onChange={(color) => setTxtColor(color.hex)}
+            onSubmit={(e) => submitColor(e)}
             className="circlepicker"
           />
           <div className="btnSettings">
             <button
               id="btn"
-              className="btnColor submit"
+              className="submit"
               type="submit"
-              value={spanColor}
-              onClick={() => SubmitSpanColor(spanColor)}
+              value={txtColor}
+              onClick={() => submitColor(txtColor)}
             >
               Submit
             </button>
 
             <button
               id="btn"
-              className="btnColor cancel"
+              className="cancel"
               type="submit"
-              onClick={() => restoreSpanColor()}
+              onClick={() => restoreTxt()}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <p className="instructions">Change the colors of the # and @ :</p>
+          <CirclePicker
+            color={hashtagColor}
+            onChange={(color) => setHashtagColor(color.hex)}
+            onSubmit={(e) => submitColor(e)}
+            className="circlepicker"
+          />
+          <div className="btnSettings">
+            <button
+              id="btn"
+              className="submit"
+              type="submit"
+              value={hashtagColor}
+              onClick={() => submitColor(hashtagColor)}
+            >
+              Submit
+            </button>
+
+            <button
+              id="btn"
+              className="cancel"
+              type="submit"
+              onClick={() => restoreHashtagColor()}
             >
               Cancel
             </button>

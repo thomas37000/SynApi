@@ -1,64 +1,66 @@
-/* eslint-disable indent */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable prefer-template */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/Card.css';
 
 export default function CardTwitter({ post }) {
+  const [hashtagColor, setHashtagColor] = useState(
+    sessionStorage.getItem('hashtagColor')
+  );
+  const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
+  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [mentionColor, setMentionColor] = useState(
+    sessionStorage.getItem('MentionColor')
+  );
+
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
   };
 
-  const regex = /[@#]\w+/g;
+  const mention = /[@]\w+/g;
+  const hashtag = /[#]\w+/g;
+  const retweet = /(RT @)\w+:/g;
+  let originalUserName = post.user.name;
+  const contentApi = post.content;
+  const test = (`${txtColor}`, contentApi);
+  // const mentionSlice = contentApi.slice(2, contentApi.indexOf(':'));
+  // const mentionSplit = mentionSlice.toString().split(',');
 
-  function Hashtag(match) {
-    return match.replace(regex, (txt) => {
-      if (post.media_url && post.user.name === 'agencenous') {
-        return `<span class="txtSpanWithImgNous">${txt}</span>`;
-      }
-      if (post.media_url) {
-        return `<span class="txtSpanWithImg">${txt}</span>`;
-      }
-      if (post.user.name === 'agencenous') {
-        return `<span class="txtSpanNous">${txt}</span>`;
-      }
-      return `<span class="txtSpan">${txt}</span>`;
-    });
-  }
+  // console.log('slice', mentionSlice);
+  // console.log('split', mentionSplit);
 
-  const reTweet = /[@]\w+/g;
-
-  // eslint-disable-next-line no-unused-vars
-  function RT(match) {
-    return match.replace(reTweet, (txt) => {
-      if (post.content) {
-        return `<h3 className="reTweet">@ ${txt}</h3>`;
-      }
-      return `<h3 className="name">@ ${txt}</h3>`;
-    });
+  function highlight(match) {
+    return match
+      .replace(retweet, (txt) => {
+        originalUserName = txt;
+        return `<span class="txtRetweet">${txt}</span>`;
+      })
+      .replace(hashtag, (txt) => {
+        return `<span class="txtHashtag" style="color:${hashtagColor}">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtMention" style="color:${mentionColor}">${txt}</span>`;
+      });
   }
 
   return (
     <>
       <div
-        className={
-          post.media_url
-            ? ' cardWithImg'
-            : post.user.name === 'agencenous'
-            ? ' cardNous'
-            : post.media_url
-            ? ' cardWithImg'
-            : 'cardTr'
-        }
-        style={bgBefore}
+        className={post.media_url ? ' cardWithImg' : 'cardTr'}
+        style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
-            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: highlight(contentApi),
+              }}
+              style={{ color: txtColor }}
+            />
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
@@ -72,8 +74,13 @@ export default function CardTwitter({ post }) {
             src={post.user.avatar_url}
             alt={post.user.name}
           />
-          {/* <h3 className="name">@{post.user.name}</h3> */}
-          <div dangerouslySetInnerHTML={{ __html: RT(post.user.name) }} />
+          <h3 className="reTweet">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: originalUserName,
+              }}
+            />
+          </h3>
         </div>
         <div className="footerCard">
           <h3 className="hashtag">{post.user.name}</h3>

@@ -10,18 +10,40 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CirclePicker } from 'react-color';
+import { CirclePicker, CompactPicker, SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
 import ColorContext from '../Context/ColorContext';
 import BtnLoadTwitter from '../Buttons/ButtonTwitter';
 import BtnLoadFacebook from '../Buttons/ButtonFacebook';
 import BtnLoadInstagram from '../Buttons/ButtonInstagram';
+import BtnSubmit from '../Buttons/ButtonSubmit';
+import useLocalState from '../Context/LocalStrorage';
+import Settings from '../Profile/Settings';
 import './Card_css/CardProfile.css';
 
+// pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
+// https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
+
 export default function CardProfile({ post }) {
-  const [toggleColor, setToggleColor] = useContext(ColorContext);
-  const [spanColor, setSpanColor] = useState();
-  const [BgColor, setBgColor] = useState(post.BgColor);
+  const defaultColors = {
+    txt: sessionStorage.getItem('txtColor') || '#fff',
+    tr: '#1da1f2',
+    fb: '#4267b2',
+    im: '#e1306c',
+    bgNoImgTr: sessionStorage.getItem('bgColor') || '#1da1f2',
+    bgNoImgFb: '#4267b2',
+    rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
+    rxFb: '#4267b2',
+    rxIm: '#e1306c',
+    rxNoImg: '#000',
+    hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+  };
+
+  const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
+  const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
+  const [txtColor, setTxtColor] = useState(defaultColors.txt);
+  const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
+  const [jsonObj, setJsonObj] = useState({});
   const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
@@ -29,110 +51,136 @@ export default function CardProfile({ post }) {
     '--before': bg,
   };
 
-  const regex = /[@#]\w+/g;
+  const mention = /[@]\w+/g;
+  const hashtag = /[#]\w+/g;
+  const retweet = /(RT @)\w+:/g;
+  let originalUserName = post.user.name;
 
-  function Hashtag(match) {
-    return match.replace(regex, (txt) => {
-      if (post.media_url && post.user.name === 'agencenous') {
-        return `<span class="txtSpanWithImgNous">${txt}</span>`;
-      }
-      if (post.media_url) {
-        return `<span class="txtSpanWithImgInst">${txt}</span>`;
-      }
-      if (post.media_url) {
-        return `<span class="txtSpanWithImg">${txt}</span>`;
-      }
-      if (post.user.name === 'agencenous') {
-        return `<span class="txtSpanNous">${txt}</span>`;
-      }
-      return `<span class="txtSpan">${txt}</span>`;
-    });
+  function highlight(match) {
+    return match
+      .replace(retweet, (txt) => {
+        originalUserName = txt;
+        return `<span class="txtRetweet">${txt}</span>`;
+      })
+      .replace(hashtag, (txt) => {
+        return `<span class="txtHashtag" style="color:${hashtagColor}">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtMention" style="color:${mentionColor}">${txt}</span>`;
+      });
   }
 
   // restore color background / text / # or @ by default
-  const restoreSpanColor = () => {
-    setSpanColor(!spanColor);
+  const restorehashtagColor = () => {
+    setHashtagColor(!hashtagColor);
   };
 
   const restoreBg = () => {
-    setBgColor(!BgColor);
+    setBgColor(!bgColor);
   };
 
-  const SubmitBg = () => {
-    setBgColor(BgColor);
-    console.log('change BgColor', BgColor);
+  const restoreTxt = () => {
+    setTxtColor(!txtColor);
   };
 
-  const SubmitSpanColor = () => {
-    console.log('change SpanColor', spanColor);
+  const restoreMention = () => {
+    setMentionColor(!mentionColor);
   };
+
+  const submitColor = () => {
+    // setToggleColor(bgColor, mentionColor,hashtagColor, txtColor);
+
+    const jsonColor = JSON.stringify(jsonObj);
+    console.log('JSON', jsonColor);
+    // sessionStorage.setItem('text', txtColor);
+    // console.log(sessionStorage);
+
+    // https://github.com/axios/axios#request-config
+
+    const postApi = async (onSuccess, onError) => {
+      await axios
+        .post(`${API_URL}`, { params })
+        .then((res) => {
+          setItems(res.data);
+          console.log('getApi', res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    };
+  };
+
+  // https://github.com/axios/axios#request-config
+  // POST
+  // const headers = {
+  //   'Content-Type': 'application/json',
+  //   'Authorization': 'JWT fefege...'
+  // }
+
+  // axios.post
+  // (Helper.getUserAPI(), data, {
+  //     headers: headers
+  //   })
+  //   .then((response) => {
+  //     dispatch({
+  //       type: FOUND_USER,
+  //       data:
+  // response.data
+  // [0]
+  //     })
+  //   })
+  //   .catch((error) => {)
+  // const json = JSON.stringify({ answer: 42 });
+  // const res = await
+  // axios.post
+  // ('
+  // https://httpbin.org/post
+  // ', json);
+
+  useEffect(() => {
+    sessionStorage.setItem('BgColor', bgColor);
+    sessionStorage.setItem('MentionColor', mentionColor);
+    sessionStorage.setItem('hashtagColor',hashtagColor);
+    sessionStorage.setItem('TxtColor', txtColor);
+    // console.log(sessionStorage);
+    setJsonObj({
+      bgColor,
+      mentionColor,
+      hashtagColor,
+      txtColor,
+    });
+    // console.log('POST JSON STATE', setJsonObj);
+  }, [bgColor, mentionColor,hashtagColor, txtColor]);
 
   return (
     <>
       <div className="galerie">
         <div
-          className={
-            post.media_url
-              ? ' cardWithImg'
-              : post.user.name === 'agencenous'
-              ? ' cardNous'
-              : post.media_url
-              ? ' cardWithImg'
-              : 'cardTr'
-          }
-          style={post.media_url ? bgBefore : { backgroundColor: BgColor }}
+          className={post.media_url ? ' cardWithImg' : 'cardTr'}
+          style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
         >
           <div className="settings">
-            <div className="profileName">
-              <div className="userCard">
-                <img
-                  className="logoUser"
-                  src={post.user.avatar_url}
-                  alt={post.user.name}
-                />
-                <h3 className="userProfile">{post.user.name}</h3>
-              </div>
-            </div>
+            <Settings />
             <div className="colorSettings">
               <div className="form-group network">
-                <p>
-                  Change the colors of your{' '}
-                  <span className="spanTool">Network</span> :
-                </p>
                 <BtnLoadTwitter />
                 <BtnLoadFacebook />
                 <BtnLoadInstagram />
               </div>
-              <div className="form-group">
-                <p>
-                  Change the colors of the
-                  <span className="spanTool"> Background</span> Network :
-                  <p>
-                    <span className="spanTool2">
-                      ( Works only when there is no image background )
-                    </span>
-                  </p>
-                </p>
 
-                <CirclePicker
+              <div className="form-group">
+                <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
-                  onSubmit={(e) => SubmitBg(e)}
+                  onSubmit={(e) => submitBg(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="btnColor submit"
-                    type="submit"
-                    value={BgColor}
-                    onClick={() => SubmitBg(BgColor)}
-                  >
-                    Submit
-                  </button>
-
-                  <button
-                    id="btn"
-                    className="btnColor cancel"
+                    className="cancel"
                     type="submit"
                     onClick={() => restoreBg()}
                   >
@@ -140,54 +188,71 @@ export default function CardProfile({ post }) {
                   </button>
                 </div>
               </div>
-
               <div className="form-group">
-                <p>
-                  Change the colors of the
-                  <span className="spanTool spanHashtag"> #</span> and
-                  <span className="spanTool spanHashtag"> @</span> :
-                </p>
-                <CirclePicker
-                  color={spanColor}
-                  onChange={(color) => setSpanColor(color.hex)}
-                  onSubmit={(e) => SubmitSpanColor(e)}
+                <SketchPicker
+                  onChange={(color) => setTxtColor(color.hex)}
+                  onSubmit={(e) => submitBg(e)}
                   className="circlepicker"
                 />
                 <div className="btnSettings">
                   <button
                     id="btn"
-                    className="btnColor submit"
+                    className="cancel"
                     type="submit"
-                    value={spanColor}
-                    onClick={() => SubmitSpanColor(spanColor)}
+                    onClick={() => restoreTxt()}
                   >
-                    Submit
+                    Cancel
                   </button>
+                </div>
+              </div>
 
+              <div className="form-group">
+                <SketchPicker
+                  // color={mentionColor}
+                  onChange={(color) =>
+                    setHashtagColor(color.hex) || setMentionColor(color.hex)
+                  }
+                  onSubmit={(e) => submitColor(e)}
+                  className="circlepicker"
+                />
+                <div className="btnSettings">
                   <button
                     id="btn"
-                    className="btnColor cancel"
+                    className="cancel"
                     type="submit"
-                    onClick={() => restoreSpanColor()}
+                    onClick={() => {
+                      restorehashtagColor();
+                      restoreMention();
+                    }}
                   >
                     Cancel
                   </button>
                 </div>
               </div>
             </div>
+            <button
+              id="btn"
+              className="submit"
+              type="submit"
+              value={txtColor}
+              onClick={() => submitColor(txtColor)}
+            >
+              Submit
+            </button>
           </div>
-
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
               <div
-                dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }}
-                style={{ color: spanColor }}
+                dangerouslySetInnerHTML={{
+                  __html: highlight(post.content),
+                }}
+                style={{ color: txtColor }}
               />
             </div>
-          </div>
-          <div className="cardImg">
-            <div className={post.media_url ? 'getImg' : 'hideImg'}>
-              <img src={post.media_url} alt="" />
+            <div className="cardImg">
+              <div className={post.media_url ? 'getImg' : 'hideImg'}>
+                <img src={post.media_url} alt="" />
+              </div>
             </div>
           </div>
           <div className="userCard">
@@ -196,7 +261,13 @@ export default function CardProfile({ post }) {
               src={post.user.avatar_url}
               alt={post.user.name}
             />
-            <h3 className="name">@{post.user.name}</h3>
+            <h3 className="reTweet">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: originalUserName,
+                }}
+              />
+            </h3>
           </div>
           <div className="footerCard">
             <h3 className="hashtag">{post.user.name}</h3>

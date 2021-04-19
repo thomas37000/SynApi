@@ -9,31 +9,64 @@ import './Card_css/CardFacebook.css';
 import './Card_css/Card.css';
 
 export default function CardFb({ post }) {
+  const [hashtagColor, setHashtagColor] = useState(
+    sessionStorage.getItem('hashtagColor')
+  );
+  const [bgColor, setBgColor] = useState(sessionStorage.getItem('BgColor'));
+  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('TxtColor'));
+  const [mentionColor, setMentionColor] = useState(
+    sessionStorage.getItem('MentionColor')
+  );
+
   const bg = `url(${post.media_url})`;
   const bgBefore = {
     '--before': bg,
   };
 
   const bgFacebook = post.media_url;
-  const regex = /[@#]\w+/g;
+  // const regex = /[@#]\w+/g;
 
-  function Hashtag(match) {
-    return match.replace(regex, (txt) => {
-      return post.media_url
-        ? `<span class="txtSpanWithImgFb">${txt}</span>`
-        : `<span class="txtSpan">${txt}</span>`;
-    });
+  // function Hashtag(match) {
+  //   return match.replace(regex, (txt) => {
+  //     return post.media_url
+  //       ? `<span class="txtSpanWithImgFb">${txt}</span>`
+  //       : `<span class="txtSpan">${txt}</span>`;
+  //   });
+  // }
+
+  const mention = /[@]\w+/g;
+  const hashtag = /[#]\w+/g;
+  const retweet = /(RT @)\w+:/g;
+
+  function highlight(match) {
+    return match
+      .replace(retweet, (txt) => {
+        return `<span class="txtRetweet">${txt}</span>`;
+      })
+      .replace(hashtag, (txt) => {
+        return `<span class="txtSpanWithImgFb" style="color:${hashtagColor}">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtSpan" style="color:${mentionColor}">${txt}</span>`;
+      });
   }
 
   return (
     <>
       <div
+        // context vérifie quelle class retournée
+        // créér une foction getCardClass qui retournera donc la bonne class
+        // en fonction du network
+        // className={post.media_url ? 'cardWithImg' : getCardClass('fb')}
         className={post.media_url ? 'cardWithImg' : 'cardFb'}
-        style={bgBefore}
+        style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
-            <div dangerouslySetInnerHTML={{ __html: Hashtag(post.content) }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: highlight(post.content) }}
+              style={{ color: txtColor }}
+            />
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
