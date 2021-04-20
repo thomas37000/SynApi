@@ -36,21 +36,20 @@ export default function CardProfile({ post }) {
     rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
     rxFb: '#4267b2',
     rxIm: '#e1306c',
-    rxNoImg: '#000',
+    rxNoImg: sessionStorage.getItem('mentionColor') || '#000',
     hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
-    fontFamily: sessionStorage.getItem('fontFamily') || 'Arial',
   };
 
-  // const defaultTypo =  {
-  //   typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
-  // };
+  const defaultTypo =  {
+    typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
+  };
 
   const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
   const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
   const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
   const [activeFontFamily, setActiveFontFamily] = useState(
-    defaultColors.fontFamily
+    defaultTypo.fontFamily
   );
   const [jsonObj, setJsonObj] = useState({});
   const [networks, setNetworks] = useState([]);
@@ -96,9 +95,9 @@ export default function CardProfile({ post }) {
     setMentionColor(!mentionColor);
   };
 
-  const restoreFontFamily = () => {
-    setActiveFontFamily(!activeFontFamily);
-  };
+  // const restoreFontFamily = () => {
+  //   setActiveFontFamily(!activeFontFamily);
+  // };
 
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
@@ -189,7 +188,7 @@ export default function CardProfile({ post }) {
                   className="typo"
                 />
 
-                <div className="btnSettings">
+                {/* <div className="btnSettings">
                   <button
                     id="btn"
                     className="cancel"
@@ -198,7 +197,7 @@ export default function CardProfile({ post }) {
                   >
                     Cancel
                   </button>
-                </div>
+                </div> */}
               </div>
 
               <div className="form-group">

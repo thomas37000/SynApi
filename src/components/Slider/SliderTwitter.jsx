@@ -8,7 +8,8 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import CardTwitter from '../Cards/CardTwitter';
+// import CardTwitter from '../Cards/CardTwitter';
+import Card from '../Cards/Card';
 
 const SliderTwitter = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -69,7 +70,13 @@ const SliderTwitter = () => {
         key={post.pub_id}
         post={post}
       >
-        <CardTwitter
+        {/* <CardTwitter
+          {...post}
+          key={post.pub_id}
+          post={post}
+          session={post.session_id}
+        /> */}
+        <Card
           {...post}
           key={post.pub_id}
           post={post}

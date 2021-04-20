@@ -1,9 +1,13 @@
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './Card_css/CardFacebook.css';
+import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 
 export default function CardTwitter({ post }) {
@@ -26,12 +30,8 @@ export default function CardTwitter({ post }) {
   const retweet = /(RT @)\w+:/g;
   let originalUserName = post.user.name;
   const contentApi = post.content;
-  const test = (`${txtColor}`, contentApi);
-  // const mentionSlice = contentApi.slice(2, contentApi.indexOf(':'));
-  // const mentionSplit = mentionSlice.toString().split(',');
-
-  // console.log('slice', mentionSlice);
-  // console.log('split', mentionSplit);
+  const media = post.media_url;
+  const netWork = post.network;
 
   function highlight(match) {
     return match
@@ -47,29 +47,51 @@ export default function CardTwitter({ post }) {
       });
   }
 
-  // const isLoggedIn = this.state.isLoggedIn;
-  // return (
-  //   <div>
-  //     {isLoggedIn ? (
-  //       <LogoutButton onClick={this.handleLogoutClick} />
-  //     ) : (
-  //       <LoginButton onClick={this.handleLoginClick} />
-  //     )}
-  //   </div>
-  // );
+  function highlightFacebook(match) {
+    return match.replace(hashtag, (txt) => {
+      return `<span class="txtSpanWithImgFb" style="color:${hashtagColor}">${txt}</span>`;
+    });
+  }
+
+  function highlightInstagram(match) {
+    return match
+      .replace(hashtag, (txt) => {
+        return `<span class="txtSpanWithImgInst" style="color:${hashtagColor}">${txt}</span>`;
+      })
+      .replace(mention, (txt) => {
+        return `<span class="txtSpanWithImgInst" style="color:${mentionColor}">${txt}</span>`;
+      });
+  }
 
   return (
     <>
       <div
-        className={post.media_url ? ' cardWithImg' : 'cardTr'}
-        style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
+        className={
+          media
+            ? 'cardWithImg'
+            : netWork === 'facebook'
+            ? 'cardFb'
+            : netWork === 'instagram'
+            ? 'cardInsta'
+            : media
+            ? 'cardWithImg'
+            : 'cardTr'
+        }
+        style={media ? bgBefore : { backgroundColor: bgColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
             <p className="apply-font">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: highlight(contentApi),
+                  __html:
+                    netWork === 'twitter'
+                      ? highlight(contentApi)
+                      : netWork === 'facebook'
+                      ? highlightFacebook(contentApi)
+                      : netWork === 'instagram'
+                      ? highlightInstagram(contentApi)
+                      : null,
                 }}
                 style={{ color: txtColor }}
               />
@@ -87,6 +109,7 @@ export default function CardTwitter({ post }) {
             src={post.user.avatar_url}
             alt={post.user.name}
           />
+
           <h3 className="reTweet">
             <div
               dangerouslySetInnerHTML={{

@@ -8,7 +8,8 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import CardInstagram from '../Cards/CardInstagram';
+// import CardInstagram from '../Cards/CardInstagram';
+import Card from '../Cards/Card';
 
 const SliderInstagram = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -69,7 +70,13 @@ const SliderInstagram = () => {
         key={post.pub_id}
         post={post}
       >
-        <CardInstagram
+        {/* <CardInstagram
+          {...post}
+          key={post.pub_id}
+          post={post}
+          session={post.session_id}
+        /> */}
+        <Card
           {...post}
           key={post.pub_id}
           post={post}

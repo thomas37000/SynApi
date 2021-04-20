@@ -8,7 +8,8 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
-import CardFb from '../Cards/CardFacebook';
+// import CardFb from '../Cards/CardFacebook';
+import Card from '../Cards/Card';
 
 require('dotenv').config();
 
@@ -71,7 +72,14 @@ const SliderFacebook = () => {
         key={post.pub_id}
         post={post}
       >
-        <CardFb
+        {/* <CardFb
+          {...post}
+          key={post.pub_id}
+          post={post}
+          session={post.session_id}
+        /> */}
+
+        <Card
           {...post}
           key={post.pub_id}
           post={post}

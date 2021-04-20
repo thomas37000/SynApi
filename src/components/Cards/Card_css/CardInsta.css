@@ -12,6 +12,11 @@
   left: 0;
 }
 
+.cardInsta {
+  width: 100vw;
+  height: 100vh;
+} 
+
 .txtSpanWithImgInst {
   color: var(--rxIm);
   font-weight: bold;
