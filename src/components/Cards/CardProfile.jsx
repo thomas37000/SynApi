@@ -10,7 +10,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CirclePicker, CompactPicker, SketchPicker } from 'react-color';
+import { SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
 import FontPicker from 'font-picker-react';
 import ColorContext from '../Context/ColorContext';
@@ -96,6 +96,10 @@ export default function CardProfile({ post }) {
     setMentionColor(!mentionColor);
   };
 
+  const restoreFontFamily = () => {
+    setActiveFontFamily(!activeFontFamily);
+  };
+
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
     console.log('JSON', jsonColor);
@@ -177,21 +181,31 @@ export default function CardProfile({ post }) {
                 <BtnLoadInstagram />
               </div> */}
 
-              <FontPicker
-                apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
-                activeFontFamily={activeFontFamily}
-                onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
-                // onChange={() => setActiveFontFamily(activeFontFamily)}
+              <div className="form-group">
+                <FontPicker
+                  apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
+                  activeFontFamily={activeFontFamily}
+                  onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
+                  className="typo"
+                />
 
-                // onSubmit={(e) => submitColor(e)}
-                className="typo"
-              />
+                <div className="btnSettings">
+                  <button
+                    id="btn"
+                    className="cancel"
+                    type="submit"
+                    onClick={() => restoreFontFamily()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
 
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
                   // onSubmit={(e) => submitColor(e)}
-                  className="circlepicker"
+                  className="sketchPicker"
                 />
                 <div className="btnSettings">
                   <button
@@ -208,7 +222,6 @@ export default function CardProfile({ post }) {
                 <SketchPicker
                   onChange={(color) => setTxtColor(color.hex)}
                   // onSubmit={(e) => submitColor(e)}
-                  className="circlepicker"
                 />
                 <div className="btnSettings">
                   <button
@@ -229,7 +242,7 @@ export default function CardProfile({ post }) {
                     setHashtagColor(color.hex) || setMentionColor(color.hex)
                   }
                   // onSubmit={(e) => submitColor(e)}
-                  className="circlepicker"
+                  className="sketchPicker"
                 />
                 <div className="btnSettings">
                   <button
