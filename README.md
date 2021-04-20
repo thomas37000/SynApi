@@ -6,19 +6,19 @@
   ### par convention le nom des variables commence en camelCase
   #### soit la première lettre en minuscule.
 
-  | nom variable | network | css | 
-  | txt | texte | #fff |
-  | fb | facebook | #e1306c |
-  | fbHashtagColor | facebook | #e1306c |
-  | fbMentionColor | facebook | #e1306c |
-  | fbBackgroundNoImg| twitter | #e1306c |
-  | im | instagram | #4267b2 |
-  | imHashtagColor | instagram | #4267b2 |
-  | imMentionColor | instagram | #4267b2 |
-  | tr | twitter | #1da1f2 |
-  | trHashtagColor | twitter | #1da1f2 |
-  | trMentionColor | twitter | #1da1f2 |
-  | trBackgroundNoImg| twitter | #1da1f2 |
+  | nom variable | network | css ||----------|:-------------:|------:|
+  | txt | texte | #fff ||----------|:-------------:|------:|
+  | fb | facebook | #e1306c ||----------|:-------------:|------:|
+  | fbHashtagColor | facebook | #e1306c ||----------|:-------------:|------:|
+  | fbMentionColor | facebook | #e1306c ||----------|:-------------:|------:|
+  | fbBackgroundNoImg| twitter | #e1306c ||----------|:-------------:|------:|
+  | im | instagram | #4267b2 ||----------|:-------------:|------:|
+  | imHashtagColor | instagram | #4267b2 ||----------|:-------------:|------:|
+  | imMentionColor | instagram | #4267b2 ||----------|:-------------:|------:|
+  | tr | twitter | #1da1f2 ||----------|:-------------:|------:|
+  | trHashtagColor | twitter | #1da1f2 ||----------|:-------------:|------:|
+  | trMentionColor | twitter | #1da1f2 ||----------|:-------------:|------:|
+  | trBackgroundNoImg| twitter | #1da1f2 ||----------|:-------------:|------:|
 
   ## noms des states
  ### bgColor
