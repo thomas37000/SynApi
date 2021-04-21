@@ -1,3 +1,7 @@
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -10,7 +14,7 @@ import {
 } from 'reactstrap';
 import Card from '../Cards/Card';
 
-const SliderTwitter = () => {
+const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [items, setItems] = useState([]);
@@ -22,23 +26,49 @@ const SliderTwitter = () => {
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
+  // const load = ['facebook', 'instagram', 'twitter'];
+
   const params = {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
-    network: 'twitter',
-    per_page: 10,
+    network: 'facebook' && 'instagram' && 'twitter',
+    // network: load,
+    per_page: 15,
   };
 
   const getApi = async (onSuccess, onError) => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
         setItems(res.data);
-        console.log('twitter', res.data);
+        console.log('network', res.data);
       },
       (error) => onError(error)
     );
   };
+
+  // const getApiByNetwork = async (network, onSuccess, onError) => {
+  //   await axios.get(`${API_URL}`, { network }).then(
+  //     (res) => {
+  //       onSuccess(res.data.network);
+  //     },
+  //     (error) => onError(error)
+  //   );
+  // };
+
+  const allNetworks = params.network;
+
+  function loadNetworks() {
+    if (allNetworks === 'facebook') {
+      getApi();
+    }
+    if (allNetworks === 'instagram') {
+      getApi();
+    }
+    if (allNetworks === 'twitter') {
+      getApi();
+    }
+  }
 
   useEffect(() => {
     getApi();
@@ -73,6 +103,15 @@ const SliderTwitter = () => {
           {...post}
           key={post.pub_id}
           post={post}
+          // network={
+          //   allNetworks === 'twitter'
+          //     ? getApi()
+          //     : allNetworks === 'facebook'
+          //     ? getApi()
+          //     : allNetworks === 'instagram'
+          //     ? getApi()
+          //     : null
+          // }
           session={post.session_id}
         />
         <CarouselCaption
@@ -105,4 +144,4 @@ const SliderTwitter = () => {
   );
 };
 
-export default SliderTwitter;
+export default Slider;

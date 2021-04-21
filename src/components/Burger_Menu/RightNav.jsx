@@ -76,13 +76,13 @@ const RightNav = ({ open }) => {
         <Link to="/profile">Profile</Link>
       </li>
       <li className="twitter">
-        <Link to="/twitter">Twitter</Link>
+        <Link to="/network/twitter">Twitter</Link>
       </li>
       <li className="facebook">
-        <Link to="/facebook">Facebook</Link>
+        <Link to="/network/facebook">Facebook</Link>
       </li>
       <li className="instagram">
-        <Link to="/instagram">Instagram</Link>
+        <Link to="/network/instagram">Instagram</Link>
       </li>
     </Slideburger>
   );
