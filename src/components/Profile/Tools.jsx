@@ -17,9 +17,6 @@ export default function Tools() {
   const [bgColor, setBgColor] = useState();
   const [txtColor, setTxtColor] = useState();
   const [mentionColor, setMentionColor] = useState();
-  const [networks, setNetworks] = useState([]);
-
-  const changeColor = document.getElementById('btn');
 
   // restore color background / text / # or @ by default
   const restoreHashtagColor = () => {
@@ -48,7 +45,7 @@ export default function Tools() {
   return (
     <div className="settings">
       <div className="colorSettings">
-        <div className="form-group network">
+        {/* <div className="form-group network">
           <p className="instructions">
             Change the colors of your <span className="spanTool">Network</span>{' '}
             :
@@ -56,7 +53,7 @@ export default function Tools() {
           <BtnLoadTwitter />
           <BtnLoadFacebook />
           <BtnLoadInstagram />
-        </div>
+        </div> */}
         <div className="form-group">
           <p className="instructions">
             Change the colors of the

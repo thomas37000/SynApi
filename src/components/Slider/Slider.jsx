@@ -32,7 +32,7 @@ const Slider = () => {
     t: `${REACT_APP_API_INSTAA}`,
     object: 'post',
     network: '',
-    per_page: 50,
+    per_page: 35,
   };
 
   const getApi = async (onSuccess, onError) => {

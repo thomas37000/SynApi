@@ -29,13 +29,11 @@ export default function CardProfile({ post }) {
   const defaultColors = {
     txt: sessionStorage.getItem('txtColor') || '#fff',
     tr: '#1da1f2',
-    fb: '#4267b2',
+    fk: '#4267b2',
     im: '#e1306c',
     bgNoImgTr: sessionStorage.getItem('bgColor') || '#1da1f2',
-    bgNoImgFb: '#4267b2',
+    bgNoImgFk: '#4267b2',
     rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
-    rxFb: '#4267b2',
-    rxIm: '#e1306c',
     rxNoImg: sessionStorage.getItem('mentionColor') || '#000',
     hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
   };
@@ -52,7 +50,6 @@ export default function CardProfile({ post }) {
     defaultTypo.fontFamily
   );
   const [jsonObj, setJsonObj] = useState({});
-  const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {

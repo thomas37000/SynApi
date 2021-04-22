@@ -7,23 +7,26 @@
 }
 
 /* bg === background-color
- * Rx === Regex  
- * Tr === Twitter  
- * Im === Instagram
- * Fb === Facebook
+ * rx === Regex  
+ * tr === Twitter  
+ * im === Instagram
+ * fk === Facebook
 */
 
 :root {
-  --tr: #1da1f2;
-  --fb: #4267b2;
-  --im: #e1306c;
-  --bgNoImgTr: #1da1f2;
-  --bgNoImgFb: #4267b2;
-  --rxTr: #1da1f2;
-  --rxFb: #4267b2;
-  --rxIm: #e1306c;
+  --txt: #fff;
   --rxNoImg: #000;
-  --hashtagColor: #1da1f2;
+  --fk: #4267b2;
+  --fkHashtagColor: #4267b2;
+  --fkMentionColor: #4267b2;
+  --fkBackgroundNoImg: #4267b2;
+  --im: #e1306c;
+  --imHashtagColor: #e1306c;
+  --imMentionColor: #e1306c;
+  --tr: #1da1f2;
+  --trHashtagColor: #1da1f2;
+  --trMentionColor: #1da1f2;
+  --trBackgroundNoImg: #1da1f2;
 }
 
 

@@ -1,4 +1,4 @@
-.cardWithImgINSTA::before {
+/* .cardWithImgINSTA::before {
   content: '';
   width: 100vw;
   height: 100vh;
@@ -10,7 +10,7 @@
   position: fixed;
   top: 0;
   left: 0;
-}
+} */
 
 .cardInsta {
   width: 100vw;
@@ -18,7 +18,7 @@
 } 
 
 .txtSpanWithImgInst {
-  color: var(--rxIm);
+  color: var(--im);
   font-weight: bold;
 }
 

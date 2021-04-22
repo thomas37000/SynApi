@@ -10,15 +10,11 @@ import './Card_css/CardFacebook.css';
 import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 
-export default function CardTwitter({ post }) {
-  const [hashtagColor, setHashtagColor] = useState(
-    sessionStorage.getItem('hashtagColor')
-  );
-  const [bgColor, setBgColor] = useState(sessionStorage.getItem('bgColor'));
-  const [txtColor, setTxtColor] = useState(sessionStorage.getItem('txtColor'));
-  const [mentionColor, setMentionColor] = useState(
-    sessionStorage.getItem('mentionColor')
-  );
+export default function Card({ post }) {
+  const [hashtagColor] = useState(sessionStorage.getItem('hashtagColor'));
+  const [bgColor] = useState(sessionStorage.getItem('bgColor'));
+  const [txtColor] = useState(sessionStorage.getItem('txtColor'));
+  const [mentionColor] = useState(sessionStorage.getItem('mentionColor'));
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -49,7 +45,7 @@ export default function CardTwitter({ post }) {
 
   function highlightFacebook(match) {
     return match.replace(hashtag, (txt) => {
-      return `<span class="txtSpanWithImgFb" style="color:${hashtagColor}">${txt}</span>`;
+      return `<span class="txtSpanWithImgFk" style="color:${hashtagColor}">${txt}</span>`;
     });
   }
 
@@ -70,7 +66,7 @@ export default function CardTwitter({ post }) {
           media
             ? 'cardWithImg'
             : netWork === 'facebook'
-            ? 'cardFb'
+            ? 'cardFk'
             : netWork === 'instagram'
             ? 'cardInsta'
             : media
@@ -131,7 +127,7 @@ export default function CardTwitter({ post }) {
   );
 }
 
-CardTwitter.propTypes = {
+Card.propTypes = {
   post: PropTypes.shape({
     avatar_url: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,

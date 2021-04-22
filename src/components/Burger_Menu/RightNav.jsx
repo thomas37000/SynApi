@@ -26,19 +26,7 @@ const Slideburger = styled.ul`
   li:hover {
     background: #ffcc00;
   }
-
-  .twitter:hover {
-    background-color: var(--tr);
-  }
-
-  .facebook:hover {
-    background-color: var(--fb);
-  }
-
-  .instagram:hover {
-    background-color: var(--im);
-  }
-
+  
   .logoBurger {
     display: none;
   }
@@ -52,7 +40,7 @@ const Slideburger = styled.ul`
     right: 0;
     height: auto;
     width: 80%;
-    padding-top: 5.5rem;
+    padding-top: 3.5rem;
     text-align: center;
     }
     .logoBurger {

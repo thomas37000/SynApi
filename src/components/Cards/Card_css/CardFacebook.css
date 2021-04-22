@@ -1,15 +1,15 @@
-.cardFb {
+.cardFk {
   width: 100vw;
   height: 100vh;
-  background: var(--bgNoImgFb);
+  background: var(--fkBackgroundNoImg);
 } 
 
-.txtSpanWithImgFb {
-  color: var(--rxFb);
+.txtSpanWithImgFk {
+  color: var(--fk);
   font-weight: bold;
 }
 
-.getImgFb {
+.getImgFk {
   display: flex;
   width: 450px;
   height: 550px;

@@ -20,7 +20,7 @@ const Profile = (hashtagColor) => {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
-    network: 'facebook' && 'instagram' && 'twitter',
+    network: '',
     per_page: 1,
   };
 
