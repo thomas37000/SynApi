@@ -21,20 +21,18 @@ const Slider = () => {
 
   const {
     REACT_APP_API_URL,
-    REACT_APP_API_USER,
-    REACT_APP_API_TOKEN,
+    REACT_APP_API_INSTA,
+    REACT_APP_API_INSTAA,
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
-  // const load = ['facebook', 'instagram', 'twitter'];
 
   const params = {
-    s: `${REACT_APP_API_USER}`,
-    t: `${REACT_APP_API_TOKEN}`,
+    s: `${REACT_APP_API_INSTA}`,
+    t: `${REACT_APP_API_INSTAA}`,
     object: 'post',
-    network: 'facebook' && 'instagram' && 'twitter',
-    // network: load,
-    per_page: 15,
+    network: '',
+    per_page: 50,
   };
 
   const getApi = async (onSuccess, onError) => {
@@ -46,29 +44,6 @@ const Slider = () => {
       (error) => onError(error)
     );
   };
-
-  // const getApiByNetwork = async (network, onSuccess, onError) => {
-  //   await axios.get(`${API_URL}`, { network }).then(
-  //     (res) => {
-  //       onSuccess(res.data.network);
-  //     },
-  //     (error) => onError(error)
-  //   );
-  // };
-
-  const allNetworks = params.network;
-
-  function loadNetworks() {
-    if (allNetworks === 'facebook') {
-      getApi();
-    }
-    if (allNetworks === 'instagram') {
-      getApi();
-    }
-    if (allNetworks === 'twitter') {
-      getApi();
-    }
-  }
 
   useEffect(() => {
     getApi();
@@ -103,15 +78,6 @@ const Slider = () => {
           {...post}
           key={post.pub_id}
           post={post}
-          // network={
-          //   allNetworks === 'twitter'
-          //     ? getApi()
-          //     : allNetworks === 'facebook'
-          //     ? getApi()
-          //     : allNetworks === 'instagram'
-          //     ? getApi()
-          //     : null
-          // }
           session={post.session_id}
         />
         <CarouselCaption

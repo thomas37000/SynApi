@@ -69,20 +69,11 @@ const Slideburger = styled.ul`
 const RightNav = ({ open }) => {
   return (
     <Slideburger open={open}>
-      {/* <li>
-        <Link to="/">Accueil</Link>
-      </li> */}
       <li>
         <Link to="/profile">Profile</Link>
       </li>
-      <li className="twitter">
-        <Link to="/network/twitter">Twitter</Link>
-      </li>
-      <li className="facebook">
-        <Link to="/network/facebook">Facebook</Link>
-      </li>
       <li className="instagram">
-        <Link to="/network/instagram">Instagram</Link>
+        <Link to="/networks/">Networks</Link>
       </li>
     </Slideburger>
   );
