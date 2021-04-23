@@ -9,46 +9,41 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
 import FontPicker from 'font-picker-react';
 import ColorContext from '../Context/ColorContext';
-import BtnLoadTwitter from '../Buttons/ButtonTwitter';
-import BtnLoadFacebook from '../Buttons/ButtonFacebook';
-import BtnLoadInstagram from '../Buttons/ButtonInstagram';
-import BtnSubmit from '../Buttons/ButtonSubmit';
-import useLocalState from '../Context/LocalStrorage';
 import Settings from '../Profile/Settings';
 import './Card_css/CardProfile.css';
-
-// pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
-// https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
 
 export default function CardProfile({ post }) {
   const defaultColors = {
     txt: sessionStorage.getItem('txtColor') || '#fff',
-    tr: '#1da1f2',
-    fk: '#4267b2',
-    im: '#e1306c',
-    bgNoImgTr: sessionStorage.getItem('bgColor') || '#1da1f2',
-    bgNoImgFk: '#4267b2',
-    rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
     rxNoImg: sessionStorage.getItem('mentionColor') || '#000',
-    hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+    im: sessionStorage.getItem('mentionColor') || '#e1306c',
+    fk: sessionStorage.getItem('mentionColor') || '#4267b2',
+    fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
+    fkRegexColor: sessionStorage.getItem('hashtagColor') || '#4267b2',
+    tr: sessionStorage.getItem('mentionColor') || '#1da1f2',
+    trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
+    trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
   };
 
-  const defaultTypo =  {
+  const defaultTypo = {
     typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
   };
 
-  const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
-  const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
-  const [txtColor, setTxtColor] = useState(defaultColors.txt);
-  const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
-  const [activeFontFamily, setActiveFontFamily] = useState(
-    defaultTypo.fontFamily
+  const [hashtagColor, setHashtagColor] = useState(
+    defaultColors.fkRegexColor ||
+      defaultColors.imRegexColor ||
+      defaultColors.trRegexColor
   );
+  const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
+  const [txtColor, setTxtColor] = useState(defaultColors.txt);
+  const [mentionColor, setMentionColor] = useState(
+    defaultColors.fk || defaultColors.im || defaultColors.tr
+  );
+  const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
   const [jsonObj, setJsonObj] = useState({});
 
   const bg = `url(${post.media_url})`;
@@ -200,7 +195,6 @@ export default function CardProfile({ post }) {
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
-                  // onSubmit={(e) => submitColor(e)}
                   className="sketchPicker"
                 />
                 <div className="btnSettings">
@@ -215,10 +209,7 @@ export default function CardProfile({ post }) {
                 </div>
               </div>
               <div className="form-group">
-                <SketchPicker
-                  onChange={(color) => setTxtColor(color.hex)}
-                  // onSubmit={(e) => submitColor(e)}
-                />
+                <SketchPicker onChange={(color) => setTxtColor(color.hex)} />
                 <div className="btnSettings">
                   <button
                     id="btn"
@@ -233,11 +224,9 @@ export default function CardProfile({ post }) {
 
               <div className="form-group">
                 <SketchPicker
-                  // color={mentionColor}
                   onChange={(color) =>
                     setHashtagColor(color.hex) || setMentionColor(color.hex)
                   }
-                  // onSubmit={(e) => submitColor(e)}
                   className="sketchPicker"
                 />
                 <div className="btnSettings">

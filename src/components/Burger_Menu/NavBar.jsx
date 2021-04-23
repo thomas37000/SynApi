@@ -31,7 +31,7 @@ const Nav = styled.nav`
 const Navbar = () => {
   return (
     <Nav>
-      <Link to="/networks/">
+      <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
       <Burger />

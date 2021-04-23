@@ -1,0 +1,73 @@
+.connexion::before {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/src/components/images/syn.png');
+  background-size: cover;
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+h1 {
+  font-size: 3rem !important;
+  font-weight: 600 !important;
+  background-color: var(--im);
+  color: var(--txt);
+  padding: 1rem;
+  text-shadow: rgba(0,0,0,0.5) 0 3px 6px;
+}
+
+h2 {
+  color: var(--txt);
+  background-color: var(--fk);
+  padding: 1rem;
+  margin-top: -1rem !important;
+}
+
+h3 {  
+  background-color: var(--tr);
+  padding: 0.5rem;
+  margin-top: -1rem !important;
+}
+
+/* span:nth-child(1){
+  color: var(--fk);
+}
+span:nth-child(2){
+  color: var(--im);
+}
+span:nth-child(3){
+  color: var(--tr);
+} */
+
+form {
+  width: 500px;
+  margin: 0 25rem;
+}
+
+.inputConnexion {
+  margin:0 1rem;
+}
+
+.btnConnexion {
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: #000;
+  border: none;
+  height: 40px;
+}
+
+.btnConnexion:hover {
+  
+  background-color: #000;
+  color: var(--txt);
+}
+
+
+@media screen and (max-width: 768px) {
+  .connexion::before {
+    background-size: contain;
+  }
+}

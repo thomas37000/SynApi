@@ -5,45 +5,45 @@ import '../Cards/Card_css/CardProfile.css';
 const Settings = () => {
   return (
     <div className="settingsCategory">
-      <p className="instructions">
+      <div className="instructions">
         Change the
         <span className="spanTool">Typography</span>
-      </p>
-      {/* <p className="instructions">
+      </div>
+      {/* <div className="instructions">
         Change the colors
-        <p>
+        <div>
           of your <span className="spanTool">Network</span> :
-        </p>
-      </p> */}
-      <p className="instructions">
+        </div>
+      </div> */}
+      <div className="instructions">
         Change the colors
-        <p>
+        <div>
           of the <span className="spanTool"> Background</span> Network :
-        </p>
-        <p>
+        </div>
+        <div>
           <span className="spanTool2">
             (Works only when there is no image background)
           </span>
-        </p>
-      </p>
+        </div>
+      </div>
 
-      <p className="instructions">
+      <div className="instructions">
         Change the colors{' '}
-        <p>
+        <div>
           of the <span className="spanTool"> Text</span> :
-        </p>
-      </p>
+        </div>
+      </div>
 
-      <p className="instructions">
+      <div className="instructions">
         Change the colors
-        <p>
+        <div>
           {' '}
           of the
           <span className="spanTool"> # </span>
           and
           <span className="spanTool"> @ </span> :
-        </p>
-      </p>
+        </div>
+      </div>
     </div>
   );
 };
