@@ -141,7 +141,7 @@ export default function CardProfile({ post }) {
   // ', json);
 
   useEffect(() => {
-    sessionStorage.setItem('backgroundColor', bgColor);
+    sessionStorage.setItem('bgColor', bgColor);
     sessionStorage.setItem('mentionColor', mentionColor);
     sessionStorage.setItem('hashtagColor', hashtagColor);
     sessionStorage.setItem('txtColor', txtColor);
@@ -163,96 +163,6 @@ export default function CardProfile({ post }) {
           className={post.media_url ? ' cardWithImg' : 'cardTr'}
           style={post.media_url ? bgBefore : { backgroundColor: bgColor }}
         >
-          <div className="settings">
-            <Settings />
-            <div className="colorSettings">
-              {/* <div className="form-group network">
-                <BtnLoadTwitter />
-                <BtnLoadFacebook />
-                <BtnLoadInstagram />
-              </div> */}
-
-              <div className="form-group">
-                <FontPicker
-                  apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
-                  activeFontFamily={activeFontFamily}
-                  onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
-                  className="typo"
-                />
-
-                {/* <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreFontFamily()}
-                  >
-                    Cancel
-                  </button>
-                </div> */}
-              </div>
-
-              <div className="form-group">
-                <SketchPicker
-                  onChange={(color) => setBgColor(color.hex)}
-                  className="sketchPicker"
-                />
-                <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreBg()}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-              <div className="form-group">
-                <SketchPicker onChange={(color) => setTxtColor(color.hex)} />
-                <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreTxt()}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <SketchPicker
-                  onChange={(color) =>
-                    setHashtagColor(color.hex) || setMentionColor(color.hex)
-                  }
-                  className="sketchPicker"
-                />
-                <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => {
-                      restorehashtagColor();
-                      restoreMention();
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-            <button
-              id="btn"
-              className="submit"
-              type="submit"
-              onClick={() => submitColor()}
-            >
-              Submit
-            </button>
-          </div>
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
               <p className="apply-font">
