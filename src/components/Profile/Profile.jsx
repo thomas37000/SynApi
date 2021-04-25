@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CardProfile from '../Cards/CardProfile';
-import Tools from './Tools';
+// import Tools from './Tools';
 
 const Profile = (hashtagColor) => {
   const [items, setItems] = useState([]);
@@ -45,7 +45,7 @@ const Profile = (hashtagColor) => {
   return (
     <>
       <div>
-        <Tools />
+        {/* <Tools /> */}
         {items.map((post) => (
           <CardProfile
             color={hashtagColor}
