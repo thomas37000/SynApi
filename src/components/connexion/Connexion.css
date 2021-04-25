@@ -10,7 +10,7 @@
   left: 0;
 }
 
-h1 {
+.h1Connexion {
   font-size: 3rem !important;
   font-weight: 600 !important;
   background-color: var(--im);
@@ -19,14 +19,14 @@ h1 {
   text-shadow: rgba(0,0,0,0.5) 0 3px 6px;
 }
 
-h2 {
+.h2Connexion {
   color: var(--txt);
   background-color: var(--fk);
   padding: 1rem;
   margin-top: -1rem !important;
 }
 
-h3 {  
+.h3Connexion {  
   background-color: var(--tr);
   padding: 0.5rem;
   margin-top: -1rem !important;
@@ -41,11 +41,6 @@ span:nth-child(2){
 span:nth-child(3){
   color: var(--tr);
 } */
-
-form {
-  width: 500px;
-  margin: 0 25rem;
-}
 
 .inputConnexion {
   margin:0 1rem;

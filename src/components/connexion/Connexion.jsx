@@ -1,17 +1,24 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import './Connexion.css';
 
 const Connexion = () => {
   const [hover, setHover] = useState();
+  // function linkToSliders() {
+  //   return
+  // }
+
   return (
     <div className="connexion">
-      <div className="main">
-        <h1>Slide Your Net</h1>
-        <h2>The Application to recover your favorite Networks post</h2>
-        <h3>
+      <div className="acceuil">
+        <h1 className="h1Connexion">Slide Your Net</h1>
+        <h2 className="h2Connexion">
+          The Application to recover your favorite Networks post
+        </h2>
+        <h3 className="h3Connexion">
           from <span>Facebook</span> - <span>Instagram</span> -
           <span>Twitter</span>
         </h3>
@@ -23,21 +30,23 @@ const Connexion = () => {
               className="inputConnexion"
               type="text"
               id="inputIdentifiant"
-              name="inputEmail"
+              name="inputMail"
               placeholder="John Doe"
               required
               // value=""
               // onChange={() => {}}
             />
           </label>
-          <button
-            id="btn"
-            className="btnConnexion"
-            type="submit"
-            onClick={() => {}}
-          >
-            Connexion
-          </button>
+          <Link to="/networks">
+            <button
+              id="btn"
+              className="btnConnexion"
+              type="submit"
+              onClick={() => {}}
+            >
+              Connexion
+            </button>
+          </Link>
         </form>
       </div>
     </div>
