@@ -166,12 +166,6 @@ export default function CardProfile({ post }) {
           <div className="settings">
             <Settings />
             <div className="colorSettings">
-              {/* <div className="form-group network">
-                <BtnLoadTwitter />
-                <BtnLoadFacebook />
-                <BtnLoadInstagram />
-              </div> */}
-
               <div className="form-group">
                 <FontPicker
                   apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
@@ -179,19 +173,7 @@ export default function CardProfile({ post }) {
                   onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
                   className="typo"
                 />
-
-                {/* <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreFontFamily()}
-                  >
-                    Cancel
-                  </button>
-                </div> */}
               </div>
-
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}

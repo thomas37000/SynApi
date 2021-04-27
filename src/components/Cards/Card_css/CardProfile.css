@@ -102,12 +102,12 @@ li label {
 }
 
 .cancel {
-  margin: 0 1rem;
-  background-color: red;
+  background-color: var(--txt);
   padding: 0.5rem;
-  border-radius: 10px;
-  color: var(--txt);
-  border: none;
+  border-radius: 5px;
+  color: red;
+  border: 1px solid red;
+  width: 100px;
 }
 
 .spanTool {

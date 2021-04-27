@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -17,7 +18,9 @@ import FontPicker from 'font-picker-react';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
-// import PropTypes from 'prop-types';
+
+import PropTypes from 'prop-types';
+import SlideFilter from './SlideFilter';
 
 const SidebarTool = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,6 +33,33 @@ const SidebarTool = () => {
   const onSetSidebarOpen = (open) => {
     setSidebarOpen({ sidebarOpen: open });
   };
+
+  // restore color background / text / # or @ by default
+  const restorehashtagColor = () => {
+    setHashtagColor(!hashtagColor);
+  };
+
+  const restoreBg = () => {
+    setBgColor(!bgColor);
+  };
+
+  const restoreTxt = () => {
+    setTxtColor(!txtColor);
+  };
+
+  const restoreMention = () => {
+    setMentionColor(!mentionColor);
+  };
+
+  const restoreFontFamily = () => {
+    setActiveFontFamily(!activeFontFamily);
+  };
+
+  const changePost = (post, props) => {
+    const { postUpdate } = props;
+    postUpdate(post);
+  };
+
   return (
     <Sidebar
       sidebar={
@@ -57,6 +87,14 @@ const SidebarTool = () => {
                     onChange={(color) => setBgColor(color.hex)}
                     className="sketchPicker"
                   />
+                  <button
+                    id="btn"
+                    className="cancel"
+                    type="submit"
+                    onClick={() => restoreBg()}
+                  >
+                    Annuler
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -72,6 +110,14 @@ const SidebarTool = () => {
                     onChange={(color) => setTxtColor(color.hex)}
                     className="sketchPicker"
                   />
+                  <button
+                    id="btn"
+                    className="cancel"
+                    type="submit"
+                    onClick={() => restoreTxt()}
+                  >
+                    Annuler
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -89,6 +135,17 @@ const SidebarTool = () => {
                     }
                     className="sketchPicker"
                   />
+                  <button
+                    id="btn"
+                    className="cancel"
+                    type="submit"
+                    onClick={() => {
+                      restorehashtagColor();
+                      restoreMention();
+                    }}
+                  >
+                    Annuler
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -108,6 +165,14 @@ const SidebarTool = () => {
                     }
                     className="typo"
                   />
+                  <button
+                    id="btn"
+                    className="cancel"
+                    type="submit"
+                    onClick={() => restoreBg()}
+                  >
+                    Annuler
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -125,7 +190,7 @@ const SidebarTool = () => {
                   {' '}
                   <div className="sidebarCategory">
                     <div className="dropdown">
-                      <div>Nombre de posts</div>
+                      <SlideFilter changePost={changePost} />
                     </div>
                     <div className="dropdown">
                       <div className="tri">
@@ -180,8 +245,8 @@ const SidebarTool = () => {
   );
 };
 
-// Sidebar.propTypes = {
-
-// };
+Sidebar.propTypes = {
+  postUpdate: PropTypes.func.isRequired,
+};
 
 export default SidebarTool;
