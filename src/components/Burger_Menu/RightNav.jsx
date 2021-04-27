@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+// import Sidebar from './Sidebar';
 
 const Slideburger = styled.ul`
   list-style: none;
@@ -63,6 +64,9 @@ const RightNav = ({ open }) => {
       <li className="instagram">
         <Link to="/networks/">Networks</Link>
       </li>
+      {/* <li>
+        <Sidebar />
+      </li> */}
     </Slideburger>
   );
 };

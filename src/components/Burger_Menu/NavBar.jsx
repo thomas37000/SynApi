@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './syn.png';
 import Burger from './Burger';
+import SidebarTool from './Sidebar';
 
 const Nav = styled.nav`
   width: 100%;
@@ -35,6 +36,7 @@ const Navbar = () => {
         <img className="logo" src={logo} alt="" />
       </Link>
       <Burger />
+      <SidebarTool />
     </Nav>
   );
 };
