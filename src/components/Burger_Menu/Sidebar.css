@@ -1,0 +1,64 @@
+.fa {
+  font-size: 2rem;
+  margin-top: 5px;
+}
+
+.btnSidebar {
+  background-color: #f1f1f1 !important;
+}
+
+button.close {
+  margin: 1rem 0 2rem 15rem;
+}
+/* .close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before,
+.close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+} */
+
+.sidebarContainer {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+
+.sidebarCategory {
+  text-align: left;
+}
+
+.sidebarCategory span {
+  font-weight: bold;
+}
+
+.sidebarCategory:nth-last-child(1) {
+  margin-top: 3rem;
+}
+
+.dropdown {
+  margin-bottom: 2rem;
+}
+
+.tri input {
+  margin-right: 0.5rem;
+}
