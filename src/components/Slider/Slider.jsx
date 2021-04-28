@@ -31,7 +31,7 @@ const Slider = () => {
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
     network: '',
-    per_page: 35,
+    per_page: 5,
   };
 
   const getApi = async (onSuccess, onError) => {

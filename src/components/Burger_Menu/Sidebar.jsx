@@ -22,13 +22,14 @@ import './Sidebar.css';
 import PropTypes from 'prop-types';
 import SlideFilter from './SlideFilter';
 
-const SidebarTool = () => {
+const SidebarTool = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeFontFamily, setActiveFontFamily] = useState();
   const [bgColor, setBgColor] = useState();
   const [hashtagColor, setHashtagColor] = useState();
   const [mentionColor, setMentionColor] = useState();
   const [txtColor, setTxtColor] = useState();
+  const [postUpdate, setPostUpdate] = useState();
 
   const onSetSidebarOpen = (open) => {
     setSidebarOpen({ sidebarOpen: open });
@@ -55,9 +56,13 @@ const SidebarTool = () => {
     setActiveFontFamily(!activeFontFamily);
   };
 
-  const changePost = (post, props) => {
-    const { postUpdate } = props;
-    postUpdate(post);
+  // const changePost = (post) => {
+  //   const { postUpdate } = props;
+  //   postUpdate(post);
+  // };
+
+  const changePost = () => {
+    setPostUpdate(postUpdate);
   };
 
   return (
@@ -187,7 +192,6 @@ const SidebarTool = () => {
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
-                  {' '}
                   <div className="sidebarCategory">
                     <div className="dropdown">
                       <SlideFilter changePost={changePost} />
