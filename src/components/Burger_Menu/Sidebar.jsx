@@ -15,6 +15,8 @@ import SlideFilter from './SlideFilter';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
+import BtnCancel from '../Buttons/ButtonCancel';
+import BtnSubmit from '../Buttons/ButtonSubmit';
 
 const SidebarTool = () => {
   const defaultColors = {
@@ -125,22 +127,8 @@ const SidebarTool = () => {
                     onChange={(color) => setBgColor(color.hex)}
                     className="sketchPicker"
                   />
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreBg()}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    id="btn"
-                    className="submit"
-                    type="submit"
-                    onClick={() => submitColor()}
-                  >
-                    Valider
-                  </button>
+                  <BtnCancel handleClick={restoreBg} />
+                  <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -156,22 +144,8 @@ const SidebarTool = () => {
                     onChange={(color) => setTxtColor(color.hex)}
                     className="sketchPicker"
                   />
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreTxt()}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    id="btn"
-                    className="submit"
-                    type="submit"
-                    onClick={() => submitColor()}
-                  >
-                    Valider
-                  </button>
+                  <BtnCancel handleClick={restoreTxt} />
+                  <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -189,25 +163,10 @@ const SidebarTool = () => {
                     }
                     className="sketchPicker"
                   />
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => {
-                      restorehashtagColor();
-                      restoreMention();
-                    }}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    id="btn"
-                    className="submit"
-                    type="submit"
-                    onClick={() => submitColor()}
-                  >
-                    Valider
-                  </button>
+                  <BtnCancel
+                    handleClick={(restorehashtagColor, restoreMention)}
+                  />
+                  <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -227,22 +186,8 @@ const SidebarTool = () => {
                     }
                     className="typo"
                   />
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreBg()}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    id="btn"
-                    className="submit"
-                    type="submit"
-                    onClick={() => submitColor()}
-                  >
-                    Valider
-                  </button>
+                  <BtnCancel handleClick={restoreFontFamily} />
+                  <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
