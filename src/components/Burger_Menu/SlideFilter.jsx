@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 // import React, { useState } from 'react';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -33,7 +34,8 @@ export default class SlideFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      post: '5',
+      post: sessionStorage.getItem('POST') || '10',
+      jsonObj: {},
     };
     this.handleOnChange = this.handleOnChange.bind(this);
   }
@@ -42,10 +44,15 @@ export default class SlideFilter extends React.Component {
     const { changePost } = this.props;
     this.setState({ post: post.target.value });
     changePost(post.target.value);
+
+    // sessionStorage.setItem('newPost', post);
+    // this.setState({ jsonObj: post.target.value });
   }
 
   render() {
     const { post } = this.state;
+    console.log('newPost', post);
+
     return (
       <div className="postFilter">
         <div className="label-slider">

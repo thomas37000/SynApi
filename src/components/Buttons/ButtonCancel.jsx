@@ -1,21 +1,22 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../Cards/Card_css/CardProfile.css';
 
-function BtnSubmit(props) {
+function BtnCancel(props) {
   const { handleClick } = props;
   return (
     <>
-      <button id="btn" className="submit" type="submit" onClick={handleClick}>
-        Valider
+      <button id="btn" className="cancel" type="submit" onClick={handleClick}>
+        Annuler
       </button>
     </>
   );
 }
 
-export default BtnSubmit;
+export default BtnCancel;
 
-BtnSubmit.propTypes = {
+BtnCancel.propTypes = {
   handleClick: PropTypes.func.isRequired,
 };
 

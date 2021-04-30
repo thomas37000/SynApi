@@ -1,9 +1,5 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/anchor-has-content */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from 'react-sidebar';
 import {
   Accordion,
@@ -14,22 +10,40 @@ import {
 } from 'react-accessible-accordion';
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
-
+import PropTypes from 'prop-types';
+import SlideFilter from './SlideFilter';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-import PropTypes from 'prop-types';
-import SlideFilter from './SlideFilter';
+const SidebarTool = () => {
+  const defaultColors = {
+    txt: sessionStorage.getItem('txtColor') || '#fff',
+    black: sessionStorage.getItem('mentionColor') || '#000',
+    im: sessionStorage.getItem('mentionColor') || '#e1306c',
+    fk: sessionStorage.getItem('mentionColor') || '#4267b2',
+    fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
+    fkRegexColor: sessionStorage.getItem('hashtagColor') || '#4267b2',
+    tr: sessionStorage.getItem('mentionColor') || '#1da1f2',
+    trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
+    trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+  };
+  const defaultTypo = {
+    typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
+  };
 
-const SidebarTool = (props) => {
+  const [hashtagColor, setHashtagColor] = useState(
+    defaultColors.fkRegexColor ||
+      defaultColors.imRegexColor ||
+      defaultColors.trRegexColor
+  );
+  const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
+  const [txtColor, setTxtColor] = useState(defaultColors.txt);
+  const [mentionColor, setMentionColor] = useState(defaultColors.black);
+  const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeFontFamily, setActiveFontFamily] = useState();
-  const [bgColor, setBgColor] = useState();
-  const [hashtagColor, setHashtagColor] = useState();
-  const [mentionColor, setMentionColor] = useState();
-  const [txtColor, setTxtColor] = useState();
   const [postUpdate, setPostUpdate] = useState();
+  const [jsonObj, setJsonObj] = useState({});
 
   const onSetSidebarOpen = (open) => {
     setSidebarOpen({ sidebarOpen: open });
@@ -56,14 +70,34 @@ const SidebarTool = (props) => {
     setActiveFontFamily(!activeFontFamily);
   };
 
-  // const changePost = (post) => {
-  //   const { postUpdate } = props;
-  //   postUpdate(post);
-  // };
-
   const changePost = () => {
     setPostUpdate(postUpdate);
   };
+
+  const upDatePost = (e) => {
+    setPostUpdate({ value: e.target.value });
+  };
+
+  const submitColor = () => {
+    const jsonColor = JSON.stringify(jsonObj);
+    // console.log('JSON', jsonColor);
+  };
+
+  useEffect(() => {
+    sessionStorage.setItem('bgColor', bgColor);
+    sessionStorage.setItem('mentionColor', mentionColor);
+    sessionStorage.setItem('hashtagColor', hashtagColor);
+    sessionStorage.setItem('txtColor', txtColor);
+    sessionStorage.setItem('fontFamily', activeFontFamily);
+    // console.log('json', sessionStorage);
+    setJsonObj({
+      bgColor,
+      mentionColor,
+      hashtagColor,
+      txtColor,
+      activeFontFamily,
+    });
+  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
 
   return (
     <Sidebar
@@ -74,8 +108,7 @@ const SidebarTool = (props) => {
             type="button"
             onClick={() => setSidebarOpen(!sidebarOpen)}
           >
-            close
-            {/* <a href="#" className="close" /> */}
+            X
           </button>
 
           <div className="sidebarCategory">
@@ -100,6 +133,14 @@ const SidebarTool = (props) => {
                   >
                     Annuler
                   </button>
+                  <button
+                    id="btn"
+                    className="submit"
+                    type="submit"
+                    onClick={() => submitColor()}
+                  >
+                    Valider
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -122,6 +163,14 @@ const SidebarTool = (props) => {
                     onClick={() => restoreTxt()}
                   >
                     Annuler
+                  </button>
+                  <button
+                    id="btn"
+                    className="submit"
+                    type="submit"
+                    onClick={() => submitColor()}
+                  >
+                    Valider
                   </button>
                 </AccordionItemPanel>
               </AccordionItem>
@@ -151,6 +200,14 @@ const SidebarTool = (props) => {
                   >
                     Annuler
                   </button>
+                  <button
+                    id="btn"
+                    className="submit"
+                    type="submit"
+                    onClick={() => submitColor()}
+                  >
+                    Valider
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -178,6 +235,14 @@ const SidebarTool = (props) => {
                   >
                     Annuler
                   </button>
+                  <button
+                    id="btn"
+                    className="submit"
+                    type="submit"
+                    onClick={() => submitColor()}
+                  >
+                    Valider
+                  </button>
                 </AccordionItemPanel>
               </AccordionItem>
             </Accordion>
@@ -194,13 +259,10 @@ const SidebarTool = (props) => {
                 <AccordionItemPanel>
                   <div className="sidebarCategory">
                     <div className="dropdown">
-                      <SlideFilter changePost={changePost} />
-                    </div>
-                    <div className="dropdown">
-                      <div className="tri">
-                        <input type="checkbox" />
-                        Tri par ordre Alphabétique
-                      </div>
+                      <SlideFilter
+                        changePost={changePost}
+                        onChange={upDatePost}
+                      />
                     </div>
                     <div className="dropdown">
                       <div className="tri">
@@ -243,7 +305,7 @@ const SidebarTool = (props) => {
         type="button"
         onClick={() => onSetSidebarOpen(true)}
       >
-        <i className="fa fa-cog" />
+        <i className="fa fa-cog fa-2x" />
       </button>
     </Sidebar>
   );

@@ -44,7 +44,7 @@
 }
 
 .userProfile {
-  color: var(--rxNoImg);
+  color: var(--black);
   font-weight: bold;
   margin: 0 1rem;
 }
@@ -95,10 +95,10 @@ li label {
   margin-bottom: 1rem;
   background-color: green;
   padding: 0.5rem;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #fff;
   border: none;
-  width: 150px;
+  width: 100px;
 }
 
 .cancel {
@@ -139,6 +139,11 @@ li label {
 
 #font-picker {
   height: 230px;
+}
+
+.inputRange {
+  color: var(--black);
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 768px) {

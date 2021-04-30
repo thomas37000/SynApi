@@ -9,6 +9,7 @@
   | nom variable | network | css |
   | --- | --- | --- | 
   | txt | texte | #fff |
+  | black | texte | #000 |
   | fb | facebook | #e1306c |
   | fbHashtagColor | facebook | #e1306c |
   | fbMentionColor | facebook | #e1306c |

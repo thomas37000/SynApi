@@ -9,17 +9,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel,
+} from 'react-accessible-accordion';
 import { SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
 import FontPicker from 'font-picker-react';
 import ColorContext from '../Context/ColorContext';
 import Settings from '../Profile/Settings';
+import SlideFilter from '../Burger_Menu/SlideFilter';
 import './Card_css/CardProfile.css';
+import BtnSubmit from '../Buttons/ButtonSubmit';
+import BtnCancel from '../Buttons/ButtonCancel';
 
 export default function CardProfile({ post }) {
   const defaultColors = {
     txt: sessionStorage.getItem('txtColor') || '#fff',
-    rxNoImg: sessionStorage.getItem('mentionColor') || '#000',
+    black: sessionStorage.getItem('mentionColor') || '#000',
     im: sessionStorage.getItem('mentionColor') || '#e1306c',
     fk: sessionStorage.getItem('mentionColor') || '#4267b2',
     fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
@@ -40,9 +50,7 @@ export default function CardProfile({ post }) {
   );
   const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
-  const [mentionColor, setMentionColor] = useState(
-    defaultColors.fk || defaultColors.im || defaultColors.tr
-  );
+  const [mentionColor, setMentionColor] = useState(defaultColors.black);
   const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
   const [jsonObj, setJsonObj] = useState({});
 
@@ -91,7 +99,7 @@ export default function CardProfile({ post }) {
   //   setActiveFontFamily(!activeFontFamily);
   // };
 
-  const submitColor = () => {
+  const submitColor = (e) => {
     const jsonColor = JSON.stringify(jsonObj);
     console.log('JSON', jsonColor);
 
@@ -140,12 +148,27 @@ export default function CardProfile({ post }) {
   // https://httpbin.org/post
   // ', json);
 
+  const defaultPost = {
+    newPost: sessionStorage.getItem('newPost') || '10',
+  };
+  const [newPost, setNewPost] = useState(defaultPost.newPost);
+  // const [postUpdate, setPostUpdate] = useState();
+
+  const changePost = () => {
+    setNewPost(newPost);
+  };
+
+  const upDatePost = (e) => {
+    setNewPost({ value: e.target.value });
+  };
+
   useEffect(() => {
     sessionStorage.setItem('bgColor', bgColor);
     sessionStorage.setItem('mentionColor', mentionColor);
     sessionStorage.setItem('hashtagColor', hashtagColor);
     sessionStorage.setItem('txtColor', txtColor);
     sessionStorage.setItem('fontFamily', activeFontFamily);
+    sessionStorage.setItem('newPost', newPost);
     console.log('json', sessionStorage);
     setJsonObj({
       bgColor,
@@ -153,8 +176,16 @@ export default function CardProfile({ post }) {
       hashtagColor,
       txtColor,
       activeFontFamily,
+      newPost,
     });
-  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
+  }, [
+    activeFontFamily,
+    bgColor,
+    mentionColor,
+    hashtagColor,
+    newPost,
+    txtColor,
+  ]);
 
   return (
     <>
@@ -173,34 +204,32 @@ export default function CardProfile({ post }) {
                   onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
                   className="typo"
                 />
+                <div style={{ color: ' black', marginTop: '1rem' }}>
+                  changer le
+                </div>
+                <div className="inputRange">
+                  <SlideFilter
+                    changePost={changePost}
+                    onChange={upDatePost}
+                    newPost={newPost}
+                    // onChange={() => setNewPost(newPost)}
+                  />
+                </div>
               </div>
+
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
                   className="sketchPicker"
                 />
                 <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreBg()}
-                  >
-                    Cancel
-                  </button>
+                <BtnCancel handleClick={restoreBg} />
                 </div>
               </div>
               <div className="form-group">
                 <SketchPicker onChange={(color) => setTxtColor(color.hex)} />
                 <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreTxt()}
-                  >
-                    Cancel
-                  </button>
+                  <BtnCancel handleClick={restoreTxt} />
                 </div>
               </div>
 
@@ -212,28 +241,13 @@ export default function CardProfile({ post }) {
                   className="sketchPicker"
                 />
                 <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => {
-                      restorehashtagColor();
-                      restoreMention();
-                    }}
-                  >
-                    Cancel
-                  </button>
+                  <BtnCancel
+                    handleClick={(restorehashtagColor, restoreMention)}
+                  />
                 </div>
               </div>
             </div>
-            <button
-              id="btn"
-              className="submit"
-              type="submit"
-              onClick={() => submitColor()}
-            >
-              Submit
-            </button>
+            <BtnSubmit handleClick={submitColor} />
           </div>
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>

@@ -3,6 +3,10 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+// DESC c'est normal publications récentes
+// ASC publications anciennes
+// order: 'ASC' && 'DESC',
+// order_by: 'content' && 'pub_date',
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -26,12 +30,13 @@ const Slider = () => {
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
+  const [postUpdate, setPostUpdate] = useState('10');
   const params = {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
     network: '',
-    per_page: 5,
+    per_page: `${postUpdate}`,
   };
 
   const getApi = async (onSuccess, onError) => {
@@ -39,6 +44,8 @@ const Slider = () => {
       (res) => {
         setItems(res.data);
         console.log('network', res.data);
+        setPostUpdate(res.params);
+        console.log('post dans params / AXIOS', params.per_page);
       },
       (error) => onError(error)
     );
@@ -65,6 +72,10 @@ const Slider = () => {
     setActiveIndex(newIndex);
   };
 
+  const updatePost = () => {
+    setPostUpdate(postUpdate);
+  };
+
   const slides = items.map((post) => {
     return (
       <CarouselItem
@@ -78,6 +89,7 @@ const Slider = () => {
           key={post.pub_id}
           post={post}
           session={post.session_id}
+          postUpdate={postUpdate}
         />
         <CarouselCaption
           captionText={post.caption}

@@ -69,7 +69,7 @@
 
 .cardBodyNoImg .txtHashtag,
 .cardBodyNoImg .txtMention {
-  color: var(--rxNoImg);
+  color: var(--black);
   font-weight: bold;
 }
 

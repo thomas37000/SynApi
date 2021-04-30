@@ -13,7 +13,7 @@ const params = {
   s: `${REACT_APP_API_USER}`,
   t: `${REACT_APP_API_TOKEN}`,
   object: 'post',
-  network: 'facebook',
+  network: '',
   per_page: 10,
 };
 

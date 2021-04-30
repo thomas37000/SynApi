@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from './syn.png';
@@ -30,13 +32,51 @@ const Nav = styled.nav`
 `;
 
 const Navbar = () => {
+  const [postUpdate, setPostUpdate] = useState(10);
+
+  const updatePost = () => {
+    setPostUpdate(postUpdate);
+  };
+
+  console.log('state post Navbar', postUpdate);
+
+  function TEST() {
+    // const [bgColor, setBgColor] = useState();
+    // const [hashtagColor, setHashtagColor] = useState();
+    // const [mentionColor, setMentionColor] = useState();
+    // const [txtColor, setTxtColor] = useState();
+    // const [postUpdate, setPostUpdate] = useState(5);
+    // const upDateBg = (color) => {
+    //   setBgColor({ background: color.hex });
+    // };
+    // const upDateHashtag = () => {
+    //   setHashtagColor(hashtagColor);
+    // };
+    // const upDateMention = () => {
+    //   setMentionColor(mentionColor);
+    // };
+    // const upDateTxtColor = () => {
+    //   setTxtColor(txtColor);
+    // };
+    // const upDatePost = () => {
+    //   setPostUpdate(postUpdate);
+    // };
+    // function upDateAll() {
+    //   setBgColor(bgColor);
+    //   setHashtagColor(hashtagColor);
+    //   setMentionColor(mentionColor);
+    //   setPostUpdate(postUpdate);
+    //   setTxtColor(txtColor);
+    // }
+  }
+
   return (
     <Nav>
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
       <Burger />
-      <SidebarTool />
+      {/* <SidebarTool updatePost={updatePost} /> */}
     </Nav>
   );
 };
