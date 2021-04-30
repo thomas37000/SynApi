@@ -13,10 +13,8 @@ export default class SlideFilter extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
-  handleOnChange(post) {
-    // const { changePost } = this.props;
-    this.setState({ post: post.target.value });
-    // changePost(post.target.value);
+  handleOnChange(e) {
+    this.setState({ post: e.target.value });
 
     // sessionStorage.setItem('newPost', post);
     // this.setState({ jsonObj: post.target.value });
