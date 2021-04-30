@@ -12,7 +12,7 @@ export default function Routter() {
     setPostUpdate(postUpdate);
   };
 
-  console.log(postUpdate);
+  // console.log(postUpdate);
 
   return (
     <Router>

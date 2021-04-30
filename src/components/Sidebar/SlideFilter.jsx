@@ -1,34 +1,7 @@
 /* eslint-disable react/no-unused-state */
-// import React, { useState } from 'react';
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './Sidebar.css';
-
-// export default function SlideFilter() {
-//   const [post, setPost] = useState(10);
-
-//   const handleChange = (event) => {
-//     setPost({ ...post, post: event.target.value });
-//   };
-
-//   return (
-//     <div>
-//       <div className="postFilter">
-//         <div className="label-slider">
-//           <div>Nombre de post {post}</div>
-//         </div>
-//         <input
-//           type="range"
-//           min={0}
-//           max={50}
-//           value={post}
-//           className="SlideFilter"
-//           onChange={(e) => handleChange(e)}
-//         />
-//       </div>
-//     </div>
-//   );
-// }
 
 export default class SlideFilter extends React.Component {
   constructor(props) {
@@ -41,9 +14,9 @@ export default class SlideFilter extends React.Component {
   }
 
   handleOnChange(post) {
-    const { changePost } = this.props;
+    // const { changePost } = this.props;
     this.setState({ post: post.target.value });
-    changePost(post.target.value);
+    // changePost(post.target.value);
 
     // sessionStorage.setItem('newPost', post);
     // this.setState({ jsonObj: post.target.value });
@@ -72,6 +45,6 @@ export default class SlideFilter extends React.Component {
   }
 }
 
-SlideFilter.propTypes = {
-  changePost: PropTypes.func.isRequired,
-};
+// SlideFilter.propTypes = {
+//   changePost: PropTypes.func.isRequired,
+// };

@@ -11,12 +11,14 @@ import {
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
 import PropTypes from 'prop-types';
-import SlideFilter from './SlideFilter';
+import BtnCancel from '../Buttons/ButtonCancel';
+import BtnSubmit from '../Buttons/ButtonSubmit';
+import BtnClose from '../Buttons/ButtonClose';
+import BtnOpen from '../Buttons/BtnOpen';
+import Tri from './Tri';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
-import BtnCancel from '../Buttons/ButtonCancel';
-import BtnSubmit from '../Buttons/ButtonSubmit';
 
 const SidebarTool = () => {
   const defaultColors = {
@@ -34,6 +36,10 @@ const SidebarTool = () => {
     typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
   };
 
+  const defaultPost = {
+    newPost: sessionStorage.getItem('newPost') || '10',
+  };
+
   const [hashtagColor, setHashtagColor] = useState(
     defaultColors.fkRegexColor ||
       defaultColors.imRegexColor ||
@@ -44,16 +50,18 @@ const SidebarTool = () => {
   const [mentionColor, setMentionColor] = useState(defaultColors.black);
   const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [postUpdate, setPostUpdate] = useState();
+  const [newPost, setNewPost] = useState(defaultPost.newPost);
   const [jsonObj, setJsonObj] = useState({});
 
   const onSetSidebarOpen = (open) => {
     setSidebarOpen({ sidebarOpen: open });
+    setSidebarOpen(!sidebarOpen);
   };
 
   // restore color background / text / # or @ by default
-  const restorehashtagColor = () => {
+  const restoreHashtagAndMention = () => {
     setHashtagColor(!hashtagColor);
+    setMentionColor(!mentionColor);
   };
 
   const restoreBg = () => {
@@ -64,25 +72,18 @@ const SidebarTool = () => {
     setTxtColor(!txtColor);
   };
 
-  const restoreMention = () => {
-    setMentionColor(!mentionColor);
-  };
-
   const restoreFontFamily = () => {
     setActiveFontFamily(!activeFontFamily);
   };
 
-  const changePost = () => {
-    setPostUpdate(postUpdate);
-  };
-
-  const upDatePost = (e) => {
-    setPostUpdate({ value: e.target.value });
+  const changePost = (e) => {
+    setNewPost(!newPost);
+    setNewPost({ value: e.target.value });
   };
 
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
-    // console.log('JSON', jsonColor);
+    console.log('JSON sidebar', jsonColor);
   };
 
   useEffect(() => {
@@ -91,27 +92,30 @@ const SidebarTool = () => {
     sessionStorage.setItem('hashtagColor', hashtagColor);
     sessionStorage.setItem('txtColor', txtColor);
     sessionStorage.setItem('fontFamily', activeFontFamily);
-    // console.log('json', sessionStorage);
+    sessionStorage.setItem('newPost', newPost);
+    console.log('json Sidebar', sessionStorage);
     setJsonObj({
       bgColor,
       mentionColor,
       hashtagColor,
       txtColor,
       activeFontFamily,
+      newPost,
     });
-  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
+  }, [
+    activeFontFamily,
+    bgColor,
+    mentionColor,
+    hashtagColor,
+    txtColor,
+    newPost,
+  ]);
 
   return (
     <Sidebar
       sidebar={
         <div className="sidebarContainer">
-          <button
-            className="close"
-            type="button"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            X
-          </button>
+          <BtnClose handleClick={onSetSidebarOpen} />
 
           <div className="sidebarCategory">
             <span>Couleurs et Typographie</span>
@@ -163,9 +167,7 @@ const SidebarTool = () => {
                     }
                     className="sketchPicker"
                   />
-                  <BtnCancel
-                    handleClick={(restorehashtagColor, restoreMention)}
-                  />
+                  <BtnCancel handleClick={restoreHashtagAndMention} />
                   <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
@@ -201,40 +203,9 @@ const SidebarTool = () => {
                     <span>Tri et nombre de posts</span>
                   </AccordionItemButton>
                 </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <div className="sidebarCategory">
-                    <div className="dropdown">
-                      <SlideFilter
-                        changePost={changePost}
-                        onChange={upDatePost}
-                      />
-                    </div>
-                    <div className="dropdown">
-                      <div className="tri">
-                        <input type="checkbox" />
-                        Tri par date de publication
-                      </div>
-                    </div>
-                    <div className="dropdown">
-                      <div className="tri">
-                        <input type="checkbox" />
-                        Tri par ordre de contenus
-                      </div>
-                    </div>
-                    <div className="dropdown">
-                      <div className="tri">
-                        <input type="checkbox" />
-                        Tri par ordre croissant
-                      </div>
-                    </div>
-                    <div className="dropdown">
-                      <div className="tri">
-                        <input type="checkbox" />
-                        Tri par ordre décroissant
-                      </div>
-                    </div>
-                  </div>
-                </AccordionItemPanel>
+                {/* SLIDE FILTER ******************************* */}
+                <Tri handleChnage={changePost} />
+                {/* ********************************************* */}
               </AccordionItem>
             </Accordion>
           </div>
@@ -252,6 +223,7 @@ const SidebarTool = () => {
       >
         <i className="fa fa-cog fa-2x" />
       </button>
+      {/* <BtnOpen handleChange={onSetSidebarOpen} /> */}
     </Sidebar>
   );
 };

@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-undef */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BtnConnexion from '../Buttons/BtnConnexion';
 // import PropTypes from 'prop-types';
 import './Connexion.css';
 
@@ -38,14 +39,7 @@ const Connexion = () => {
             />
           </label>
           <Link to="/networks">
-            <button
-              id="btn"
-              className="btnConnexion"
-              type="submit"
-              onClick={() => {}}
-            >
-              Connexion
-            </button>
+            <BtnConnexion handleClick={() => {}} />
           </Link>
         </form>
       </div>

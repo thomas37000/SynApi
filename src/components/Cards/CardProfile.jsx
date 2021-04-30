@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import FontPicker from 'font-picker-react';
 import ColorContext from '../Context/ColorContext';
 import Settings from '../Profile/Settings';
-import SlideFilter from '../Burger_Menu/SlideFilter';
+import SlideFilter from '../Sidebar/SlideFilter';
 import './Card_css/CardProfile.css';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import BtnCancel from '../Buttons/ButtonCancel';
@@ -79,8 +79,9 @@ export default function CardProfile({ post }) {
   }
 
   // restore color background / text / # or @ by default
-  const restorehashtagColor = () => {
+  const restoreHashtagAndMention = () => {
     setHashtagColor(!hashtagColor);
+    setMentionColor(!mentionColor);
   };
 
   const restoreBg = () => {
@@ -89,10 +90,6 @@ export default function CardProfile({ post }) {
 
   const restoreTxt = () => {
     setTxtColor(!txtColor);
-  };
-
-  const restoreMention = () => {
-    setMentionColor(!mentionColor);
   };
 
   // const restoreFontFamily = () => {
@@ -149,10 +146,10 @@ export default function CardProfile({ post }) {
   // ', json);
 
   const defaultPost = {
-    newPost: sessionStorage.getItem('newPost') || '10',
+    newPost: sessionStorage.getItem('newPost') || '20',
   };
   const [newPost, setNewPost] = useState(defaultPost.newPost);
-  // const [postUpdate, setPostUpdate] = useState();
+  const [postUpdate, setPostUpdate] = useState();
 
   const changePost = () => {
     setNewPost(newPost);
@@ -169,7 +166,7 @@ export default function CardProfile({ post }) {
     sessionStorage.setItem('txtColor', txtColor);
     sessionStorage.setItem('fontFamily', activeFontFamily);
     sessionStorage.setItem('newPost', newPost);
-    console.log('json', sessionStorage);
+    // console.log('json', sessionStorage);
     setJsonObj({
       bgColor,
       mentionColor,
@@ -211,7 +208,6 @@ export default function CardProfile({ post }) {
                   <SlideFilter
                     changePost={changePost}
                     onChange={upDatePost}
-                    newPost={newPost}
                     // onChange={() => setNewPost(newPost)}
                   />
                 </div>
@@ -241,9 +237,7 @@ export default function CardProfile({ post }) {
                   className="sketchPicker"
                 />
                 <div className="btnSettings">
-                  <BtnCancel
-                    handleClick={(restorehashtagColor, restoreMention)}
-                  />
+                <BtnCancel handleClick={restoreHashtagAndMention} />
                 </div>
               </div>
             </div>
