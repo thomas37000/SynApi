@@ -4,15 +4,20 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/CardFacebook.css';
 import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
+import { ParamsContext } from '../Context/ParamsContext';
 
 export default function Card({ post }) {
+  const { states } = useContext(ParamsContext);
+
   const [hashtagColor] = useState(sessionStorage.getItem('hashtagColor'));
-  const [bgColor] = useState(sessionStorage.getItem('bgColor'));
+  const [bgColor, setBgColor] = useState(
+    states.bgColor || sessionStorage.getItem('bgColor')
+  );
   const [txtColor] = useState(sessionStorage.getItem('txtColor'));
   const [mentionColor] = useState(sessionStorage.getItem('mentionColor'));
 
@@ -58,6 +63,12 @@ export default function Card({ post }) {
         return `<span class="txtSpanWithImgInst" style="color:${mentionColor}">${txt}</span>`;
       });
   }
+
+  useEffect(() => {
+    setBgColor(states.bgColor);
+
+    console.log('states.bgColor', states.bgColor);
+  }, [states.bgColor]);
 
   return (
     <>

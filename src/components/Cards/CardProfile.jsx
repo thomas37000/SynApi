@@ -152,10 +152,6 @@ export default function CardProfile({ post }) {
   const [postUpdate, setPostUpdate] = useState();
 
   const changePost = () => {
-    setNewPost(newPost);
-  };
-
-  const upDatePost = (e) => {
     setNewPost({ value: e.target.value });
   };
 
@@ -205,11 +201,7 @@ export default function CardProfile({ post }) {
                   changer le
                 </div>
                 <div className="inputRange">
-                  <SlideFilter
-                    changePost={changePost}
-                    onChange={upDatePost}
-                    // onChange={() => setNewPost(newPost)}
-                  />
+                  <SlideFilter handleChange={changePost} />
                 </div>
               </div>
 
@@ -219,7 +211,7 @@ export default function CardProfile({ post }) {
                   className="sketchPicker"
                 />
                 <div className="btnSettings">
-                <BtnCancel handleClick={restoreBg} />
+                  <BtnCancel handleClick={restoreBg} />
                 </div>
               </div>
               <div className="form-group">
@@ -237,7 +229,7 @@ export default function CardProfile({ post }) {
                   className="sketchPicker"
                 />
                 <div className="btnSettings">
-                <BtnCancel handleClick={restoreHashtagAndMention} />
+                  <BtnCancel handleClick={restoreHashtagAndMention} />
                 </div>
               </div>
             </div>

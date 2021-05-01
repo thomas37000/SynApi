@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
 import Sidebar from 'react-sidebar';
 import {
   Accordion,
@@ -20,7 +21,12 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
+import { ParamsContext } from '../Context/ParamsContext';
+
 const SidebarTool = () => {
+  const { states } = useContext(ParamsContext);
+  console.log('test', states);
+
   const defaultColors = {
     txt: sessionStorage.getItem('txtColor') || '#fff',
     black: sessionStorage.getItem('mentionColor') || '#000',
@@ -32,6 +38,7 @@ const SidebarTool = () => {
     trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
     trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
   };
+
   const defaultTypo = {
     typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
   };
@@ -83,7 +90,7 @@ const SidebarTool = () => {
 
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
-    console.log('JSON sidebar', jsonColor);
+    // console.log('JSON sidebar', jsonColor);
   };
 
   useEffect(() => {
@@ -94,6 +101,7 @@ const SidebarTool = () => {
     sessionStorage.setItem('fontFamily', activeFontFamily);
     sessionStorage.setItem('newPost', newPost);
     console.log('json Sidebar', sessionStorage);
+    console.log('BG', bgColor);
     setJsonObj({
       bgColor,
       mentionColor,
@@ -110,6 +118,11 @@ const SidebarTool = () => {
     txtColor,
     newPost,
   ]);
+
+  const handleCHANGE = (color) => {
+    states.function.setBgColor(color);
+    sessionStorage.setItem('bgColor', color);
+  };
 
   return (
     <Sidebar
@@ -128,7 +141,7 @@ const SidebarTool = () => {
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <SketchPicker
-                    onChange={(color) => setBgColor(color.hex)}
+                    onChange={(color) => handleCHANGE(color.hex)}
                     className="sketchPicker"
                   />
                   <BtnCancel handleClick={restoreBg} />

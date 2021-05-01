@@ -30,6 +30,7 @@ const Slider = () => {
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
+
   const [postUpdate, setPostUpdate] = useState('10');
   const params = {
     s: `${REACT_APP_API_USER}`,
@@ -44,8 +45,6 @@ const Slider = () => {
       (res) => {
         setItems(res.data);
         console.log('network', res.data);
-        setPostUpdate(res.params);
-        console.log('post dans params / AXIOS', params.per_page);
       },
       (error) => onError(error)
     );

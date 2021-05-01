@@ -1,33 +1,24 @@
-/* eslint-disable react/no-unused-state */
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from 'react';
+// import ParamsContext from '../Context/ParamsContext';
 // import PropTypes from 'prop-types';
 import './Sidebar.css';
 
-export default class SlideFilter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      post: sessionStorage.getItem('POST') || '10',
-      jsonObj: {},
-    };
-    this.handleOnChange = this.handleOnChange.bind(this);
-  }
+export default function SlideFilter() {
+  // const { newPost } = useContext(ParamsContext);
+  const [post, setPost] = useState('10');
 
-  handleOnChange(e) {
-    this.setState({ post: e.target.value });
+  const handleChange = (e) => {
+    setPost(e.target.value);
+  };
 
-    // sessionStorage.setItem('newPost', post);
-    // this.setState({ jsonObj: post.target.value });
-  }
+  console.log('context', post);
 
-  render() {
-    const { post } = this.state;
-    console.log('newPost', post);
-
-    return (
+  return (
+    <div>
       <div className="postFilter">
         <div className="label-slider">
-          <div>Nombre de post</div>
+          <div>Nombre de post {post}</div>
         </div>
         <input
           type="range"
@@ -35,14 +26,12 @@ export default class SlideFilter extends React.Component {
           max={50}
           value={post}
           className="SlideFilter"
-          onChange={this.handleOnChange}
+          onChange={handleChange}
         />
-        <div>{post}</div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 // SlideFilter.propTypes = {
-//   changePost: PropTypes.func.isRequired,
 // };

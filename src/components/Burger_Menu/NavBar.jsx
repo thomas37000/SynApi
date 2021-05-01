@@ -32,14 +32,6 @@ const Nav = styled.nav`
 `;
 
 const Navbar = () => {
-  const [postUpdate, setPostUpdate] = useState(10);
-
-  const updatePost = () => {
-    setPostUpdate(postUpdate);
-  };
-
-  console.log('state post Navbar', postUpdate);
-
   function TEST() {
     // const [bgColor, setBgColor] = useState();
     // const [hashtagColor, setHashtagColor] = useState();
@@ -76,7 +68,7 @@ const Navbar = () => {
         <img className="logo" src={logo} alt="" />
       </Link>
       <Burger />
-      <SidebarTool handleChange={updatePost} />
+      <SidebarTool />
     </Nav>
   );
 };

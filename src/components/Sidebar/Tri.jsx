@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AccordionItemPanel } from 'react-accessible-accordion';
 import SlideFilter from './SlideFilter';
-// import SlideFilterHooks from './SlideFilterHooks';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
@@ -18,7 +17,6 @@ const Tri = () => {
       <div className="sidebarCategory">
         <div className="dropdown">
           <SlideFilter handleChange={changePost} />
-          {/* <SlideFilterHooks handleChange={changePost} /> */}
         </div>
         <div className="dropdown">
           <div className="tri">
