@@ -14,7 +14,7 @@ const Tri = () => {
 
   return (
     <AccordionItemPanel>
-      <div className="sidebarCategory">
+      <div className="sidebar-category">
         <div className="dropdown">
           <SlideFilter handleChange={changePost} />
         </div>

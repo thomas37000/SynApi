@@ -32,36 +32,6 @@ const Nav = styled.nav`
 `;
 
 const Navbar = () => {
-  function TEST() {
-    // const [bgColor, setBgColor] = useState();
-    // const [hashtagColor, setHashtagColor] = useState();
-    // const [mentionColor, setMentionColor] = useState();
-    // const [txtColor, setTxtColor] = useState();
-    // const [postUpdate, setPostUpdate] = useState(5);
-    // const upDateBg = (color) => {
-    //   setBgColor({ background: color.hex });
-    // };
-    // const upDateHashtag = () => {
-    //   setHashtagColor(hashtagColor);
-    // };
-    // const upDateMention = () => {
-    //   setMentionColor(mentionColor);
-    // };
-    // const upDateTxtColor = () => {
-    //   setTxtColor(txtColor);
-    // };
-    // const upDatePost = () => {
-    //   setPostUpdate(postUpdate);
-    // };
-    // function upDateAll() {
-    //   setBgColor(bgColor);
-    //   setHashtagColor(hashtagColor);
-    //   setMentionColor(mentionColor);
-    //   setPostUpdate(postUpdate);
-    //   setTxtColor(txtColor);
-    // }
-  }
-
   return (
     <Nav>
       <Link to="/">

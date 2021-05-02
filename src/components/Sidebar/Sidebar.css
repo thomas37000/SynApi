@@ -2,8 +2,8 @@
   margin-top: 5px;
 }
 
-.btnSidebar {
-  background-color: #f1f1f1 !important;
+.btn-sidebar {
+  margin-top: -5px;
 }
 
 button.close {
@@ -15,21 +15,21 @@ button.close {
   font-weight: lighter;
 }
 
-.sidebarContainer {
+.sidebar-container {
   display: flex;
   align-items: left;
   flex-direction: column;
 }
 
-.sidebarCategory {
+.sidebar-category {
   text-align: left;
 }
 
-.sidebarCategory span {
+.sidebar-category span {
   font-weight: bold;
 }
 
-.sidebarCategory:nth-last-child(1) {
+.sidebar-category:nth-last-child(1) {
   margin-top: 3rem;
 }
 
@@ -41,6 +41,6 @@ button.close {
   margin-right: 0.5rem;
 }
 
-.postFilter{
+.post-filter{
   margin-top: -2rem;
 }

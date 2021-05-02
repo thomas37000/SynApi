@@ -12,6 +12,8 @@ import {
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
 import PropTypes from 'prop-types';
+import { ColorContext } from '../Context/ColorContext';
+// import { ParamsContext } from '../Context/ParamsContext';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import BtnClose from '../Buttons/ButtonClose';
@@ -21,62 +23,22 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-import { ParamsContext } from '../Context/ParamsContext';
-
 const SidebarTool = () => {
-  const { states } = useContext(ParamsContext);
+  const { states } = useContext(ColorContext);
   console.log('test', states);
 
-  const defaultColors = {
-    txt: sessionStorage.getItem('txtColor') || '#fff',
-    black: sessionStorage.getItem('mentionColor') || '#000',
-    im: sessionStorage.getItem('mentionColor') || '#e1306c',
-    fk: sessionStorage.getItem('mentionColor') || '#4267b2',
-    fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
-    fkRegexColor: sessionStorage.getItem('hashtagColor') || '#4267b2',
-    tr: sessionStorage.getItem('mentionColor') || '#1da1f2',
-    trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
-    trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
-  };
-
-  const defaultTypo = {
-    typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
-  };
-
-  const defaultPost = {
-    newPost: sessionStorage.getItem('newPost') || '10',
-  };
-
-  const [hashtagColor, setHashtagColor] = useState(
-    defaultColors.fkRegexColor ||
-      defaultColors.imRegexColor ||
-      defaultColors.trRegexColor
-  );
-  const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
-  const [txtColor, setTxtColor] = useState(defaultColors.txt);
-  const [mentionColor, setMentionColor] = useState(defaultColors.black);
-  const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
+  const [activeFontFamily, setActiveFontFamily] = useState();
+  const [bgColor, setBgColor] = useState();
+  const [hashtagColor, setHashtagColor] = useState();
+  const [mentionColor, setMentionColor] = useState();
+  const [newPost, setNewPost] = useState();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [newPost, setNewPost] = useState(defaultPost.newPost);
+  const [txtColor, setTxtColor] = useState();
   const [jsonObj, setJsonObj] = useState({});
 
   const onSetSidebarOpen = (open) => {
     setSidebarOpen({ sidebarOpen: open });
     setSidebarOpen(!sidebarOpen);
-  };
-
-  // restore color background / text / # or @ by default
-  const restoreHashtagAndMention = () => {
-    setHashtagColor(!hashtagColor);
-    setMentionColor(!mentionColor);
-  };
-
-  const restoreBg = () => {
-    setBgColor(!bgColor);
-  };
-
-  const restoreTxt = () => {
-    setTxtColor(!txtColor);
   };
 
   const restoreFontFamily = () => {
@@ -119,18 +81,35 @@ const SidebarTool = () => {
     newPost,
   ]);
 
-  const handleCHANGE = (color) => {
+  const handleChangeBg = (color) => {
     states.function.setBgColor(color);
     sessionStorage.setItem('bgColor', color);
+  };
+
+  const handleChangeTxt = (color) => {
+    states.function.setTxtColor(color);
+    sessionStorage.setItem('txtColor', color);
+  };
+
+  const handleChangeHashtag = (color) => {
+    states.function.setHashtagColor(color);
+    states.function.setMentionColor(color);
+    sessionStorage.setItem('hasthagColor', color);
+    sessionStorage.setItem('mentionColor', color);
+  };
+
+  const handleChangeFontFamily = () => {
+    states.function.setActiveFontFamily(activeFontFamily);
+    sessionStorage.setItem('activeFontFamily', activeFontFamily);
   };
 
   return (
     <Sidebar
       sidebar={
-        <div className="sidebarContainer">
+        <div className="sidebar-container">
           <BtnClose handleClick={onSetSidebarOpen} />
 
-          <div className="sidebarCategory">
+          <div className="sidebar-category">
             <span>Couleurs et Typographie</span>
             <Accordion allowZeroExpanded>
               <AccordionItem key="">
@@ -141,10 +120,10 @@ const SidebarTool = () => {
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <SketchPicker
-                    onChange={(color) => handleCHANGE(color.hex)}
-                    className="sketchPicker"
+                    onChange={(color) => handleChangeBg(color.hex)}
+                    className="sketch-picker"
                   />
-                  <BtnCancel handleClick={restoreBg} />
+                  <BtnCancel handleClick={states.function.restoreBg} />
                   <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
@@ -158,10 +137,10 @@ const SidebarTool = () => {
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <SketchPicker
-                    onChange={(color) => setTxtColor(color.hex)}
-                    className="sketchPicker"
+                    onChange={(color) => handleChangeTxt(color.hex)}
+                    className="sketch-picker"
                   />
-                  <BtnCancel handleClick={restoreTxt} />
+                  <BtnCancel handleClick={states.function.restoreTxt} />
                   <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
@@ -175,12 +154,12 @@ const SidebarTool = () => {
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <SketchPicker
-                    onChange={(color) =>
-                      setHashtagColor(color.hex) || setMentionColor(color.hex)
-                    }
-                    className="sketchPicker"
+                    onChange={(color) => handleChangeHashtag(color.hex)}
+                    className="sketch-picker"
                   />
-                  <BtnCancel handleClick={restoreHashtagAndMention} />
+                  <BtnCancel
+                    handleClick={states.function.restoreHashtagAndMention}
+                  />
                   <BtnSubmit handleClick={submitColor} />
                 </AccordionItemPanel>
               </AccordionItem>
@@ -197,7 +176,7 @@ const SidebarTool = () => {
                     apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
                     activeFontFamily={activeFontFamily}
                     onChange={(nextFont) =>
-                      setActiveFontFamily(nextFont.family)
+                      handleChangeFontFamily(nextFont.family)
                     }
                     className="typo"
                   />
@@ -207,7 +186,7 @@ const SidebarTool = () => {
               </AccordionItem>
             </Accordion>
           </div>
-          <div className="sidebarCategory">
+          <div className="sidebar-category">
             <span>Tri et nombre de posts</span>
             <Accordion allowZeroExpanded>
               <AccordionItem>
@@ -217,7 +196,7 @@ const SidebarTool = () => {
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 {/* SLIDE FILTER ******************************* */}
-                <Tri handleChnage={changePost} />
+                <Tri handleChange={changePost} />
                 {/* ********************************************* */}
               </AccordionItem>
             </Accordion>
@@ -230,7 +209,7 @@ const SidebarTool = () => {
       onClick={() => onSetSidebarOpen(true)}
     >
       <button
-        className="btnSidebar"
+        className="btn-sidebar btn btn-default"
         type="button"
         onClick={() => onSetSidebarOpen(true)}
       >

@@ -16,7 +16,7 @@ export default function SlideFilter() {
 
   return (
     <div>
-      <div className="postFilter">
+      <div className="post-filter">
         <div className="label-slider">
           <div>Nombre de post {post}</div>
         </div>
@@ -25,7 +25,7 @@ export default function SlideFilter() {
           min={0}
           max={50}
           value={post}
-          className="SlideFilter"
+          className="Slide-filter"
           onChange={handleChange}
         />
       </div>

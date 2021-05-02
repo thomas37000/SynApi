@@ -8,31 +8,32 @@ import PropTypes from 'prop-types';
 export const ParamsContext = createContext(null);
 
 const ParamsContextProvider = (props) => {
-  const defaultColors = {
-    txt: sessionStorage.getItem('txtColor') || '#fff',
-    black: sessionStorage.getItem('mentionColor') || '#000',
-    im: sessionStorage.getItem('mentionColor') || '#e1306c',
-    fk: sessionStorage.getItem('mentionColor') || '#4267b2',
-    fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
-    fkRegexColor: sessionStorage.getItem('hashtagColor') || '#4267b2',
-    tr: sessionStorage.getItem('mentionColor') || '#1da1f2',
-    trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
-    trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+  const defaultPost = {
+    newPost: sessionStorage.getItem('newPost') || '10',
   };
 
-  const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
+  const [newPost, setNewPost] = useState(defaultPost.newPost);
+
+  const changePost = (e) => {
+    setNewPost({ value: e.target.value });
+  };
 
   const states = useMemo(
     () => ({
-      function: { setBgColor },
-      bgColor,
+      function: {
+        setNewPost,
+        changePost,
+      },
+
+      newPost,
     }),
-    [bgColor]
+    [newPost]
   );
 
   useEffect(() => {
-    console.log('useEffetc', bgColor);
-  }, [bgColor]);
+    console.log('useEffetc', newPost);
+    setNewPost(newPost);
+  }, [newPost]);
 
   return (
     <ParamsContext.Provider value={{ states }}>

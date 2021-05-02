@@ -5,7 +5,7 @@ function BtnOpen(props) {
   const { handleClick } = props;
   return (
     <>
-      <button className="btnSidebar" type="button" onClick={handleClick}>
+      <button className="btn-sidebar" type="button" onClick={handleClick}>
         <i className="fa fa-cog fa-2x" />
       </button>
     </>

@@ -9,7 +9,7 @@ function BtnConnexion(props) {
     <>
       <button
         id="btn"
-        className="btnConnexion"
+        className="btn-connexion"
         type="submit"
         onClick={handleClick}
       >

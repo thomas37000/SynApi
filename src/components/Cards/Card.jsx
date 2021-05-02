@@ -9,17 +9,27 @@ import PropTypes from 'prop-types';
 import './Card_css/CardFacebook.css';
 import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
-import { ParamsContext } from '../Context/ParamsContext';
+import { ColorContext } from '../Context/ColorContext';
 
 export default function Card({ post }) {
-  const { states } = useContext(ParamsContext);
+  const { states } = useContext(ColorContext);
 
-  const [hashtagColor] = useState(sessionStorage.getItem('hashtagColor'));
+  const [activeFontFamily, setActiveFontFamily] = useState(
+    states.activeFontFamily || sessionStorage.getItem('fontFamily')
+  );
+
   const [bgColor, setBgColor] = useState(
     states.bgColor || sessionStorage.getItem('bgColor')
   );
-  const [txtColor] = useState(sessionStorage.getItem('txtColor'));
-  const [mentionColor] = useState(sessionStorage.getItem('mentionColor'));
+  const [hashtagColor, setHashtagColor] = useState(
+    states.hashtagColor || sessionStorage.getItem('hashtagColor')
+  );
+  const [mentionColor, setMentionColor] = useState(
+    states.mentionColor || sessionStorage.getItem('mentionColor')
+  );
+  const [txtColor, setTxtColor] = useState(
+    states.txtColor || sessionStorage.getItem('txtColor')
+  );
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -65,10 +75,20 @@ export default function Card({ post }) {
   }
 
   useEffect(() => {
+    setActiveFontFamily(states.activeFontFamily);
     setBgColor(states.bgColor);
+    setHashtagColor(states.hashtagColor);
+    setMentionColor(states.mentionColor);
+    setTxtColor(states.txtColor);
 
     console.log('states.bgColor', states.bgColor);
-  }, [states.bgColor]);
+  }, [
+    states.activeFontFamily,
+    states.bgColor,
+    states.hashtagColor,
+    states.mentionColor,
+    states.txtColor,
+  ]);
 
   return (
     <>
