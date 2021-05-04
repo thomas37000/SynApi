@@ -80,8 +80,6 @@ export default function Card({ post }) {
     setHashtagColor(states.hashtagColor);
     setMentionColor(states.mentionColor);
     setTxtColor(states.txtColor);
-
-    console.log('states.bgColor', states.bgColor);
   }, [
     states.activeFontFamily,
     states.bgColor,

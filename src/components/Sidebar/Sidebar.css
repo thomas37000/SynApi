@@ -41,6 +41,39 @@ button.close {
   margin-right: 0.5rem;
 }
 
-.post-filter{
+.post-filter {
   margin-top: -2rem;
+}
+
+.slideFilter{
+  -webkit-appearance: none;
+  width: 250px;
+  height: 10px;
+  border-radius: 5px;
+  background: #ccc;
+  outline: none;
+}
+
+/* Google Chrome */
+.slideFilter::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffcc00 !important;
+  cursor: pointer;
+  -webkit-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
+}
+
+/* Firefox */
+.slideFilter::-moz-range-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffcc00 !important;
+  cursor: pointer;
+  -webkit-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
 }

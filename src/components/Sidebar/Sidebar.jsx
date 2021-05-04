@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
-
 import Sidebar from 'react-sidebar';
 import {
   Accordion,
@@ -13,7 +12,7 @@ import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
 import PropTypes from 'prop-types';
 import { ColorContext } from '../Context/ColorContext';
-// import { ParamsContext } from '../Context/ParamsContext';
+import { ParamsContext } from '../Context/ParamsContext';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import BtnClose from '../Buttons/ButtonClose';
@@ -24,16 +23,16 @@ import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
 const SidebarTool = () => {
+  // const { states } = useContext(ColorContext, ParamsContext);
   const { states } = useContext(ColorContext);
-  console.log('test', states);
-
+  // console.log('test', states);
   const [activeFontFamily, setActiveFontFamily] = useState();
-  const [bgColor, setBgColor] = useState();
-  const [hashtagColor, setHashtagColor] = useState();
-  const [mentionColor, setMentionColor] = useState();
+  const [bgColor] = useState();
+  const [hashtagColor] = useState();
+  const [mentionColor] = useState();
   const [newPost, setNewPost] = useState();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [txtColor, setTxtColor] = useState();
+  const [txtColor] = useState();
   const [jsonObj, setJsonObj] = useState({});
 
   const onSetSidebarOpen = (open) => {
@@ -46,8 +45,8 @@ const SidebarTool = () => {
   };
 
   const changePost = (e) => {
-    setNewPost(!newPost);
-    setNewPost({ value: e.target.value });
+    setNewPost(newPost);
+    // setNewPost({ value: e.target.value });
   };
 
   const submitColor = () => {
@@ -62,8 +61,8 @@ const SidebarTool = () => {
     sessionStorage.setItem('txtColor', txtColor);
     sessionStorage.setItem('fontFamily', activeFontFamily);
     sessionStorage.setItem('newPost', newPost);
-    console.log('json Sidebar', sessionStorage);
-    console.log('BG', bgColor);
+    // console.log('json Sidebar', sessionStorage);
+    console.log('sidebar', newPost);
     setJsonObj({
       bgColor,
       mentionColor,
@@ -101,6 +100,12 @@ const SidebarTool = () => {
   const handleChangeFontFamily = () => {
     states.function.setActiveFontFamily(activeFontFamily);
     sessionStorage.setItem('activeFontFamily', activeFontFamily);
+  };
+
+  const handleChangePost = (e) => {
+    // states.function.setNewPost(newPost);
+    states.function.setNewPost(newPost);
+    sessionStorage.setItem('newPost', newPost);
   };
 
   return (
@@ -196,7 +201,7 @@ const SidebarTool = () => {
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 {/* SLIDE FILTER ******************************* */}
-                <Tri handleChange={changePost} />
+                <Tri handleChange={handleChangePost} />
                 {/* ********************************************* */}
               </AccordionItem>
             </Accordion>

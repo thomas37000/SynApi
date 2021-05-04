@@ -7,7 +7,7 @@
 // ASC publications anciennes
 // order: 'ASC' && 'DESC',
 // order_by: 'content' && 'pub_date',
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import {
   Carousel,
@@ -17,11 +17,16 @@ import {
   CarouselCaption,
 } from 'reactstrap';
 import Card from '../Cards/Card';
+import { ParamsContext } from '../Context/ParamsContext';
+import { ColorContext } from '../Context/ColorContext';
 
 const Slider = () => {
+  // const { states } = useContext(ColorContext);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [items, setItems] = useState([]);
+  const [jsonObj, setJsonObj] = useState({});
 
   const {
     REACT_APP_API_URL,
@@ -31,20 +36,20 @@ const Slider = () => {
 
   const API_URL = `${REACT_APP_API_URL}`;
 
-  const [postUpdate, setPostUpdate] = useState('10');
+  const [newPost, setNewPost] = useState('20');
   const params = {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
     network: '',
-    per_page: `${postUpdate}`,
+    per_page: `${newPost}`,
   };
 
   const getApi = async (onSuccess, onError) => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
         setItems(res.data);
-        console.log('network', res.data);
+        // console.log('network', res.data);
       },
       (error) => onError(error)
     );
@@ -52,7 +57,11 @@ const Slider = () => {
 
   useEffect(() => {
     getApi();
-  }, []);
+    sessionStorage.setItem('newPost', newPost);
+    setJsonObj({
+      newPost,
+    });
+  }, [newPost]);
 
   const next = () => {
     if (animating) return;
@@ -72,7 +81,7 @@ const Slider = () => {
   };
 
   const updatePost = () => {
-    setPostUpdate(postUpdate);
+    setNewPost(newPost);
   };
 
   const slides = items.map((post) => {
@@ -88,7 +97,6 @@ const Slider = () => {
           key={post.pub_id}
           post={post}
           session={post.session_id}
-          postUpdate={postUpdate}
         />
         <CarouselCaption
           captionText={post.caption}

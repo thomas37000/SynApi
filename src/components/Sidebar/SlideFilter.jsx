@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
-// import ParamsContext from '../Context/ParamsContext';
+import { ColorContext } from '../Context/ColorContext';
 // import PropTypes from 'prop-types';
 import './Sidebar.css';
 
-export default function SlideFilter() {
-  // const { newPost } = useContext(ParamsContext);
-  const [post, setPost] = useState('10');
+export default function SlideFilter(props) {
+  const { states } = useContext(ColorContext);
+
+  const [post, setPost] = useState();
 
   const handleChange = (e) => {
     setPost(e.target.value);
   };
 
-  console.log('context', post);
+  console.log('slideFilter', post);
 
   return (
     <div>
@@ -24,8 +25,9 @@ export default function SlideFilter() {
           type="range"
           min={0}
           max={50}
+          step={2}
           value={post}
-          className="Slide-filter"
+          className="slideFilter"
           onChange={handleChange}
         />
       </div>

@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from 'react';
 import { AccordionItemPanel } from 'react-accessible-accordion';
 import SlideFilter from './SlideFilter';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
+import { ColorContext } from '../Context/ColorContext';
 
 const Tri = () => {
-  const [setNewPost] = useState();
+  const { states } = useContext(ColorContext);
+
+  const [newPost, setNewPost] = useState();
 
   const changePost = (e) => {
-    setNewPost({ value: e.target.value });
+    // setNewPost(newPost);
+    states.function.setNewPost({ value: e.target.value });
   };
 
   return (
     <AccordionItemPanel>
       <div className="sidebar-category">
         <div className="dropdown">
-          <SlideFilter handleChange={changePost} />
+          <SlideFilter changePost={changePost} color="#ffcc00" />
         </div>
         <div className="dropdown">
           <div className="tri">

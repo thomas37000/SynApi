@@ -24,15 +24,14 @@ const ParamsContextProvider = (props) => {
         setNewPost,
         changePost,
       },
-
       newPost,
     }),
     [newPost]
   );
 
   useEffect(() => {
-    console.log('useEffetc', newPost);
     setNewPost(newPost);
+    console.log('paramsContext', newPost);
   }, [newPost]);
 
   return (

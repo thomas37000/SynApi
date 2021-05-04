@@ -25,7 +25,9 @@ const ColorContextProvider = (props) => {
   };
 
   const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
-  const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
+  const [bgColor, setBgColor] = useState(
+    defaultColors.trBackgroundNoImg || defaultColors.fkBackgroundNoImg
+  );
   const [hashtagColor, setHashtagColor] = useState(
     defaultColors.fkRegexColor ||
       defaultColors.imRegexColor ||
@@ -37,6 +39,16 @@ const ColorContextProvider = (props) => {
       defaultColors.trRegexColor
   );
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
+
+  const defaultPost = {
+    newPost: sessionStorage.getItem('newPost') || '10',
+  };
+
+  const [newPost, setNewPost] = useState(defaultPost.newPost);
+
+  const changePost = (e) => {
+    setNewPost({ value: e.target.value });
+  };
 
   const restoreBg = () => {
     setBgColor(!bgColor);
@@ -61,31 +73,34 @@ const ColorContextProvider = (props) => {
         restoreBg,
         restoreHashtagAndMention,
         restoreTxt,
+        setNewPost,
+        changePost,
       },
       activeFontFamily,
       bgColor,
       mentionColor,
       hashtagColor,
       txtColor,
+      newPost,
     }),
-    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]
+    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor, newPost]
   );
 
   useEffect(() => {
-    console.log(
-      'useEffetc',
-      activeFontFamily,
-      bgColor,
-      mentionColor,
-      hashtagColor,
-      txtColor
-    );
     setActiveFontFamily(activeFontFamily);
     setBgColor(bgColor);
     setHashtagColor(hashtagColor);
     setMentionColor(mentionColor);
     setTxtColor(txtColor);
-  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
+    setNewPost(newPost);
+  }, [
+    activeFontFamily,
+    bgColor,
+    mentionColor,
+    hashtagColor,
+    txtColor,
+    newPost,
+  ]);
 
   return (
     <ColorContext.Provider value={{ states }}>

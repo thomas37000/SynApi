@@ -3,16 +3,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ColorContextProvider from '../Context/ColorContext';
-// import ParamsContextProvider from '../Context/ParamsContext';
+import ParamsContextProvider from '../Context/ParamsContext';
 import Connexion from '../connexion/Connexion';
 import Navbar from '../Burger_Menu/NavBar';
 import Slider from '../Slider/Slider';
 
 export default function Routter() {
-  const [post, setPost] = useState('10');
-
-  console.log('provider', post);
-
   return (
     <Router>
       <ColorContextProvider>
