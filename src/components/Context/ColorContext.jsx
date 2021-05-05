@@ -40,16 +40,6 @@ const ColorContextProvider = (props) => {
   );
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
 
-  const defaultPost = {
-    newPost: sessionStorage.getItem('newPost') || '10',
-  };
-
-  const [newPost, setNewPost] = useState(defaultPost.newPost);
-
-  const changePost = (e) => {
-    setNewPost({ value: e.target.value });
-  };
-
   const restoreBg = () => {
     setBgColor(!bgColor);
   };
@@ -73,17 +63,14 @@ const ColorContextProvider = (props) => {
         restoreBg,
         restoreHashtagAndMention,
         restoreTxt,
-        setNewPost,
-        changePost,
       },
       activeFontFamily,
       bgColor,
       mentionColor,
       hashtagColor,
       txtColor,
-      newPost,
     }),
-    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor, newPost]
+    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]
   );
 
   useEffect(() => {
@@ -92,15 +79,7 @@ const ColorContextProvider = (props) => {
     setHashtagColor(hashtagColor);
     setMentionColor(mentionColor);
     setTxtColor(txtColor);
-    setNewPost(newPost);
-  }, [
-    activeFontFamily,
-    bgColor,
-    mentionColor,
-    hashtagColor,
-    txtColor,
-    newPost,
-  ]);
+  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
 
   return (
     <ColorContext.Provider value={{ states }}>

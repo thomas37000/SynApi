@@ -23,9 +23,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
 const SidebarTool = () => {
-  // const { states } = useContext(ColorContext, ParamsContext);
-  const { states } = useContext(ColorContext);
-  // console.log('test', states);
+  const { states } = useContext(ColorContext, ParamsContext);
+
   const [activeFontFamily, setActiveFontFamily] = useState();
   const [bgColor] = useState();
   const [hashtagColor] = useState();
@@ -61,8 +60,6 @@ const SidebarTool = () => {
     sessionStorage.setItem('txtColor', txtColor);
     sessionStorage.setItem('fontFamily', activeFontFamily);
     sessionStorage.setItem('newPost', newPost);
-    // console.log('json Sidebar', sessionStorage);
-    console.log('sidebar', newPost);
     setJsonObj({
       bgColor,
       mentionColor,
@@ -102,11 +99,13 @@ const SidebarTool = () => {
     sessionStorage.setItem('activeFontFamily', activeFontFamily);
   };
 
-  const handleChangePost = (e) => {
+  const handleChangePost = () => {
     // states.function.setNewPost(newPost);
     states.function.setNewPost(newPost);
     sessionStorage.setItem('newPost', newPost);
   };
+
+  console.log('handleChangePost', newPost);
 
   return (
     <Sidebar

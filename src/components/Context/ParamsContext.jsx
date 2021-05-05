@@ -34,6 +34,8 @@ const ParamsContextProvider = (props) => {
     console.log('paramsContext', newPost);
   }, [newPost]);
 
+  console.log('PARAMS newPOST', newPost);
+
   return (
     <ParamsContext.Provider value={{ states }}>
       {props.children}

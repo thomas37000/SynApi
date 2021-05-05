@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
-import { ColorContext } from '../Context/ColorContext';
+import { ParamsContext } from '../Context/ParamsContext';
 // import PropTypes from 'prop-types';
 import './Sidebar.css';
 
 export default function SlideFilter(props) {
-  const { states } = useContext(ColorContext);
-
-  const [post, setPost] = useState();
+  const [post, setPost] = useState('10');
 
   const handleChange = (e) => {
     setPost(e.target.value);

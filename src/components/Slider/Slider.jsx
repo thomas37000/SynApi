@@ -17,12 +17,8 @@ import {
   CarouselCaption,
 } from 'reactstrap';
 import Card from '../Cards/Card';
-import { ParamsContext } from '../Context/ParamsContext';
-import { ColorContext } from '../Context/ColorContext';
 
 const Slider = () => {
-  // const { states } = useContext(ColorContext);
-
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [items, setItems] = useState([]);
@@ -36,7 +32,7 @@ const Slider = () => {
 
   const API_URL = `${REACT_APP_API_URL}`;
 
-  const [newPost, setNewPost] = useState('20');
+  const [newPost, setNewPost] = useState('10');
   const params = {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
@@ -57,11 +53,9 @@ const Slider = () => {
 
   useEffect(() => {
     getApi();
-    sessionStorage.setItem('newPost', newPost);
-    setJsonObj({
-      newPost,
-    });
-  }, [newPost]);
+  }, []);
+
+  console.log('SLIDER STATE', newPost);
 
   const next = () => {
     if (animating) return;
