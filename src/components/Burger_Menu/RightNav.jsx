@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import logo from './syn.png';
 
 const Slideburger = styled.ul`
   list-style: none;
@@ -58,7 +59,9 @@ const RightNav = ({ open }) => {
   return (
     <Slideburger open={open}>
       <li className="instagram">
-        <Link to="/networks/">Networks</Link>
+        <Link to="/">
+          <img className="logo" src={logo} alt="" />
+        </Link>
       </li>
     </Slideburger>
   );

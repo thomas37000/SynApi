@@ -7,7 +7,7 @@
 }
 
 button.close {
-  margin: 1rem 0 2rem 15rem;
+  margin-right: 1rem;
 }
 
 .close {
@@ -17,12 +17,13 @@ button.close {
 
 .sidebar-container {
   display: flex;
-  align-items: left;
-  flex-direction: column;
+  flex-direction:column;
+  margin-top: 1rem;
 }
 
 .sidebar-category {
   text-align: left;
+  margin-top: 1rem;
 }
 
 .sidebar-category span {
@@ -45,7 +46,7 @@ button.close {
   margin-top: -2rem;
 }
 
-.slideFilter{
+.slideFilter {
   -webkit-appearance: none;
   width: 250px;
   height: 10px;

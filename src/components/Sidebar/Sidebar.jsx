@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import Sidebar from 'react-sidebar';
+import { Link } from 'react-router-dom';
 import {
   Accordion,
   AccordionItem,
@@ -21,6 +22,7 @@ import Tri from './Tri';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
+import logo from '../Burger_Menu/syn.png';
 
 const SidebarTool = () => {
   const { states } = useContext(ColorContext, ParamsContext);
@@ -111,7 +113,12 @@ const SidebarTool = () => {
     <Sidebar
       sidebar={
         <div className="sidebar-container">
-          <BtnClose handleClick={onSetSidebarOpen} />
+          <div className="header_sidebar">
+            <BtnClose handleClick={onSetSidebarOpen} />
+            <Link to="/">
+              <img className="logo" src={logo} alt="" />
+            </Link>
+          </div>
 
           <div className="sidebar-category">
             <span>Couleurs et Typographie</span>

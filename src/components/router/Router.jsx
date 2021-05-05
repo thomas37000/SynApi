@@ -9,16 +9,21 @@ import Navbar from '../Burger_Menu/NavBar';
 import Slider from '../Slider/Slider';
 
 export default function Routter() {
+  const [display, setDisplay] = useState(false);
   return (
     <Router>
       <ColorContextProvider>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Connexion} />
-          <ParamsContextProvider>
-            <Route path="/networks/" component={Slider} />
-          </ParamsContextProvider>
-        </Switch>
+        {display ? (
+          <Navbar />
+        ) : (
+          <Switch>
+            <Route exact path="/" component={Connexion} />
+            <ParamsContextProvider>
+              <Navbar />
+              <Route path="/networks/" component={Slider} />
+            </ParamsContextProvider>
+          </Switch>
+        )}
       </ColorContextProvider>
     </Router>
   );

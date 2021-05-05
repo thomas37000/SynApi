@@ -11,7 +11,7 @@ function BtnConnexion(props) {
         id="btn"
         className="btn-connexion"
         type="submit"
-        onClick={handleClick}
+        onSubmit={handleClick}
       >
         Connexion
       </button>

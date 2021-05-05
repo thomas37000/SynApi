@@ -15,6 +15,7 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: right;
 
   .logo {
     display: flex;
@@ -34,11 +35,11 @@ const Nav = styled.nav`
 const Navbar = () => {
   return (
     <Nav>
+      {/* <Burger /> */}
+      <SidebarTool />
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
-      <Burger />
-      <SidebarTool />
     </Nav>
   );
 };
