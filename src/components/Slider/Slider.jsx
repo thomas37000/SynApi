@@ -32,7 +32,7 @@ const Slider = () => {
 
   const API_URL = `${REACT_APP_API_URL}`;
 
-  const [newPost, setNewPost] = useState('10');
+  const [newPost, setNewPost] = useState('20');
   const params = {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,

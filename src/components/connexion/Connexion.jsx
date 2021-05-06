@@ -1,6 +1,10 @@
+/* eslint-disable indent */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -23,16 +27,23 @@ const Connexion = () => {
   });
 
   const classes = styledAlert();
-  console.log(classes);
+  const {
+    REACT_APP_API_URL,
+    REACT_APP_API_USER,
+    REACT_APP_API_TOKEN,
+  } = process.env;
 
+  const API_USER = `${REACT_APP_API_USER}`;
+  const API_TOKEN = `${REACT_APP_API_TOKEN}`;
   const defaultUserName = {
-    userName: sessionStorage.getItem('') || 'Thomas3',
+    userName: sessionStorage.getItem('userName') || '',
   };
 
+  const [items, setItems] = useState([]);
+  const [open, setOpen] = React.useState(false);
   const [userName, setUserName] = useState('');
   const [userNameToken, setUserNameToken] = useState('');
-  const [userToken, setUserToken] = useState('');
-  const [open, setOpen] = React.useState(false);
+  const [token, setToken] = useState('');
   const [jsonObj, setJsonObj] = useState({});
 
   // ça donne [Object] [object] si je mets defaultUserName ?
@@ -40,8 +51,12 @@ const Connexion = () => {
     setUserName(e.target.value);
   };
 
-  const handleChangeToken = (e) => {
+  const handleChangeUserToken = (e) => {
     setUserNameToken(e.target.value);
+  };
+
+  const handleChangeToken = (e) => {
+    setToken(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -54,18 +69,21 @@ const Connexion = () => {
   const handleSubmitToken = (e) => {
     console.log(`Bienvenue ${userNameToken}`);
     e.preventDefault();
-    setUserNameToken('');
-    setUserToken('');
+    setToken('');
     const jsonUsername = JSON.stringify(jsonObj);
   };
 
+  // stocker que si c'est bon
   useEffect(() => {
-    sessionStorage.setItem('userName', userName);
+    sessionStorage.setItem('user-name', API_USER);
+    sessionStorage.setItem('user-token', API_TOKEN);
     // console.log('userName', sessionStorage);
     setJsonObj({
       userName,
+      userNameToken,
+      token,
     });
-  }, [userName]);
+  }, [userName, userNameToken, token]);
 
   const handleClick = () => {
     setOpen(true);
@@ -77,6 +95,56 @@ const Connexion = () => {
     }
 
     setOpen(false);
+  };
+
+  const handleCloseToken = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const checkUserName = () => {
+    if (userName) {
+      <Link to="/networks">
+        <input type="submit" value="connexion" onSubmit={handleSubmit} />
+      </Link>;
+    } else {
+      <>
+        <input type="submit" value="connexion" onClick={handleClick} />
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            severity="error"
+            onClose={handleClose}
+            classeName={classes.alertStyles}
+          >
+            ce n&apos;est pas le bon nom !
+          </Alert>
+        </Snackbar>
+      </>;
+    }
+  };
+
+  const checkIfFilledField = () => {
+    if (userName) {
+      <Link to="/networks">
+        <input type="submit" value="connexion" onSubmit={handleSubmit} />
+      </Link>;
+    } else {
+      <>
+        <input type="submit" value="connexion" onClick={handleClick} />
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            severity="error"
+            onClose={handleClose}
+            classeName={classes.alertStyles}
+          >
+            ce champ doit être rempli !
+          </Alert>
+        </Snackbar>
+      </>;
+    }
   };
 
   return (
@@ -97,7 +165,6 @@ const Connexion = () => {
               Enter your slide name
               <input
                 className="inputConnexion"
-                // className={wrong ? 'inputConnexion' : 'error'}
                 type="text"
                 id="inputIdentifiant"
                 name="inputMail"
@@ -107,50 +174,59 @@ const Connexion = () => {
               />
             </label>
             <div>
-              {/* <BtnConnexion /> */}
-              {/* <Link to="/networks">
-                <input
-                  type="submit"
-                  value="connexion"
-                  onSubmit={handleSubmit}
-                />
-              </Link> */}
-              <input
-                type="submit"
-                value="connexion"
-                onSubmit={handleSubmit}
-                onClick={handleClick}
-              />
-              <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert
-                  severity="error"
-                  onClose={handleClose}
-                  classeName={classes.alertStyles}
-                >
-                  ce champ doit être rempli !
-                </Alert>
-              </Snackbar>
+              {userName === API_USER ? (
+                <Link to="/networks">
+                  <input
+                    type="submit"
+                    value="connexion"
+                    onSubmit={handleSubmit}
+                  />
+                </Link>
+              ) : (
+                <>
+                  <input
+                    type="submit"
+                    value="connexion"
+                    onClick={handleClick}
+                  />
+                  <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                  >
+                    <Alert
+                      severity="error"
+                      onClose={handleClose}
+                      classeName={classes.alertStyles}
+                    >
+                      {/* {// il faut appeler l' API pour vérifier que c'est bien mon NOM ou Token } */}
+                      {console.log('if', userName) && userName === ''
+                        ? 'Ce champ doit être rempli !'
+                        : console.log('else', !userName) && !userName
+                        ? "Ce n'est pas le bon nom !"
+                        : null}
+                      {/* {userName
+                        ? "Ce n'est pas le bon nom !"
+                        : 'Ce champ doit être rempli !'} */}
+                    </Alert>
+                  </Snackbar>
+                </>
+              )}
             </div>
           </form>
 
-          <form>
+          <form onSubmit={handleSubmitToken}>
             <span>To Change the settings Slider</span>
             <label htmlFor="inputidentifiant" className="label">
               Enter your slide name
               <input
                 className="inputConnexion"
-                // className={wrong ? 'inputConnexion' : 'error'}
                 type="text"
                 id="inputIdentifiant"
                 name="inputMail"
                 placeholder="John Doe"
                 value={userNameToken}
-                required
-                onChange={handleChangeToken}
+                onChange={handleChangeUserToken}
               />
             </label>
             <p>
@@ -163,24 +239,45 @@ const Connexion = () => {
                   id="inputToken"
                   name="inputToken"
                   placeholder="a1W4xcvb23..."
-                  value={userToken}
+                  value={token}
                   required
                   onChange={handleChangeToken}
                 />
               </label>
             </p>
 
-            <p>
-              <input
-                type="submit"
-                value="connexion"
-                onSubmit={handleSubmitToken}
-              />
-              {/* <BtnConnexion /> */}
-              {/* <Link to="/networks">
-                <BtnConnexion handleClick={handleSubmit} />
-              </Link> */}
-            </p>
+            <div>
+              {/* {userName && token ? (
+                <Link to="/networks">
+                  <input
+                    type="submit"
+                    value="connexion"
+                    onSubmit={(e) => handleSubmitToken(e)}
+                  />
+                </Link>
+              ) : (
+                <>
+                  <input
+                    type="submit"
+                    value="connexion"
+                    onClick={handleClick}
+                  />
+                  <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleCloseToken}
+                  >
+                    <Alert
+                      severity="error"
+                      onClose={handleCloseToken}
+                      classeName={classes.alertStyles}
+                    >
+                      ce champ doit être rempli !
+                    </Alert>
+                  </Snackbar>
+                </>
+              )} */}
+            </div>
           </form>
         </div>
       </div>
