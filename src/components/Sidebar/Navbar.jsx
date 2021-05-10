@@ -1,14 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from './syn.png';
-import Burger from './Burger';
-import SidebarTool from '../Sidebar/Sidebar';
+import logo from '../images/syn.png';
 
-const Nav = styled.nav`
+const NavWrapper = styled.div`
   width: 100%;
   height: 7vh;
   background: #f7f7f7;
@@ -24,23 +20,22 @@ const Nav = styled.nav`
     margin-left: 30px;
     border-radius: 50%;
   }
-
-  @media (max-width: 765px) {
-    .logo {
-      display: flex;
-    }
-  }
 `;
 
-const Navbar = () => {
+const Navbar = ({ toggleMenu }) => {
   return (
-    <Nav>
-      {/* <Burger /> */}
-      <SidebarTool />
+    <NavWrapper>
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
-    </Nav>
+      <button
+        className="btn-sidebar btn btn-default"
+        type="button"
+        onClick={() => toggleMenu(true)}
+      >
+        <i className="fa fa-cog fa-2x" />
+      </button>
+    </NavWrapper>
   );
 };
 

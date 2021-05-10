@@ -1,25 +1,24 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ParamsContextProvider from '../Context/ParamsContext';
 import ColorContextProvider from '../Context/ColorContext';
-import Connexion from '../connexion/Connexion';
-import Navbar from '../Burger_Menu/NavBar';
+import Connexion from '../Connexion/Connexion';
+import NavRoute from '../Sidebar/NavRoute';
 import Slider from '../Slider/Slider';
 
 export default function Routter() {
-  const [display, setDisplay] = useState(false);
+  const [display] = useState(false);
+
   return (
     <Router>
       <ColorContextProvider>
         {display ? (
-          <Navbar />
+          <NavRoute />
         ) : (
           <Switch>
             <Route exact path="/" component={Connexion} />
             <ParamsContextProvider>
-              <Navbar />
+              <NavRoute />
               <Route path="/networks/" component={Slider} />
             </ParamsContextProvider>
           </Switch>

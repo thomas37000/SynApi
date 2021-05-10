@@ -17,7 +17,7 @@ button.close {
 
 .sidebar-container {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   margin-top: 1rem;
 }
 
@@ -81,4 +81,8 @@ button.close {
 
 .checkbox:checked {
   background: #ffcc00;
+}
+
+.accordion__panel {
+  background-color: var(--txt);
 }

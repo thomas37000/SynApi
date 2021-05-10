@@ -4,13 +4,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import BtnConnexion from '../Buttons/BtnConnexion';
+import FormSettings from './FormSettings';
 // import PropTypes from 'prop-types';
 import './Connexion.css';
 
@@ -33,6 +33,9 @@ const Connexion = () => {
     REACT_APP_API_TOKEN,
   } = process.env;
 
+  // SOIT faire un appel d' API pour le USER mais sans le TOKEN
+
+  // SOIT faire un appel d' API pour les 2 pour changer les params
   const API_USER = `${REACT_APP_API_USER}`;
   const API_TOKEN = `${REACT_APP_API_TOKEN}`;
   const defaultUserName = {
@@ -45,6 +48,7 @@ const Connexion = () => {
   const [userNameToken, setUserNameToken] = useState('');
   const [token, setToken] = useState('');
   const [jsonObj, setJsonObj] = useState({});
+  const [jsonObjToken, setJsonObjToken] = useState({});
 
   // ça donne [Object] [object] si je mets defaultUserName ?
   const handleChange = (e) => {
@@ -70,20 +74,27 @@ const Connexion = () => {
     console.log(`Bienvenue ${userNameToken}`);
     e.preventDefault();
     setToken('');
-    const jsonUsername = JSON.stringify(jsonObj);
+    const jsonUsername = JSON.stringify(jsonObjToken);
   };
 
   // stocker que si c'est bon
   useEffect(() => {
     sessionStorage.setItem('user-name', API_USER);
-    sessionStorage.setItem('user-token', API_TOKEN);
-    // console.log('userName', sessionStorage);
     setJsonObj({
       userName,
-      userNameToken,
-      token,
     });
-  }, [userName, userNameToken, token]);
+  }, [userName]);
+
+  // useEffect(() => {
+  //   sessionStorage.setItem('user-name', API_USER);
+  //   sessionStorage.setItem('user-token', API_TOKEN);
+  //   // console.log('userName', sessionStorage);
+  //   setJsonObjToken({
+  //     // userNameToken,
+  //     userName,
+  //     token,
+  //   });
+  // }, [userName, token]);
 
   const handleClick = () => {
     setOpen(true);
@@ -152,7 +163,7 @@ const Connexion = () => {
       <div className="acceuil">
         <h1 className="h1Connexion">Slide Your Net</h1>
         <h2 className="h2Connexion">
-          The Application to recover your favorite Networks post
+          Une application pour retrouver vos publications favorites
         </h2>
         <h3 className="h3Connexion">
           from <span>Facebook</span> - <span>Instagram</span> -
@@ -160,9 +171,9 @@ const Connexion = () => {
         </h3>
         <div className="formulaire">
           <form onSubmit={handleSubmit}>
-            <span>To see the Posts</span>
+            <span>Pour voir les publications</span>
             <label htmlFor="inputidentifiant" className="label">
-              Enter your slide name
+              Entrez votre nom
               <input
                 className="inputConnexion"
                 type="text"
@@ -179,6 +190,7 @@ const Connexion = () => {
                   <input
                     type="submit"
                     value="connexion"
+                    className="inputSubmit"
                     onSubmit={handleSubmit}
                   />
                 </Link>
@@ -199,7 +211,6 @@ const Connexion = () => {
                       onClose={handleClose}
                       classeName={classes.alertStyles}
                     >
-                      {/* {// il faut appeler l' API pour vérifier que c'est bien mon NOM ou Token } */}
                       {console.log('if', userName) && userName === ''
                         ? 'Ce champ doit être rempli !'
                         : console.log('else', !userName) && !userName
@@ -214,71 +225,17 @@ const Connexion = () => {
               )}
             </div>
           </form>
-
-          <form onSubmit={handleSubmitToken}>
-            <span>To Change the settings Slider</span>
-            <label htmlFor="inputidentifiant" className="label">
-              Enter your slide name
-              <input
-                className="inputConnexion"
-                type="text"
-                id="inputIdentifiant"
-                name="inputMail"
-                placeholder="John Doe"
-                value={userNameToken}
-                onChange={handleChangeUserToken}
-              />
-            </label>
-            <p>
-              <label htmlFor="inputidentifiant" className="label">
-                Enter your Token
-                <input
-                  className="inputToken"
-                  // className={wrong ? 'inputConnexion' : 'error'}
-                  type="password"
-                  id="inputToken"
-                  name="inputToken"
-                  placeholder="a1W4xcvb23..."
-                  value={token}
-                  required
-                  onChange={handleChangeToken}
-                />
-              </label>
-            </p>
-
-            <div>
-              {/* {userName && token ? (
-                <Link to="/networks">
-                  <input
-                    type="submit"
-                    value="connexion"
-                    onSubmit={(e) => handleSubmitToken(e)}
-                  />
-                </Link>
-              ) : (
-                <>
-                  <input
-                    type="submit"
-                    value="connexion"
-                    onClick={handleClick}
-                  />
-                  <Snackbar
-                    open={open}
-                    autoHideDuration={6000}
-                    onClose={handleCloseToken}
-                  >
-                    <Alert
-                      severity="error"
-                      onClose={handleCloseToken}
-                      classeName={classes.alertStyles}
-                    >
-                      ce champ doit être rempli !
-                    </Alert>
-                  </Snackbar>
-                </>
-              )} */}
-            </div>
-          </form>
+          {/* <FormSettings
+            open={open}
+            token={token}
+            userName={userName}
+            userNameToken={userNameToken}
+            handleChangeToken={handleChangeToken}
+            handleChangeUserToken={handleChangeUserToken}
+            handleCloseToken={handleChangeToken}
+            handleSubmit={handleSubmitToken}
+            handleClick={handleClick}
+          /> */}
         </div>
       </div>
     </div>

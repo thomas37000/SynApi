@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
-import Sidebar from 'react-sidebar';
-import { Link } from 'react-router-dom';
 import {
   Accordion,
   AccordionItem,
@@ -11,20 +10,72 @@ import {
 } from 'react-accessible-accordion';
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { ColorContext } from '../Context/ColorContext';
 import { ParamsContext } from '../Context/ParamsContext';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
-import BtnClose from '../Buttons/ButtonClose';
-import BtnOpen from '../Buttons/BtnOpen';
 import Tri from './Tri';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
-import logo from '../Burger_Menu/syn.png';
 
-const SidebarTool = () => {
+const SidebarStyled = styled.div`
+  position: fixed;
+  z-index: 555;
+  top: 0;
+  left: 0;
+  background-color: #f7f7f7;
+  padding: 1rem;
+  color: var(--dark);
+  max-width: 340px;
+  height: 100%;
+  transform: translateX(${(props) => (props.show ? '0' : '-100%')});
+  transition: all 0.3s ease-in-out;
+`;
+
+const SidebarWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CloseIcon = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 10px 35px 16px 0px;
+
+  & span,
+  & span:before,
+  & span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 3px;
+    width: 30px;
+    background: var(--dark);
+    position: absolute;
+    display: block;
+    content: '';
+  }
+
+  & span {
+    background-color: transparent;
+  }
+
+  & span:before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  & span:after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+`;
+const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext, ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState();
@@ -32,14 +83,9 @@ const SidebarTool = () => {
   const [hashtagColor] = useState();
   const [mentionColor] = useState();
   const [newPost, setNewPost] = useState();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
   const [txtColor] = useState();
   const [jsonObj, setJsonObj] = useState({});
-
-  const onSetSidebarOpen = (open) => {
-    setSidebarOpen({ sidebarOpen: open });
-    setSidebarOpen(!sidebarOpen);
-  };
 
   const restoreFontFamily = () => {
     setActiveFontFamily(!activeFontFamily);
@@ -108,131 +154,112 @@ const SidebarTool = () => {
   };
 
   console.log('handleChangePost', newPost);
-
   return (
-    <Sidebar
-      sidebar={
-        <div className="sidebar-container">
-          <div className="header_sidebar">
-            <BtnClose handleClick={onSetSidebarOpen} />
-            <Link to="/">
-              <img className="logo" src={logo} alt="" />
-            </Link>
-          </div>
-
-          <div className="sidebar-category">
-            <span>Couleurs et Typographie</span>
-            <Accordion allowZeroExpanded>
-              <AccordionItem key="">
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    changer la couleur du Background
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <SketchPicker
-                    onChange={(color) => handleChangeBg(color.hex)}
-                    className="sketch-picker"
-                  />
-                  <BtnCancel handleClick={states.function.restoreBg} />
-                  <BtnSubmit handleClick={submitColor} />
-                </AccordionItemPanel>
-              </AccordionItem>
-            </Accordion>
-            <Accordion allowZeroExpanded>
-              <AccordionItem key="">
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    changer la couleur du Texte
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <SketchPicker
-                    onChange={(color) => handleChangeTxt(color.hex)}
-                    className="sketch-picker"
-                  />
-                  <BtnCancel handleClick={states.function.restoreTxt} />
-                  <BtnSubmit handleClick={submitColor} />
-                </AccordionItemPanel>
-              </AccordionItem>
-            </Accordion>
-            <Accordion allowZeroExpanded>
-              <AccordionItem key="">
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    changer la couleur des # et @
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <SketchPicker
-                    onChange={(color) => handleChangeHashtag(color.hex)}
-                    className="sketch-picker"
-                  />
-                  <BtnCancel
-                    handleClick={states.function.restoreHashtagAndMention}
-                  />
-                  <BtnSubmit handleClick={submitColor} />
-                </AccordionItemPanel>
-              </AccordionItem>
-            </Accordion>
-            <Accordion allowZeroExpanded>
-              <AccordionItem key="">
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    changer la Typographie
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  <FontPicker
-                    apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
-                    activeFontFamily={activeFontFamily}
-                    onChange={(nextFont) =>
-                      handleChangeFontFamily(nextFont.family)
-                    }
-                    className="typo"
-                  />
-                  <BtnCancel handleClick={restoreFontFamily} />
-                  <BtnSubmit handleClick={submitColor} />
-                </AccordionItemPanel>
-              </AccordionItem>
-            </Accordion>
-          </div>
-          <div className="sidebar-category">
-            <span>Tri et nombre de posts</span>
-            <Accordion allowZeroExpanded>
-              <AccordionItem>
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    <span>Tri et nombre de posts</span>
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                {/* SLIDE FILTER ******************************* */}
-                <Tri handleChange={handleChangePost} />
-                {/* ********************************************* */}
-              </AccordionItem>
-            </Accordion>
-          </div>
+    <SidebarStyled show={show ? 1 : 0}>
+      <SidebarWrapper>
+        <CloseIcon
+          onClick={() => {
+            setIsOpened(false);
+          }}
+        >
+          <span />
+        </CloseIcon>
+        <div className="sidebar-category">
+          <span>Couleurs et Typographie</span>
+          <Accordion allowZeroExpanded>
+            <AccordionItem key="">
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  changer la couleur du Background
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <SketchPicker
+                  onChange={(color) => handleChangeBg(color.hex)}
+                  className="sketch-picker"
+                />
+                <BtnCancel handleClick={states.function.restoreBg} />
+                <BtnSubmit handleClick={submitColor} />
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+          <Accordion allowZeroExpanded>
+            <AccordionItem key="">
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  changer la couleur du Texte
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <SketchPicker
+                  onChange={(color) => handleChangeTxt(color.hex)}
+                  className="sketch-picker"
+                />
+                <BtnCancel handleClick={states.function.restoreTxt} />
+                <BtnSubmit handleClick={submitColor} />
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+          <Accordion allowZeroExpanded>
+            <AccordionItem key="">
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  changer la couleur des # et @
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <SketchPicker
+                  onChange={(color) => handleChangeHashtag(color.hex)}
+                  className="sketch-picker"
+                />
+                <BtnCancel
+                  handleClick={states.function.restoreHashtagAndMention}
+                />
+                <BtnSubmit handleClick={submitColor} />
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+          <Accordion allowZeroExpanded>
+            <AccordionItem key="">
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  changer la Typographie
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <FontPicker
+                  apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
+                  activeFontFamily={activeFontFamily}
+                  onChange={(nextFont) =>
+                    handleChangeFontFamily(nextFont.family)
+                  }
+                  className="typo"
+                />
+                <BtnCancel handleClick={restoreFontFamily} />
+                <BtnSubmit handleClick={submitColor} />
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
         </div>
-      }
-      open={sidebarOpen}
-      onSetOpen={onSetSidebarOpen}
-      styles={{ sidebar: { background: 'white', width: 350 } }}
-      onClick={() => onSetSidebarOpen(true)}
-    >
-      <button
-        className="btn-sidebar btn btn-default"
-        type="button"
-        onClick={() => onSetSidebarOpen(true)}
-      >
-        <i className="fa fa-cog fa-2x" />
-      </button>
-      {/* <BtnOpen handleChange={onSetSidebarOpen} /> */}
-    </Sidebar>
+        <div className="sidebar-category">
+          <span>Tri et nombre de posts</span>
+          <Accordion allowZeroExpanded>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  <span>Tri et nombre de posts</span>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              {/* SLIDE FILTER ******************************* */}
+              <Tri handleChange={handleChangePost} />
+
+              {/* ********************************************* */}
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </SidebarWrapper>
+    </SidebarStyled>
   );
 };
 
-Sidebar.propTypes = {
-  postUpdate: PropTypes.func.isRequired,
-};
-
-export default SidebarTool;
+export default Sidebar;
