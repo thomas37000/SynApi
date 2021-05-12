@@ -6,7 +6,7 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Tri = () => {
+const Tri = (post) => {
   const [newPost, setNewPost] = useState();
   const [jsonObj, setJsonObj] = useState({});
 
@@ -20,15 +20,15 @@ const Tri = () => {
   }, [newPost]);
 
   const changePost = (e) => {
-    // setNewPost(newPost);
-    //   states.function.setNewPost({ value: e.target.value });
+    setNewPost(newPost);
+    setNewPost({ value: e.target.value });
   };
 
   return (
     <AccordionItemPanel>
       <div className="sidebar-category">
         <div className="dropdown">
-          <SlideFilter changePost={changePost} />
+          <SlideFilter value={post} />
         </div>
         <div className="dropdown">
           <div className="tri">

@@ -5,6 +5,7 @@
 /* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { SketchPicker } from 'react-color';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -43,12 +44,18 @@ const Connexion = () => {
   };
 
   const [items, setItems] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [userNameToken, setUserNameToken] = useState('');
   const [token, setToken] = useState('');
   const [jsonObj, setJsonObj] = useState({});
   const [jsonObjToken, setJsonObjToken] = useState({});
+
+  const [bgColor, setBgColor] = useState('green');
+  const handleChangeBg = (color) => {
+    setBgColor(color);
+    sessionStorage.setItem('bgColor', color);
+  };
 
   // ça donne [Object] [object] si je mets defaultUserName ?
   const handleChange = (e) => {
@@ -84,17 +91,6 @@ const Connexion = () => {
       userName,
     });
   }, [userName]);
-
-  // useEffect(() => {
-  //   sessionStorage.setItem('user-name', API_USER);
-  //   sessionStorage.setItem('user-token', API_TOKEN);
-  //   // console.log('userName', sessionStorage);
-  //   setJsonObjToken({
-  //     // userNameToken,
-  //     userName,
-  //     token,
-  //   });
-  // }, [userName, token]);
 
   const handleClick = () => {
     setOpen(true);
@@ -225,6 +221,7 @@ const Connexion = () => {
               )}
             </div>
           </form>
+
           {/* <FormSettings
             open={open}
             token={token}

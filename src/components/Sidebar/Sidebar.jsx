@@ -11,7 +11,11 @@ import {
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
 // import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import {
+  CloseIcon,
+  SidebarStyled,
+  SidebarWrapper,
+} from './SidebarStyledComponent';
 import { ColorContext } from '../Context/ColorContext';
 import { ParamsContext } from '../Context/ParamsContext';
 import BtnCancel from '../Buttons/ButtonCancel';
@@ -21,65 +25,11 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const SidebarStyled = styled.div`
-  position: fixed;
-  z-index: 555;
-  top: 0;
-  left: 0;
-  background-color: #f7f7f7;
-  padding: 1rem;
-  color: var(--dark);
-  max-width: 340px;
-  height: 100%;
-  transform: translateX(${(props) => (props.show ? '0' : '-100%')});
-  transition: all 0.3s ease-in-out;
-`;
-
-const SidebarWrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-`;
-
-const CloseIcon = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-  padding: 10px 35px 16px 0px;
-
-  & span,
-  & span:before,
-  & span:after {
-    cursor: pointer;
-    border-radius: 1px;
-    height: 3px;
-    width: 30px;
-    background: var(--dark);
-    position: absolute;
-    display: block;
-    content: '';
-  }
-
-  & span {
-    background-color: transparent;
-  }
-
-  & span:before {
-    top: 0;
-    transform: rotate(45deg);
-  }
-
-  & span:after {
-    top: 0;
-    transform: rotate(-45deg);
-  }
-`;
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext, ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState();
-  const [bgColor] = useState();
+  const [bgColor, setBgColor] = useState();
   const [hashtagColor] = useState();
   const [mentionColor] = useState();
   const [newPost, setNewPost] = useState();
@@ -125,6 +75,8 @@ const Sidebar = ({ show, setIsOpened }) => {
     newPost,
   ]);
 
+  // c'est states.function
+  // qui empêche le colorpicker de marcher avec la souris
   const handleChangeBg = (color) => {
     states.function.setBgColor(color);
     sessionStorage.setItem('bgColor', color);
@@ -175,6 +127,7 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
+                  color={bgColor}
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"
                 />
@@ -192,6 +145,7 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
+                  color={txtColor}
                   onChange={(color) => handleChangeTxt(color.hex)}
                   className="sketch-picker"
                 />
@@ -209,6 +163,7 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
+                  color={(hashtagColor, mentionColor)}
                   onChange={(color) => handleChangeHashtag(color.hex)}
                   className="sketch-picker"
                 />
