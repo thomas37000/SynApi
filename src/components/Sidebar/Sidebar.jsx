@@ -45,29 +45,32 @@ const Sidebar = ({ show, setIsOpened }) => {
 
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
-    // console.log('JSON sidebar', jsonColor);
   };
 
-  useEffect(
-    () => {
-      sessionStorage.setItem('bgColor', bgColor);
-      sessionStorage.setItem('mentionColor', mentionColor);
-      sessionStorage.setItem('hashtagColor', hashtagColor);
-      sessionStorage.setItem('txtColor', txtColor);
-      sessionStorage.setItem('fontFamily', activeFontFamily);
-      sessionStorage.setItem('newPost', newPost);
+  useEffect(() => {
+    sessionStorage.setItem('bgColor', bgColor);
+    sessionStorage.setItem('mentionColor', mentionColor);
+    sessionStorage.setItem('hashtagColor', hashtagColor);
+    sessionStorage.setItem('txtColor', txtColor);
+    sessionStorage.setItem('fontFamily', activeFontFamily);
+    sessionStorage.setItem('newPost', newPost);
 
-      setJsonObj({
-        bgColor,
-        mentionColor,
-        hashtagColor,
-        txtColor,
-        activeFontFamily,
-        newPost,
-      });
-    }, // update
-    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor, newPost]
-  );
+    setJsonObj({
+      bgColor,
+      mentionColor,
+      hashtagColor,
+      txtColor,
+      activeFontFamily,
+      newPost,
+    });
+  }, [
+    activeFontFamily,
+    bgColor,
+    mentionColor,
+    hashtagColor,
+    txtColor,
+    newPost,
+  ]);
 
   const handleChangeBg = (color) => {
     states.function.setBgColor(color);
@@ -121,7 +124,6 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
-                  // color={states.bgColor}
                   color={bgColor}
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"

@@ -9,7 +9,6 @@ export default function SlideFilter(props) {
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
   const handleChange = (e) => {
-    // fonction native à JS qui convertit une String en Number
     setNewPost(Number(e.target.value));
     // typeof = return data type comme string , number, boolean etc...
     // voir https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/typeof

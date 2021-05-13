@@ -80,6 +80,7 @@ const Slider = () => {
   };
 
   const slides =
+    // tant que il n' y a pas d' items on ne déclanche pas le map
     items &&
     items.map((post) => {
       return (

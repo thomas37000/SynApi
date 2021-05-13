@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-unescaped-entities */
@@ -19,7 +20,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const Connexion = () => {
+const Connexion = (props) => {
   const styledAlert = makeStyles({
     alertStyles: {
       backgroundColor: '#f44336',
@@ -77,6 +78,12 @@ const Connexion = () => {
     const jsonUsername = JSON.stringify(jsonObj);
   };
 
+  // const displayUserName = () => {
+  //   if (handleSubmit) {
+  //     return userName;
+  //   }
+  // };
+
   const handleSubmitToken = (e) => {
     // console.log(`Bienvenue ${userNameToken}`);
     e.preventDefault();
@@ -112,47 +119,7 @@ const Connexion = () => {
     setOpen(false);
   };
 
-  const checkUserName = () => {
-    if (userName) {
-      <Link to="/networks">
-        <input type="submit" value="connexion" onSubmit={handleSubmit} />
-      </Link>;
-    } else {
-      <>
-        <input type="submit" value="connexion" onClick={handleClick} />
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert
-            severity="error"
-            onClose={handleClose}
-            classeName={classes.alertStyles}
-          >
-            ce n&apos;est pas le bon nom !
-          </Alert>
-        </Snackbar>
-      </>;
-    }
-  };
-
-  const checkIfFilledField = () => {
-    if (userName) {
-      <Link to="/networks">
-        <input type="submit" value="connexion" onSubmit={handleSubmit} />
-      </Link>;
-    } else {
-      <>
-        <input type="submit" value="connexion" onClick={handleClick} />
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert
-            severity="error"
-            onClose={handleClose}
-            classeName={classes.alertStyles}
-          >
-            ce champ doit être rempli !
-          </Alert>
-        </Snackbar>
-      </>;
-    }
-  };
+  const { displayUserName } = props;
 
   return (
     <div className="connexion">
@@ -166,6 +133,13 @@ const Connexion = () => {
           <span>Twitter</span>
         </h3>
         <div className="formulaire">
+          {userName === API_USER ? (
+            <div>
+              Bienvenue
+              <Link to="/networks"> {userName}</Link>
+            </div>
+          ) : null}
+
           <form onSubmit={handleSubmit}>
             <span>Pour voir les publications</span>
             <label htmlFor="inputidentifiant" className="label">
@@ -180,6 +154,7 @@ const Connexion = () => {
                 onChange={handleChange}
               />
             </label>
+
             <div>
               {userName === API_USER ? (
                 <Link to="/networks">
