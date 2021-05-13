@@ -9,7 +9,11 @@ export const ParamsContext = createContext(null);
 
 const ParamsContextProvider = (props) => {
   const defaultPost = {
-    newPost: sessionStorage.getItem('newPost') || '10',
+    newPost:
+      sessionStorage.getItem('newPost') === 'undefined' ||
+      sessionStorage.getItem('newPost') === undefined
+        ? '10'
+        : sessionStorage.getItem('newPost'),
   };
 
   const [newPost, setNewPost] = useState(defaultPost.newPost);

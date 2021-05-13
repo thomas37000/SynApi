@@ -27,7 +27,7 @@ import './Sidebar.css';
 
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext, ParamsContext);
-  console.log('states', states, states.bgColor);
+  // console.log('states', states, states.bgColor);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
@@ -107,7 +107,7 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('newPost', newPost);
   };
 
-  console.log('handleChangePost', newPost);
+  // console.log('handleChangePost', newPost);
   return (
     <SidebarStyled show={show ? 1 : 0}>
       <SidebarWrapper>

@@ -16,12 +16,16 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
+import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 
 const Slider = () => {
+  const { states } = useContext(ParamsContext);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [items, setItems] = useState([]);
+  const [maxItems, setMaxItems] = useState([]);
   const [jsonObj, setJsonObj] = useState({});
 
   const {
@@ -32,30 +36,42 @@ const Slider = () => {
 
   const API_URL = `${REACT_APP_API_URL}`;
 
-  const [newPost, setNewPost] = useState('20');
+  const [newPost, setNewPost] = useState('10');
+
   const params = {
     s: `${REACT_APP_API_USER}`,
     t: `${REACT_APP_API_TOKEN}`,
     object: 'post',
     network: '',
-    per_page: `${newPost}`,
+    per_page: '50',
   };
 
   const getApi = async (onSuccess, onError) => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
+        setMaxItems(res.data);
+        const dataItems = res.data;
+        dataItems.length = newPost;
         setItems(res.data);
-        // console.log('network', res.data);
+        setNewPost(states.newPost);
+        // 0 à 10
+        console.log('network', res.data);
       },
       (error) => onError(error)
     );
   };
 
+  // afficher max 50 items
+
   useEffect(() => {
     getApi();
   }, []);
 
-  console.log('SLIDER STATE', newPost);
+  useEffect(() => {
+    // setNewPost(states.newPost);
+    setItems((maxItems.length = Number(states.newPost)));
+    console.log('73', states.newPost);
+  }, [states.newPost]);
 
   const next = () => {
     if (animating) return;
@@ -77,6 +93,31 @@ const Slider = () => {
   const updatePost = () => {
     setNewPost(newPost);
   };
+
+  // const slides = () => {
+  //   console.log('items', items);
+  //   return items.map((post) => {
+  //     return (
+  //       <CarouselItem
+  //         onExiting={() => setAnimating(true)}
+  //         onExited={() => setAnimating(false)}
+  //         key={post.pub_id}
+  //         post={post}
+  //       >
+  //         <Card
+  //           {...post}
+  //           key={post.pub_id}
+  //           post={post}
+  //           session={post.session_id}
+  //         />
+  //         <CarouselCaption
+  //           captionText={post.caption}
+  //           captionHeader={post.caption}
+  //         />
+  //       </CarouselItem>
+  //     );
+  //   });
+  // };
 
   const slides = items.map((post) => {
     return (
@@ -107,6 +148,7 @@ const Slider = () => {
         activeIndex={activeIndex}
         onClickHandler={goToIndex}
       />
+      {/* {slides()} */}
       {slides}
       <CarouselControl
         direction="prev"

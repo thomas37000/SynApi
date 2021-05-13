@@ -5,28 +5,33 @@ import { ParamsContext } from '../Context/ParamsContext';
 import './Sidebar.css';
 
 export default function SlideFilter(props) {
-  const [post, setPost] = useState('10');
+  const { states } = useContext(ParamsContext);
+  const [newPost, setNewPost] = useState(states.newPost);
 
   const handleChange = (e) => {
-    setPost(e.target.value);
+    // fonction native à JS qui convertit une String en Number
+    setNewPost(Number(e.target.value));
+    // typeof = return data type comme string , number
+    // console.log('event', typeof e.target.value);
+    states.function.setNewPost(e.target.value);
+    sessionStorage.setItem('newPost', e.target.value);
+    console.log('slideFilter', newPost);
   };
-
-  console.log('slideFilter', post);
 
   return (
     <div>
       <div className="post-filter">
         <div className="label-slider">
-          <div>Nombre de post {post}</div>
+          <div>Nombre de post {newPost}</div>
         </div>
         <input
           type="range"
           min={0}
           max={50}
           step={2}
-          value={post}
+          value={newPost}
           className="slideFilter"
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
         />
       </div>
     </div>
