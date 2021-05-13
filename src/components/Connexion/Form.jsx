@@ -63,14 +63,7 @@ const Form = (props) => {
                   onClose={handleClose}
                   // classeName={classes.alertStyles}
                 >
-                  {console.log('if', userName) && userName === ''
-                    ? 'Ce champ doit être rempli !'
-                    : console.log('else', !userName) && !userName
-                    ? "Ce n'est pas le bon nom !"
-                    : null}
-                  {/* {userName
-                        ? "Ce n'est pas le bon nom !"
-                        : 'Ce champ doit être rempli !'} */}
+                  ...
                 </Alert>
               </Snackbar>
             </>

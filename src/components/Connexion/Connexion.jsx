@@ -71,14 +71,14 @@ const Connexion = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(`Bienvenue ${userName}`);
+    // console.log(`Bienvenue ${userName}`);
     e.preventDefault();
     setUserName('');
     const jsonUsername = JSON.stringify(jsonObj);
   };
 
   const handleSubmitToken = (e) => {
-    console.log(`Bienvenue ${userNameToken}`);
+    // console.log(`Bienvenue ${userNameToken}`);
     e.preventDefault();
     setToken('');
     const jsonUsername = JSON.stringify(jsonObjToken);
@@ -207,14 +207,7 @@ const Connexion = () => {
                       onClose={handleClose}
                       classeName={classes.alertStyles}
                     >
-                      {console.log('if', userName) && userName === ''
-                        ? 'Ce champ doit être rempli !'
-                        : console.log('else', !userName) && !userName
-                        ? "Ce n'est pas le bon nom !"
-                        : null}
-                      {/* {userName
-                        ? "Ce n'est pas le bon nom !"
-                        : 'Ce champ doit être rempli !'} */}
+                      ...
                     </Alert>
                   </Snackbar>
                 </>

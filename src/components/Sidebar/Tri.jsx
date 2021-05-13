@@ -13,7 +13,7 @@ const Tri = (post) => {
   useEffect(() => {
     sessionStorage.setItem('newPost', newPost);
     // console.log('json Sidebar', sessionStorage);
-    console.log('TRI', newPost);
+    // console.log('TRI', newPost);
     setJsonObj({
       newPost,
     });

@@ -26,9 +26,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
 const Sidebar = ({ show, setIsOpened }) => {
-  const { states } = useContext(ColorContext, ParamsContext);
-  // console.log('states', states, states.bgColor);
-
+  const { states } = useContext(ColorContext);
+  const { statesParams } = useContext(ParamsContext);
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
   );
@@ -42,11 +41,6 @@ const Sidebar = ({ show, setIsOpened }) => {
 
   const restoreFontFamily = () => {
     setActiveFontFamily(!activeFontFamily);
-  };
-
-  const changePost = (e) => {
-    setNewPost(newPost);
-    // setNewPost({ value: e.target.value });
   };
 
   const submitColor = () => {
@@ -102,12 +96,10 @@ const Sidebar = ({ show, setIsOpened }) => {
   };
 
   const handleChangePost = () => {
-    // states.function.setNewPost(newPost);
     states.function.setNewPost(newPost);
     sessionStorage.setItem('newPost', newPost);
   };
 
-  // console.log('handleChangePost', newPost);
   return (
     <SidebarStyled show={show ? 1 : 0}>
       <SidebarWrapper>
