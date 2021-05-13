@@ -25,8 +25,11 @@ const ColorContextProvider = (props) => {
   };
 
   const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
+  const background =
+    defaultColors.trBackgroundNoImg || defaultColors.fkBackgroundNoImg;
   const [bgColor, setBgColor] = useState(
-    defaultColors.trBackgroundNoImg && defaultColors.fkBackgroundNoImg
+    // && est une comparaison true ou false
+    background
   );
   const [hashtagColor, setHashtagColor] = useState(
     defaultColors.fkRegexColor ||

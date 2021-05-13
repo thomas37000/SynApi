@@ -27,14 +27,17 @@ import './Sidebar.css';
 
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext, ParamsContext);
+  console.log('states', states, states.bgColor);
 
-  const [activeFontFamily, setActiveFontFamily] = useState();
-  const [bgColor, setBgColor] = useState();
-  const [hashtagColor] = useState();
-  const [mentionColor] = useState();
+  const [activeFontFamily, setActiveFontFamily] = useState(
+    states.activeFontFamily
+  );
+  const [bgColor, setBgColor] = useState(states.bgColor);
+  const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
+  const [mentionColor, setMentionColor] = useState(states.mentionColor);
   const [newPost, setNewPost] = useState();
   // const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [txtColor] = useState();
+  const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState({});
 
   const restoreFontFamily = () => {
@@ -51,40 +54,37 @@ const Sidebar = ({ show, setIsOpened }) => {
     // console.log('JSON sidebar', jsonColor);
   };
 
-  useEffect(() => {
-    sessionStorage.setItem('bgColor', bgColor);
-    sessionStorage.setItem('mentionColor', mentionColor);
-    sessionStorage.setItem('hashtagColor', hashtagColor);
-    sessionStorage.setItem('txtColor', txtColor);
-    sessionStorage.setItem('fontFamily', activeFontFamily);
-    sessionStorage.setItem('newPost', newPost);
-    setJsonObj({
-      bgColor,
-      mentionColor,
-      hashtagColor,
-      txtColor,
-      activeFontFamily,
-      newPost,
-    });
-  }, [
-    activeFontFamily,
-    bgColor,
-    mentionColor,
-    hashtagColor,
-    txtColor,
-    newPost,
-  ]);
+  useEffect(
+    () => {
+      sessionStorage.setItem('bgColor', bgColor);
+      sessionStorage.setItem('mentionColor', mentionColor);
+      sessionStorage.setItem('hashtagColor', hashtagColor);
+      sessionStorage.setItem('txtColor', txtColor);
+      sessionStorage.setItem('fontFamily', activeFontFamily);
+      sessionStorage.setItem('newPost', newPost);
 
-  // c'est states.function
-  // qui empêche le colorpicker de marcher avec la souris
+      setJsonObj({
+        bgColor,
+        mentionColor,
+        hashtagColor,
+        txtColor,
+        activeFontFamily,
+        newPost,
+      });
+    }, // update
+    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor, newPost]
+  );
+
   const handleChangeBg = (color) => {
     states.function.setBgColor(color);
     sessionStorage.setItem('bgColor', color);
+    setBgColor(color);
   };
 
   const handleChangeTxt = (color) => {
     states.function.setTxtColor(color);
     sessionStorage.setItem('txtColor', color);
+    setTxtColor(color);
   };
 
   const handleChangeHashtag = (color) => {
@@ -92,6 +92,8 @@ const Sidebar = ({ show, setIsOpened }) => {
     states.function.setMentionColor(color);
     sessionStorage.setItem('hasthagColor', color);
     sessionStorage.setItem('mentionColor', color);
+    setHashtagColor(color);
+    setMentionColor(color);
   };
 
   const handleChangeFontFamily = () => {
@@ -127,6 +129,7 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
+                  // color={states.bgColor}
                   color={bgColor}
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"

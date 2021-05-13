@@ -222,7 +222,7 @@ const Connexion = () => {
             </div>
           </form>
 
-          {/* <FormSettings
+          <FormSettings
             open={open}
             token={token}
             userName={userName}
@@ -232,7 +232,7 @@ const Connexion = () => {
             handleCloseToken={handleChangeToken}
             handleSubmit={handleSubmitToken}
             handleClick={handleClick}
-          /> */}
+          />
         </div>
       </div>
     </div>
