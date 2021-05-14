@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
 
+// pas de hooks
+// les helpers pas de states, sinon context
+
 const helpers = (props) => {
   const {
     setToken,

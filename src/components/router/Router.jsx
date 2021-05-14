@@ -5,7 +5,7 @@ import ColorContextProvider from '../Context/ColorContext';
 import Connexion from '../Connexion/Connexion';
 import NavRoute from '../Sidebar/NavRoute';
 import Slider from '../Slider/Slider';
-// import SliderTest from '../Slider/SliderTest';
+// import SliderReact from '../Slider/SliderReact';
 
 export default function Routter() {
   const [display] = useState(false);
@@ -21,7 +21,8 @@ export default function Routter() {
             <ParamsContextProvider>
               <NavRoute />
               <Route path="/networks/" component={Slider} />
-              {/* <Route path="/networks/" component={SliderTest} /> */}
+
+              {/* <Route path="/networks/" component={SliderReact} /> */}
             </ParamsContextProvider>
           </Switch>
         )}

@@ -8,17 +8,11 @@
 // order: 'ASC' && 'DESC',
 // order_by: 'content' && 'pub_date',
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption,
-} from 'reactstrap';
+import Carousel from 'react-bootstrap/Carousel';
 import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 
-const Slider = () => {
+const SliderReact = () => {
   const { statesParams } = useContext(ParamsContext);
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -55,57 +49,24 @@ const Slider = () => {
     setNewPost(newPost);
   };
 
-  const renderCarrousel = () => {
-    return (
-      <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-        <CarouselIndicators
-          items={items}
-          activeIndex={activeIndex}
-          onClickHandler={goToIndex}
-        />
-        {/* {slides()} */}
-        {slides}
-        <CarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={previous}
-        />
-        <CarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={next}
-        />
-      </Carousel>
-    );
-  };
-  // faire une fonction pour slides
-  // post.caption il est parfois vide ?
-
-  const slides =
-    // tant que il n' y a pas d' items on ne déclanche pas le map
-    items &&
-    items.map((post) => {
-      return (
-        <CarouselItem
-          onExiting={() => setAnimating(true)}
-          onExited={() => setAnimating(false)}
-          key={post.pub_id}
-          post={post}
-        >
+  return (
+    <Carousel>
+      {items.map((post) => (
+        <Carousel.Item key={post.id}>
           <Card
             {...post}
             key={post.pub_id}
             post={post}
             session={post.session_id}
           />
-        </CarouselItem>
-      );
-    });
-
-  // Return de la function principale
-  // Si on a items et que c'est bien un array avec au moins un item
-  // il faudrait un useEffect car si items est vide === 'loading"
-  return items && items.length > 0 ? renderCarrousel() : 'loading';
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  );
 };
 
-export default Slider;
+// Return de la function principale
+// Si on a items et que c'est bien un array avec au moins un item
+// il faudrait un useEffect car si items est vide === 'loading"
+
+export default SliderReact;

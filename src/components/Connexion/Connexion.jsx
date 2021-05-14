@@ -28,6 +28,11 @@ const Connexion = (props) => {
     },
   });
 
+  // log l' utlisateur de USERS
+  // si oui
+  // context user
+  // si il coche on l' enregistre dans sessionStorage
+
   const classes = styledAlert();
   const {
     REACT_APP_API_URL,
@@ -156,6 +161,7 @@ const Connexion = (props) => {
             </label>
 
             <div>
+              {/* //  user est loggé ou pas  */}
               {userName === API_USER ? (
                 <Link to="/networks">
                   <input

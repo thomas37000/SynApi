@@ -53,7 +53,7 @@ const ParamsContextProvider = (props) => {
           setMaxItems(res.data);
           // ne conserve que item * newPost ( le nombre de post du slider)
           setItems(res.data.slice(0, newPost));
-          console.log('Success', res.data.slice(0, newPost));
+          console.log('Success', res.data, newPost);
         }
       })
       .catch((error) => console.log(error));

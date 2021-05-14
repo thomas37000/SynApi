@@ -106,7 +106,7 @@ export default function Card({ post }) {
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
-            <p className="apply-font">
+            <div className="apply-font">
               <div
                 dangerouslySetInnerHTML={{
                   __html:
@@ -120,7 +120,7 @@ export default function Card({ post }) {
                 }}
                 style={{ color: txtColor }}
               />
-            </p>
+            </div>
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
@@ -158,13 +158,14 @@ export default function Card({ post }) {
 
 Card.propTypes = {
   post: PropTypes.shape({
-    avatar_url: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     network: PropTypes.string.isRequired,
     pub_date: PropTypes.string.isRequired,
     pub_url: PropTypes.string.isRequired,
     search: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    avatar_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
 };

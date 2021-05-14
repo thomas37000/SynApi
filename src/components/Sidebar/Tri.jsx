@@ -24,6 +24,9 @@ const Tri = (post) => {
     setNewPost({ value: e.target.value });
   };
 
+  // remplacer par des radios que des checkbox
+  // onClick trier items et mettre à jour
+
   return (
     <AccordionItemPanel>
       <div className="sidebar-category">
