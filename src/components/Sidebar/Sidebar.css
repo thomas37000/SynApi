@@ -79,10 +79,14 @@ button.close {
   transition: background 0.15s ease-in-out;
 }
 
-.checkbox:checked {
-  background: #ffcc00;
-}
-
 .accordion__panel {
   background-color: var(--txt);
+}
+
+.radioButton span{
+  font-weight: normal;
+}
+
+.MuiRadio-colorSecondary.Mui-checked {
+  color: #ffcc00 !important;
 }
