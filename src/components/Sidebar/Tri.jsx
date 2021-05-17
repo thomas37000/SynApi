@@ -14,24 +14,35 @@ import './Sidebar.css';
 const Tri = (post) => {
   const [newPost, setNewPost] = useState();
   const [jsonObj, setJsonObj] = useState({});
-  const [value, setValue] = React.useState('female');
+  const [newOrderAsc, setNewOrderAsc] = useState();
+  const [newOrderDesc, setNewOrderDesc] = useState();
 
   const handleChange = (event) => {
     setNewPost(event.target.value);
+    setNewOrderDesc(event.target.value);
+    setNewOrderAsc(event.target.value);
   };
 
   useEffect(() => {
     sessionStorage.setItem('newPost', newPost);
+    sessionStorage.setItem('new_order_by', newOrderDesc);
+    sessionStorage.setItem('new_order_by', newOrderAsc);
     // console.log('json Sidebar', sessionStorage);
     // console.log('TRI', newPost);
     setJsonObj({
       newPost,
+      newOrderDesc,
+      newOrderAsc,
     });
-  }, [newPost]);
+  }, [newPost, newOrderAsc, newOrderDesc]);
 
   const changePost = (e) => {
     setNewPost(newPost);
     setNewPost({ value: e.target.value });
+    setNewOrderAsc(newOrderAsc);
+    setNewOrderAsc({ value: e.target.value });
+    setNewOrderDesc(newOrderDesc);
+    setNewOrderDesc({ value: e.target.value });
   };
 
   // onClick trier items et mettre à jour
@@ -45,31 +56,29 @@ const Tri = (post) => {
 
         <FormControl component="fieldset">
           <RadioGroup
-            aria-label="gender"
-            name="gender1"
+            aria-label="tri des posts"
+            name="new_order_by"
             value={newPost}
             onChange={handleChange}
           >
+            {/* c'est déjà par ordre de publication par défault ! */}
+
             <FormControlLabel
-              value="female"
-              control={<Radio />}
-              className="radioButton"
-              label=" Tri par date de publication"
-            />
-            <FormControlLabel
-              value="male"
+              value="nouveau contenu"
               control={<Radio />}
               className="radioButton"
               label=" Tri par ordre de contenus"
             />
             <FormControlLabel
-              value="other"
+              // value={newOrderAsc}
+              value="aaa"
               control={<Radio />}
               className="radioButton"
               label="Tri par ordre croissant"
             />
             <FormControlLabel
-              value="disabled"
+              // value={newOrderDesc}
+              value="eee"
               control={<Radio />}
               className="radioButton"
               label="Tri par ordre décroissant"

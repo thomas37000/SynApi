@@ -28,12 +28,19 @@ const Slider = () => {
   const [items, setItems] = useState(statesParams.items);
 
   const [newPost, setNewPost] = useState(statesParams.newPost);
+  const [newOrder, setNewOrder] = useState(statesParams.new_order_by);
 
   useEffect(() => {
     if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
       setItems(statesParams.maxItems.slice(0, statesParams.newPost));
     }
   }, [statesParams.newPost, statesParams.items]);
+
+  // useEffect(() => {
+  //   if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
+  //     setItems(statesParams.maxItems.slice(0, statesParams.newPost));
+  //   }
+  // }, [statesParams.newPost, statesParams.items]);
 
   const next = () => {
     if (animating) return;
@@ -79,13 +86,14 @@ const Slider = () => {
       </Carousel>
     );
   };
-  // faire une fonction pour slides
-  // post.caption il est parfois vide ?
+
+  function changeAllParams() {
+    return items && items;
+  }
 
   const slides =
     // tant que il n' y a pas d' items on ne déclanche pas le map
-    items &&
-    items.map((post) => {
+    changeAllParams().map((post) => {
       return (
         <CarouselItem
           onExiting={() => setAnimating(true)}
@@ -102,10 +110,6 @@ const Slider = () => {
         </CarouselItem>
       );
     });
-
-  // const loading = () => {
-  //   return 'loading';
-  // };
 
   function loader() {
     return (
