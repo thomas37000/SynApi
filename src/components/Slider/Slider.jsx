@@ -15,6 +15,7 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 import './Slider.css';
@@ -115,6 +116,15 @@ const Slider = () => {
     return (
       <div className="loader-container">
         Loading, Refresh the Page !
+        <Link to="/networks">
+          <button
+            Type="button"
+            value="Rafraîchir la page"
+            onClick="history.go(0)"
+          >
+            refresh
+          </button>
+        </Link>
         <div className="loader" />
       </div>
     );

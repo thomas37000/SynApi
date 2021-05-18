@@ -36,8 +36,8 @@ const ColorContextProvider = (props) => {
       defaultColors.trRegexColor
   );
   const [mentionColor, setMentionColor] = useState(
-    defaultColors.fkRegexColor ||
-      defaultColors.imRegexColor ||
+    defaultColors.imRegexColor ||
+      defaultColors.fkRegexColor ||
       defaultColors.trRegexColor
   );
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
