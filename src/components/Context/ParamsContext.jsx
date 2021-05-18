@@ -18,14 +18,20 @@ const ParamsContextProvider = (props) => {
     newPost: undefinedNewPost ? '10' : sessionStorage.getItem('newPost'),
   };
 
+  const undefinedNewOrder =
+    sessionStorage.getItem('new_order') === 'undefined' ||
+    sessionStorage.getItem('new_order') === undefined;
+
+  const defaultOrder = {
+    new_order: sessionStorage.getItem('new_order') || 'DESC',
+  };
+
   const undefinedNewOrderBy =
     sessionStorage.getItem('new_order_by') === 'undefined' ||
     sessionStorage.getItem('new_order_by') === undefined;
 
   const defaultOrderBy = {
-    new_order_by: undefinedNewOrderBy
-      ? 'DESC'
-      : sessionStorage.getItem('new_order_by'),
+    new_order_by: sessionStorage.getItem('new_order_by') || 'pub_date',
   };
 
   // ---------------------------------------------------------------------------
@@ -35,7 +41,12 @@ const ParamsContextProvider = (props) => {
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);
   const [newPost, setNewPost] = useState(defaultPost.newPost);
-  const [newOrder, setNewOrder] = useState(defaultOrderBy.new_order_by);
+  const [newOrder, setNewOrder] = useState(defaultOrder.new_order);
+  const [newOrderAsc, setNewOrderAsc] = useState(defaultOrder.new_order);
+  const [newOrderContent, setNewOrderContent] = useState(
+    defaultOrderBy.new_order_by
+  );
+
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------------------------
   // API CALL
@@ -76,6 +87,9 @@ const ParamsContextProvider = (props) => {
 
   const changePost = (e) => setNewPost({ value: e.target.value });
   const changeOrderBy = (e) => setNewOrder({ value: e.target.value });
+  const changeOrderByAsc = (e) => setNewOrderAsc({ value: e.target.value });
+  const changeOrderByContent = (e) =>
+    setNewOrderContent({ value: e.target.value });
 
   useEffect(() => {
     getApi();
@@ -90,20 +104,28 @@ const ParamsContextProvider = (props) => {
         setItems,
         setNewOrder,
         changeOrderBy,
+        setNewOrderAsc,
+        changeOrderByAsc,
+        setNewOrderContent,
+        changeOrderByContent,
       },
       items,
       maxItems,
       newOrder,
+      newOrderAsc,
+      newOrderContent,
       newPost,
     }),
-    [items, maxItems, newOrder, newPost]
+    [items, maxItems, newOrder, newOrderAsc, newOrderContent, newPost]
   );
 
   useEffect(() => {
-    setNewPost(newPost);
     setNewOrder(newOrder);
-    // console.log('paramsContext', newPost);
-  }, [newPost, newOrder]);
+    setNewOrderAsc(newOrderAsc);
+    setNewOrderContent(newOrderContent);
+    setNewPost(newPost);
+    console.log('paramsContext', newOrder, newOrderAsc, newOrderContent);
+  }, [newOrder, newOrderAsc, newOrderContent, newPost]);
 
   return (
     <ParamsContext.Provider value={{ statesParams }}>

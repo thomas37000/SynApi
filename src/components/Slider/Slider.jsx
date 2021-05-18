@@ -29,19 +29,31 @@ const Slider = () => {
   const [items, setItems] = useState(statesParams.items);
 
   const [newPost, setNewPost] = useState(statesParams.newPost);
-  const [newOrder, setNewOrder] = useState(statesParams.new_order_by);
+  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
+  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
+  const [newOrderContent, setNewOrderContent] = useState(
+    statesParams.newOrderContent
+  );
 
   useEffect(() => {
     if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
-      setItems(statesParams.maxItems.slice(0, statesParams.newPost));
+      setItems(
+        statesParams.maxItems.slice(
+          0,
+          statesParams.newPost,
+          statesParams.newOrder,
+          statesParams.newOrderAsc,
+          statesParams.newOrderContent
+        )
+      );
     }
-  }, [statesParams.newPost, statesParams.items]);
-
-  // useEffect(() => {
-  //   if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
-  //     setItems(statesParams.maxItems.slice(0, statesParams.newPost));
-  //   }
-  // }, [statesParams.newPost, statesParams.items]);
+  }, [
+    statesParams.items,
+    statesParams.newOrder,
+    statesParams.newOrderAsc,
+    statesParams.newOrderContent,
+    statesParams.newPost,
+  ]);
 
   const next = () => {
     if (animating) return;
@@ -58,10 +70,6 @@ const Slider = () => {
   const goToIndex = (newIndex) => {
     if (animating) return;
     setActiveIndex(newIndex);
-  };
-
-  const updatePost = () => {
-    setNewPost(newPost);
   };
 
   const renderCarrousel = () => {

@@ -28,12 +28,18 @@ import './Sidebar.css';
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext);
   const { statesParams } = useContext(ParamsContext);
+
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
   );
   const [bgColor, setBgColor] = useState(states.bgColor);
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
+  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
+  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
+  const [newOrderContent, setNewOrderContent] = useState(
+    statesParams.newOrderContent
+  );
   const [newPost, setNewPost] = useState();
   // const [sidebarOpen, setSidebarOpen] = useState(false);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
@@ -48,28 +54,36 @@ const Sidebar = ({ show, setIsOpened }) => {
   };
 
   useEffect(() => {
-    sessionStorage.setItem('bgColor', bgColor);
-    sessionStorage.setItem('mentionColor', mentionColor);
-    sessionStorage.setItem('hashtagColor', hashtagColor);
-    sessionStorage.setItem('txtColor', txtColor);
     sessionStorage.setItem('fontFamily', activeFontFamily);
+    sessionStorage.setItem('bgColor', bgColor);
+    sessionStorage.setItem('hashtagColor', hashtagColor);
+    sessionStorage.setItem('mentionColor', mentionColor);
+    sessionStorage.setItem('new_order', newOrder);
+    sessionStorage.setItem('new_order', newOrderAsc);
+    sessionStorage.setItem('new_order_by', newOrderContent);
     sessionStorage.setItem('newPost', newPost);
-
+    sessionStorage.setItem('txtColor', txtColor);
     setJsonObj({
-      bgColor,
-      mentionColor,
-      hashtagColor,
-      txtColor,
       activeFontFamily,
+      bgColor,
+      hashtagColor,
+      newOrder,
+      newOrderAsc,
+      newOrderContent,
       newPost,
+      mentionColor,
+      txtColor,
     });
   }, [
     activeFontFamily,
     bgColor,
-    mentionColor,
     hashtagColor,
-    txtColor,
+    newOrder,
+    newOrderAsc,
+    newOrderContent,
     newPost,
+    mentionColor,
+    txtColor,
   ]);
 
   const handleChangeBg = (color) => {
@@ -99,7 +113,13 @@ const Sidebar = ({ show, setIsOpened }) => {
   };
 
   const handleChangePost = () => {
+    statesParams.function.setNewOrder(newOrder);
+    statesParams.function.setNewOrderAsc(newOrderAsc);
+    statesParams.function.setNewOrderContent(newOrderContent);
     states.function.setNewPost(newPost);
+    sessionStorage.setItem('new_order', newOrder);
+    sessionStorage.setItem('new_order', newOrderAsc);
+    sessionStorage.setItem('new_order_by', newOrderContent);
     sessionStorage.setItem('newPost', newPost);
   };
 
@@ -193,6 +213,7 @@ const Sidebar = ({ show, setIsOpened }) => {
             </AccordionItem>
           </Accordion>
         </div>
+        {/*  ************** SLIDE FILTER + TRI par ordre de contenu ou ASC ou DESC  ************** */}
         <div className="sidebar-category">
           <span>Tri et nombre de posts</span>
           <Accordion allowZeroExpanded>
@@ -202,13 +223,11 @@ const Sidebar = ({ show, setIsOpened }) => {
                   <span>Tri et nombre de posts</span>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              {/* SLIDE FILTER ******************************* */}
               <Tri handleChange={handleChangePost} />
-
-              {/* ********************************************* */}
             </AccordionItem>
           </Accordion>
         </div>
+        {/* ********************************************* */}
       </SidebarWrapper>
     </SidebarStyled>
   );
