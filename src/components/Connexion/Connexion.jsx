@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import BtnConnexion from '../Buttons/BtnConnexion';
 import FormSettings from './FormSettings';
 // import PropTypes from 'prop-types';
@@ -28,33 +29,57 @@ const Connexion = (props) => {
     },
   });
 
-  // log l' utlisateur de USERS
-  // si oui
-  // context user
-  // si il coche on l' enregistre dans sessionStorage
+  const [items, setItems] = useState([]);
+  const [jsonObj, setJsonObj] = useState({});
 
-  const classes = styledAlert();
   const {
     REACT_APP_API_URL,
     REACT_APP_API_USER,
     REACT_APP_API_TOKEN,
   } = process.env;
 
+  const API_URL = `${REACT_APP_API_URL}`;
+  const API_USER = `${REACT_APP_API_USER}`;
+  const API_TOKEN = `${REACT_APP_API_TOKEN}`;
+
+  const params = {
+    s: `${REACT_APP_API_USER}`,
+    t: `${REACT_APP_API_TOKEN}`,
+    object: 'user',
+  };
+
+  const getApi = async (onSuccess, onError) => {
+    await axios.post(`${API_URL}`, { params }).then(
+      (res) => {
+        setItems(res.data.user);
+        console.log('user', res.data.user);
+      },
+      (error) => onError(error)
+    );
+  };
+
+  useEffect(() => {
+    getApi();
+  }, []);
+
+  // log l' utlisateur de USERS
+  // si oui
+  // context user
+  // si il coche on l' enregistre dans sessionStorage
+
+  const classes = styledAlert();
+
   // SOIT faire un appel d' API pour le USER mais sans le TOKEN
 
   // SOIT faire un appel d' API pour les 2 pour changer les params
-  const API_USER = `${REACT_APP_API_USER}`;
-  const API_TOKEN = `${REACT_APP_API_TOKEN}`;
+
   const defaultUserName = {
     userName: sessionStorage.getItem('userName') || '',
   };
-
-  const [items, setItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [userNameToken, setUserNameToken] = useState('');
   const [token, setToken] = useState('');
-  const [jsonObj, setJsonObj] = useState({});
   const [jsonObjToken, setJsonObjToken] = useState({});
 
   const [bgColor, setBgColor] = useState('green');
@@ -180,7 +205,7 @@ const Connexion = (props) => {
                   />
                   <Snackbar
                     open={open}
-                    autoHideDuration={6000}
+                    autoHideDuration={4000}
                     onClose={handleClose}
                   >
                     <Alert

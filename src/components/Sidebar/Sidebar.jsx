@@ -54,7 +54,7 @@ const Sidebar = ({ show, setIsOpened }) => {
   };
 
   useEffect(() => {
-    sessionStorage.setItem('fontFamily', activeFontFamily);
+    sessionStorage.setItem('activeFontFamily', activeFontFamily);
     sessionStorage.setItem('bgColor', bgColor);
     sessionStorage.setItem('hashtagColor', hashtagColor);
     sessionStorage.setItem('mentionColor', mentionColor);

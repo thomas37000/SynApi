@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import { AccordionItemPanel } from 'react-accessible-accordion';
@@ -13,7 +14,7 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Tri = (post) => {
+const Tri = (post, props) => {
   const { statesParams } = useContext(ParamsContext);
   const [newPost, setNewPost] = useState();
   const [jsonObj, setJsonObj] = useState({});
@@ -54,6 +55,7 @@ const Tri = (post) => {
   }, [newPost, newOrder, newOrderAsc, newOrderContent]);
 
   // onClick trier items et mettre à jour
+  const { value } = props;
 
   return (
     <AccordionItemPanel>
@@ -72,12 +74,11 @@ const Tri = (post) => {
           <RadioGroup
             aria-label="tri des posts"
             name="new_order_by"
-            value={(newOrder, newOrderAsc, newOrderContent, newPost)}
+            value={newOrder && newOrderAsc && newOrderContent && newPost}
             onChange={(e) => handleChange(e)}
           >
             <FormControlLabel
               value={newOrderContent}
-              checked={newOrderContent}
               control={<Radio />}
               className="radioButton"
               label=" Tri par ordre de contenus"
@@ -85,7 +86,6 @@ const Tri = (post) => {
             <div>{newOrderContent}</div>
             <FormControlLabel
               value={newOrderAsc}
-              checked={newOrderAsc}
               control={<Radio />}
               className="radioButton"
               label="Tri par ordre croissant"
@@ -93,7 +93,6 @@ const Tri = (post) => {
             <div>{newOrderAsc}</div>
             <FormControlLabel
               value={newOrder}
-              checked={newOrder}
               control={<Radio />}
               className="radioButton"
               label="Tri par ordre décroissant"

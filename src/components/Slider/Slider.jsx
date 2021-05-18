@@ -126,7 +126,7 @@ const Slider = () => {
         Loading, Refresh the Page !
         <Link to="/networks">
           <button
-            Type="button"
+            type="button"
             value="Rafraîchir la page"
             onClick="history.go(0)"
           >
