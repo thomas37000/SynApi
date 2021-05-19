@@ -31,6 +31,7 @@ const Connexion = (props) => {
 
   const [items, setItems] = useState([]);
   const [jsonObj, setJsonObj] = useState({});
+  const [error, setError] = useState(null);
 
   const {
     REACT_APP_SYN_URL,
@@ -47,15 +48,20 @@ const Connexion = (props) => {
   const params = {
     s: 'test-connexion',
     t: 'c8248ef2279e2495b4b92d80a32bdb5a',
+    object: 'user',
   };
 
+  const url = 'http://slideyour.net/api.php';
+
   const getApi = async (onSuccess, onError) => {
-    await axios.post('https://slideyour.net/', { params }).then(
+    await axios.get(url, { params }).then(
       (res) => {
+        console.log(res.data);
         setItems(res.data);
-        console.log('user', res.data);
       },
-      (error) => onError(error)
+      (err) => {
+        setError(err);
+      }
     );
   };
 
