@@ -58,10 +58,12 @@ const ParamsContextProvider = (props) => {
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
+  const API_USER = `${REACT_APP_API_USER}`;
+  const API_TOKEN = `${REACT_APP_API_TOKEN}`;
 
   const params = {
-    s: 'test-connexion',
-    t: 'c8248ef2279e2495b4b92d80a32bdb5a',
+    s: `${API_USER}`,
+    t: `${API_TOKEN}`,
     object: 'post',
     network: '',
     per_page: '50',
@@ -78,7 +80,7 @@ const ParamsContextProvider = (props) => {
           setMaxItems(res.data);
           // ne conserve que item * newPost ( le nombre de post du slider)
           setItems(res.data.slice(0, newPost));
-          // console.log('Success', res.data, newPost);
+          console.log('Success', res.data, newPost);
           console.log('new_order_by', newOrder);
         }
       })

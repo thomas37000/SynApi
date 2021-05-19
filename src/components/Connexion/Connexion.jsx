@@ -29,33 +29,38 @@ const Connexion = (props) => {
     },
   });
 
-  const [items, setItems] = useState([]);
+  const [users, setUsers] = useState([]);
   const [jsonObj, setJsonObj] = useState({});
+  const [error, setError] = useState(null);
 
   const {
-    REACT_APP_SYN_URL,
+    REACT_APP_API_URL,
     REACT_APP_API_USER,
     REACT_APP_API_TOKEN,
   } = process.env;
 
-  const SYN_URL = `${REACT_APP_SYN_URL}`;
+  const API_URL = `${REACT_APP_API_URL}`;
   const API_USER = `${REACT_APP_API_USER}`;
   const API_TOKEN = `${REACT_APP_API_TOKEN}`;
 
   // https://slideyour.net/thomas3 ou https://slideyour.net/test-connexion etc...
 
   const params = {
-    s: 'test-connexion',
-    t: 'c8248ef2279e2495b4b92d80a32bdb5a',
+    s: `${API_USER}`,
+    t: `${API_TOKEN}`,
+    object: 'user',
   };
 
   const getApi = async (onSuccess, onError) => {
-    await axios.post('https://slideyour.net/', { params }).then(
+    await axios.get(`${API_URL}`, { params }).then(
       (res) => {
-        setItems(res.data);
+        setUsers(res.data);
         console.log('user', res.data);
       },
-      (error) => onError(error)
+      (err) => {
+        setError(err);
+        console.log(error);
+      }
     );
   };
 
@@ -123,12 +128,12 @@ const Connexion = (props) => {
   };
 
   // stocker que si c'est bon
-  // useEffect(() => {
-  //   sessionStorage.setItem('user-name', API_USER);
-  //   setJsonObj({
-  //     userName,
-  //   });
-  // }, [userName]);
+  useEffect(() => {
+    sessionStorage.setItem('user-name', API_USER);
+    setJsonObj({
+      userName,
+    });
+  }, [userName]);
 
   const handleClick = () => {
     setOpen(true);
