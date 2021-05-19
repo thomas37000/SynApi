@@ -60,8 +60,8 @@ const ParamsContextProvider = (props) => {
   const API_URL = `${REACT_APP_API_URL}`;
 
   const params = {
-    s: `${REACT_APP_API_USER}`,
-    t: `${REACT_APP_API_TOKEN}`,
+    s: 'test-connexion',
+    t: 'c8248ef2279e2495b4b92d80a32bdb5a',
     object: 'post',
     network: '',
     per_page: '50',
