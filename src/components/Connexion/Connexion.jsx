@@ -51,11 +51,12 @@ const Connexion = (props) => {
     object: 'user',
   };
 
+  const url = 'http://slideyour.net/api.php';
+
   const getApi = async (onSuccess, onError) => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
         setUsers(res.data);
-        console.log('user', res.data);
       },
       (err) => {
         setError(err);
