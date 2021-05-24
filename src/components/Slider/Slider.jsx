@@ -138,7 +138,7 @@ const Slider = () => {
   // Return de la function principale
   // Si on a items et que c'est bien un array avec au moins un item
   // il faudrait un useEffect car si items est vide === 'loading"
-  return items && items.length > 0 && !rebuild ? renderCarousel() : loader();
+  return items && items.length > 0 ? renderCarousel() : loader();
 };
 
 export default Slider;
