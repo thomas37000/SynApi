@@ -18,22 +18,6 @@ const ParamsContextProvider = (props) => {
     newPost: undefinedNewPost ? '10' : sessionStorage.getItem('newPost'),
   };
 
-  const undefinedNewOrder =
-    sessionStorage.getItem('new_order') === 'undefined' ||
-    sessionStorage.getItem('new_order') === undefined;
-
-  const defaultOrder = {
-    new_order: sessionStorage.getItem('new_order') || 'DESC',
-  };
-
-  const undefinedNewOrderBy =
-    sessionStorage.getItem('new_order_by') === 'undefined' ||
-    sessionStorage.getItem('new_order_by') === undefined;
-
-  const defaultOrderBy = {
-    new_order_by: sessionStorage.getItem('new_order_by') || 'pub_date',
-  };
-
   // ---------------------------------------------------------------------------
   // STATE CONTEXT
   // ---------------------------------------------------------------------------
@@ -41,12 +25,11 @@ const ParamsContextProvider = (props) => {
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);
   const [newPost, setNewPost] = useState(defaultPost.newPost);
-  const [newOrder, setNewOrder] = useState(defaultOrder.new_order);
-  const [newOrderAsc, setNewOrderAsc] = useState(defaultOrder.new_order);
-  const [newOrderContent, setNewOrderContent] = useState(
-    defaultOrderBy.new_order_by
-  );
 
+  // ---------------------------------------------------------------------------
+  // RADIO BUTTONS
+  // ---------------------------------------------------------------------------
+  const [sorting, setSorting] = useState('DESC');
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------------------------
   // API CALL
@@ -67,8 +50,8 @@ const ParamsContextProvider = (props) => {
     object: 'post',
     network: '',
     per_page: '50',
-    order: 'ASC' && 'DESC',
-    order_by: 'content' && 'pub_date',
+    order: 'DESC',
+    order_by: 'pub_date',
   };
 
   const getApi = () => {
@@ -81,17 +64,10 @@ const ParamsContextProvider = (props) => {
           // ne conserve que item * newPost ( le nombre de post du slider)
           setItems(res.data.slice(0, newPost));
           console.log('Success', res.data, newPost);
-          console.log('new_order_by', newOrder);
         }
       })
       .catch((error) => console.log(error));
   };
-
-  const changePost = (e) => setNewPost({ value: e.target.value });
-  const changeOrderBy = (e) => setNewOrder({ value: e.target.value });
-  const changeOrderByAsc = (e) => setNewOrderAsc({ value: e.target.value });
-  const changeOrderByContent = (e) =>
-    setNewOrderContent({ value: e.target.value });
 
   useEffect(() => {
     getApi();
@@ -102,32 +78,20 @@ const ParamsContextProvider = (props) => {
     () => ({
       function: {
         setNewPost,
-        changePost,
         setItems,
-        setNewOrder,
-        changeOrderBy,
-        setNewOrderAsc,
-        changeOrderByAsc,
-        setNewOrderContent,
-        changeOrderByContent,
+        setSorting,
       },
       items,
       maxItems,
-      newOrder,
-      newOrderAsc,
-      newOrderContent,
+      sorting,
       newPost,
     }),
-    [items, maxItems, newOrder, newOrderAsc, newOrderContent, newPost]
+    [items, maxItems, newPost, sorting]
   );
 
   useEffect(() => {
-    setNewOrder(newOrder);
-    setNewOrderAsc(newOrderAsc);
-    setNewOrderContent(newOrderContent);
     setNewPost(newPost);
-    console.log('paramsContext', newOrder, newOrderAsc, newOrderContent);
-  }, [newOrder, newOrderAsc, newOrderContent, newPost]);
+  }, [newPost]);
 
   return (
     <ParamsContext.Provider value={{ statesParams }}>

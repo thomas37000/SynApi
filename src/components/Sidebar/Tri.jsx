@@ -18,41 +18,21 @@ const Tri = (post, props) => {
   const { statesParams } = useContext(ParamsContext);
   const [newPost, setNewPost] = useState();
   const [jsonObj, setJsonObj] = useState({});
-  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
-  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
-  const [newOrderContent, setNewOrderContent] = useState(
-    statesParams.newOrderContent
-  );
-  const [newOrderDesc, setNewOrderDesc] = useState();
 
   const handleChange = (e) => {
-    setNewOrder(e.target.value);
-    setNewOrderAsc(e.target.value);
-    setNewOrderContent(e.target.value);
-    setNewPost(e.target.value);
-    statesParams.function.setNewOrder(e.target.value);
-    statesParams.function.setNewOrderAsc(e.target.value);
-    statesParams.function.setNewOrderContent(e.target.value);
-    sessionStorage.setItem('new_order', e.target.value);
-    sessionStorage.setItem('new_order_by', e.target.value);
+    statesParams.function.setSorting(e.target.value);
+    // sessionStorage.setItem('order_by', e.target.value);
+    console.log(e.target.value);
   };
 
   useEffect(() => {
-    sessionStorage.setItem('new_order', newOrder);
-    // sessionStorage.setItem('new_order', newOrderDesc);
-    sessionStorage.setItem('new_order', newOrderAsc);
-    sessionStorage.setItem('new_order_by', newOrderContent);
     sessionStorage.setItem('newPost', newPost);
     // console.log('json Sidebar', sessionStorage);
     // console.log('TRI', newPost);
     setJsonObj({
       newPost,
-      newOrder,
-      // newOrderDesc,
-      newOrderAsc,
-      newOrderContent,
     });
-  }, [newPost, newOrder, newOrderAsc, newOrderContent]);
+  }, [newPost]);
 
   // onClick trier items et mettre à jour
   const { value } = props;
@@ -74,30 +54,30 @@ const Tri = (post, props) => {
           <RadioGroup
             aria-label="tri des posts"
             name="new_order_by"
-            value={newOrder && newOrderAsc && newOrderContent && newPost}
+            defaultValue="DESC"
+            // defaultValue={statesParams.sorting}
             onChange={(e) => handleChange(e)}
           >
             <FormControlLabel
-              value={newOrderContent}
+              value="content"
               control={<Radio />}
               className="radioButton"
               label=" Tri par ordre de contenus"
             />
-            <div>{newOrderContent}</div>
+
             <FormControlLabel
-              value={newOrderAsc}
+              value="ASC"
               control={<Radio />}
               className="radioButton"
               label="Tri par ordre croissant"
             />
-            <div>{newOrderAsc}</div>
+
             <FormControlLabel
-              value={newOrder}
+              value="DESC"
               control={<Radio />}
               className="radioButton"
               label="Tri par ordre décroissant"
             />
-            <div>{newOrder}</div>
           </RadioGroup>
         </FormControl>
       </div>

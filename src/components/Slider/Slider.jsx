@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 import './Slider.css';
+import Slides from './Slides';
 
 const Slider = () => {
   const { statesParams } = useContext(ParamsContext);
@@ -27,30 +28,34 @@ const Slider = () => {
   const [animating, setAnimating] = useState(false);
   const [jsonObj, setJsonObj] = useState({});
   const [items, setItems] = useState(statesParams.items);
+  console.log(items);
 
   const [newPost, setNewPost] = useState(statesParams.newPost);
-  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
-  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
-  const [newOrderContent, setNewOrderContent] = useState(
-    statesParams.newOrderContent
-  );
 
   useEffect(() => {
     if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
       const test = statesParams.maxItems.slice(0, statesParams.newPost);
-      console.log('ligne 41', test);
       setItems(test);
-      // setTimeout(() => {
-      //   setItems(test);
-      // }, 2000);
     }
-  }, [
-    statesParams.items,
-    // statesParams.newOrder,
-    // statesParams.newOrderAsc,
-    // statesParams.newOrderContent,
-    statesParams.newPost,
-  ]);
+  }, [statesParams.items, statesParams.newPost]);
+
+  useEffect(() => {
+    const sortItems = items.sort((a, b) => {
+      switch (statesParams.sorting) {
+        case 'ASC':
+          return b.pub_date - a.pub_date;
+        case 'DESC':
+          return a.pub_date - b.pub_date;
+        case 'content':
+          return b.content - a.content;
+        default:
+          return a.pub_date - b.pub_date;
+      }
+    });
+    console.log(sortItems);
+    setItems(sortItems);
+    statesParams.function.setItems(sortItems);
+  }, [statesParams.sorting]);
 
   const next = () => {
     if (animating) return;
@@ -70,6 +75,8 @@ const Slider = () => {
   };
 
   const renderCarrousel = () => {
+    console.log('items', items);
+
     return (
       <Carousel activeIndex={activeIndex} next={next} previous={previous}>
         <CarouselIndicators
@@ -77,7 +84,8 @@ const Slider = () => {
           activeIndex={activeIndex}
           onClickHandler={goToIndex}
         />
-        {slides()}
+        <Slides items={items} />
+
         <CarouselControl
           direction="prev"
           directionText="Previous"
@@ -90,26 +98,6 @@ const Slider = () => {
         />
       </Carousel>
     );
-  };
-
-  function changeAllParams() {
-    return items && items;
-  }
-
-  const slides = () => {
-    // tant que il n' y a pas d' items on ne déclanche pas le map
-    return changeAllParams().map((post) => {
-      return (
-        <CarouselItem
-          onExiting={() => setAnimating(true)}
-          onExited={() => setAnimating(false)}
-          key={post.pub_id}
-          post={post}
-        >
-          <Card key={post.pub_id} post={post} session={post.session_id} />
-        </CarouselItem>
-      );
-    });
   };
 
   function loader() {
