@@ -60,7 +60,6 @@ const Connexion = (props) => {
       },
       (err) => {
         setError(err);
-        console.log(error);
       }
     );
   };

@@ -16,10 +16,10 @@ import {
   CarouselCaption,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
 import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 import './Slider.css';
-import Slides from './Slides';
 
 const Slider = () => {
   const { statesParams } = useContext(ParamsContext);
@@ -28,34 +28,35 @@ const Slider = () => {
   const [animating, setAnimating] = useState(false);
   const [jsonObj, setJsonObj] = useState({});
   const [items, setItems] = useState(statesParams.items);
-  console.log(items);
-
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
   useEffect(() => {
+    if (items && items.length > 0) {
+      setItems(sortItems(items));
+      setActiveIndex(0);
+    }
+  }, [statesParams.sorting]);
+
+  useEffect(() => {
     if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
-      const test = statesParams.maxItems.slice(0, statesParams.newPost);
-      setItems(test);
+      setItems(statesParams.maxItems.slice(0, statesParams.newPost));
     }
   }, [statesParams.items, statesParams.newPost]);
 
-  useEffect(() => {
-    const sortItems = items.sort((a, b) => {
+  const sortItems = () => {
+    return items.sort((a, b) => {
       switch (statesParams.sorting) {
         case 'ASC':
-          return b.pub_date - a.pub_date;
+          return a.timestamp - b.timestamp;
         case 'DESC':
-          return a.pub_date - b.pub_date;
+          return b.timestamp - a.timestamp;
         case 'content':
-          return b.content - a.content;
+          return a.content - b.content;
         default:
-          return a.pub_date - b.pub_date;
+          return a.timestamp - b.timestamp;
       }
     });
-    console.log(sortItems);
-    setItems(sortItems);
-    statesParams.function.setItems(sortItems);
-  }, [statesParams.sorting]);
+  };
 
   const next = () => {
     if (animating) return;
@@ -74,33 +75,47 @@ const Slider = () => {
     setActiveIndex(newIndex);
   };
 
-  const renderCarrousel = () => {
-    console.log('items', items);
-
+  const slides = items.map((post) => {
     return (
-      <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-        <CarouselIndicators
-          items={items}
-          activeIndex={activeIndex}
-          onClickHandler={goToIndex}
-        />
-        <Slides items={items} />
-
-        <CarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={previous}
-        />
-        <CarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={next}
-        />
-      </Carousel>
+      <CarouselItem
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={post.pub_id}
+        post={post}
+      >
+        <Card key={post.pub_id} post={post} session={post.session_id} />
+      </CarouselItem>
     );
+  });
+
+  const renderCarousel = () => {
+    if (items && items.length > 0) {
+      return (
+        <Carousel activeIndex={activeIndex} next={next} previous={previous}>
+          <CarouselIndicators
+            items={items}
+            activeIndex={activeIndex}
+            onClickHandler={goToIndex}
+          />
+          {slides}
+          <CarouselControl
+            direction="prev"
+            directionText="Previous"
+            onClickHandler={previous}
+          />
+          <CarouselControl
+            direction="next"
+            directionText="Next"
+            onClickHandler={next}
+          />
+        </Carousel>
+      );
+    }
+
+    return 'Loading ...';
   };
 
-  function loader() {
+  const loader = () => {
     return (
       <div className="loader-container">
         Loading, Refresh the Page !
@@ -116,14 +131,14 @@ const Slider = () => {
         <div className="loader" />
       </div>
     );
-  }
+  };
 
   setTimeout(loader, 100);
 
   // Return de la function principale
   // Si on a items et que c'est bien un array avec au moins un item
   // il faudrait un useEffect car si items est vide === 'loading"
-  return items && items.length > 0 ? renderCarrousel() : loader();
+  return items && items.length > 0 && !rebuild ? renderCarousel() : loader();
 };
 
 export default Slider;
