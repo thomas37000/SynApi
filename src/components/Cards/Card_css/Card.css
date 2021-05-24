@@ -1,7 +1,7 @@
 /* Tr === twitter */
 .cardTr {
   height: 100vh;
-  background: var(--bgNoImgTr);
+  background: var(--trBackgroundNoImg);
   color: #f1f1f1;
 }
 
@@ -34,7 +34,7 @@
   display: grid;
   justify-content: center;
   align-items: center;
-  margin: 0 5rem ;
+  margin: 0 5rem;
   font-size: 35px;
   text-align: center;
 }
@@ -61,14 +61,15 @@
   font-weight: normal;
 }
 
-.txtHashtag, .txtMention {
-  color: var(--rxTr);
+.txtHashtag,
+.txtMention {
+  color: var(--tr);
   font-weight: bold;
 }
 
-.cardBodyNoImg .txtHashtag, 
+.cardBodyNoImg .txtHashtag,
 .cardBodyNoImg .txtMention {
-  color: var(--rxNoImg);
+  color: var(--black);
   font-weight: bold;
 }
 
@@ -78,7 +79,7 @@
 }
 
 .reTweet {
-  color: #fff;
+  color: var(--txt);
   font-weight: bold;
   margin: 1rem 0 0 1rem;
 }
@@ -100,7 +101,7 @@
 }
 
 .hashtag {
-  color: #fff;
+  color: var(--txt);
   font-weight: 700;
   margin: 1rem 1rem 0 0;
 }

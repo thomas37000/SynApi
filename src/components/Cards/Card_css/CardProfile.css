@@ -32,7 +32,7 @@
 }
 
 .hashtag {
-  color: #fff;
+  color: var(--txt);;
   font-weight: 700;
   margin: 1rem 1rem 0 0;
 }
@@ -44,7 +44,7 @@
 }
 
 .userProfile {
-  color: var(--rxNoImg);
+  color: var(--black);
   font-weight: bold;
   margin: 0 1rem;
 }
@@ -87,10 +87,6 @@ li label {
   align-items: center;
 }
 
-li:nth-last-child(1) {
-  margin-right: 1.5rem;
-}
-
 .btnSettings {
   margin: 2rem 0 1rem 0;
 }
@@ -99,19 +95,19 @@ li:nth-last-child(1) {
   margin-bottom: 1rem;
   background-color: green;
   padding: 0.5rem;
-  border-radius: 10px;
+  border-radius: 5px;
   color: #fff;
   border: none;
-  width: 150px;
+  width: 100px;
 }
 
 .cancel {
-  margin: 0 1rem;
-  background-color: red;
+  background-color: var(--txt);
   padding: 0.5rem;
-  border-radius: 10px;
-  color: #fff;
-  border: none;
+  border-radius: 5px;
+  color: red;
+  border: 1px solid red;
+  width: 100px;
 }
 
 .spanTool {
@@ -139,6 +135,15 @@ li:nth-last-child(1) {
 .instructions {
   color: #000;
   margin-top: 1rem;
+}
+
+#font-picker {
+  height: 230px;
+}
+
+.inputRange {
+  color: var(--black);
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,0 +1,92 @@
+.fa {
+  margin-top: 5px;
+}
+
+.btn-sidebar {
+  margin-top: -5px;
+}
+
+button.close {
+  margin-right: 1rem;
+}
+
+.close {
+  font-size: xx-large !important;
+  font-weight: lighter;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.sidebar-category {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.sidebar-category span {
+  font-weight: bold;
+}
+
+.sidebar-category:nth-last-child(1) {
+  margin-top: 3rem;
+}
+
+.dropdown {
+  margin-bottom: 1rem;
+}
+
+.tri input {
+  margin-right: 0.5rem;
+}
+
+.post-filter {
+  margin-top: -2rem;
+}
+
+.slideFilter {
+  -webkit-appearance: none;
+  width: 250px;
+  height: 10px;
+  border-radius: 5px;
+  background: #ccc;
+  outline: none;
+}
+
+/* Google Chrome */
+.slideFilter::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffcc00 !important;
+  cursor: pointer;
+  -webkit-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
+}
+
+/* Firefox */
+.slideFilter::-moz-range-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffcc00 !important;
+  cursor: pointer;
+  -webkit-transition: background 0.15s ease-in-out;
+  transition: background 0.15s ease-in-out;
+}
+
+.accordion__panel {
+  background-color: var(--txt);
+}
+
+.radioButton span{
+  font-weight: normal;
+}
+
+.MuiRadio-colorSecondary.Mui-checked {
+  color: #ffcc00 !important;
+}

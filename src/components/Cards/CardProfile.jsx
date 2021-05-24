@@ -9,42 +9,50 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { CirclePicker, CompactPicker, SketchPicker } from 'react-color';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel,
+} from 'react-accessible-accordion';
+import { SketchPicker } from 'react-color';
 import PropTypes from 'prop-types';
+import FontPicker from 'font-picker-react';
 import ColorContext from '../Context/ColorContext';
-import BtnLoadTwitter from '../Buttons/ButtonTwitter';
-import BtnLoadFacebook from '../Buttons/ButtonFacebook';
-import BtnLoadInstagram from '../Buttons/ButtonInstagram';
-import BtnSubmit from '../Buttons/ButtonSubmit';
-import useLocalState from '../Context/LocalStrorage';
 import Settings from '../Profile/Settings';
+import SlideFilter from '../Sidebar/SlideFilter';
 import './Card_css/CardProfile.css';
-
-// pour les avatars qui ne se laod parseFloat, ça mal était formaté dans l' Api
-// https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-1/cp0/c19.0.50.50a/p50x50/41065264_297658571027640_1439194432233537536_n.png
+import BtnSubmit from '../Buttons/ButtonSubmit';
+import BtnCancel from '../Buttons/ButtonCancel';
 
 export default function CardProfile({ post }) {
   const defaultColors = {
     txt: sessionStorage.getItem('txtColor') || '#fff',
-    tr: '#1da1f2',
-    fb: '#4267b2',
-    im: '#e1306c',
-    bgNoImgTr: sessionStorage.getItem('bgColor') || '#1da1f2',
-    bgNoImgFb: '#4267b2',
-    rxTr: sessionStorage.getItem('mentionColor') || '#1da1f2',
-    rxFb: '#4267b2',
-    rxIm: '#e1306c',
-    rxNoImg: '#000',
-    hashtagColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+    black: sessionStorage.getItem('mentionColor') || '#000',
+    im: sessionStorage.getItem('mentionColor') || '#e1306c',
+    fk: sessionStorage.getItem('mentionColor') || '#4267b2',
+    fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
+    fkRegexColor: sessionStorage.getItem('hashtagColor') || '#4267b2',
+    tr: sessionStorage.getItem('mentionColor') || '#1da1f2',
+    trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
+    trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
   };
 
-  const [hashtagColor, setHashtagColor] = useState(defaultColors.hashtagColor);
-  const [bgColor, setBgColor] = useState(defaultColors.bgNoImgTr);
+  const defaultTypo = {
+    typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
+  };
+
+  const [hashtagColor, setHashtagColor] = useState(
+    defaultColors.fkRegexColor ||
+      defaultColors.imRegexColor ||
+      defaultColors.trRegexColor
+  );
+  const [bgColor, setBgColor] = useState(defaultColors.trBackgroundNoImg);
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
-  const [mentionColor, setMentionColor] = useState(defaultColors.rxTr);
+  const [mentionColor, setMentionColor] = useState(defaultColors.black);
+  const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
   const [jsonObj, setJsonObj] = useState({});
-  const [networks, setNetworks] = useState([]);
 
   const bg = `url(${post.media_url})`;
   const bgBefore = {
@@ -71,8 +79,9 @@ export default function CardProfile({ post }) {
   }
 
   // restore color background / text / # or @ by default
-  const restorehashtagColor = () => {
+  const restoreHashtagAndMention = () => {
     setHashtagColor(!hashtagColor);
+    setMentionColor(!mentionColor);
   };
 
   const restoreBg = () => {
@@ -83,17 +92,13 @@ export default function CardProfile({ post }) {
     setTxtColor(!txtColor);
   };
 
-  const restoreMention = () => {
-    setMentionColor(!mentionColor);
-  };
+  // const restoreFontFamily = () => {
+  //   setActiveFontFamily(!activeFontFamily);
+  // };
 
-  const submitColor = () => {
-    // setToggleColor(bgColor, mentionColor,hashtagColor, txtColor);
-
+  const submitColor = (e) => {
     const jsonColor = JSON.stringify(jsonObj);
     console.log('JSON', jsonColor);
-    // sessionStorage.setItem('text', txtColor);
-    // console.log(sessionStorage);
 
     // https://github.com/axios/axios#request-config
 
@@ -140,20 +145,40 @@ export default function CardProfile({ post }) {
   // https://httpbin.org/post
   // ', json);
 
+  const defaultPost = {
+    newPost: sessionStorage.getItem('newPost') || '20',
+  };
+  const [newPost, setNewPost] = useState(defaultPost.newPost);
+  const [postUpdate, setPostUpdate] = useState();
+
+  const changePost = () => {
+    setNewPost({ value: e.target.value });
+  };
+
   useEffect(() => {
-    sessionStorage.setItem('BgColor', bgColor);
-    sessionStorage.setItem('MentionColor', mentionColor);
-    sessionStorage.setItem('hashtagColor',hashtagColor);
-    sessionStorage.setItem('TxtColor', txtColor);
-    // console.log(sessionStorage);
+    sessionStorage.setItem('bgColor', bgColor);
+    sessionStorage.setItem('mentionColor', mentionColor);
+    sessionStorage.setItem('hashtagColor', hashtagColor);
+    sessionStorage.setItem('txtColor', txtColor);
+    sessionStorage.setItem('fontFamily', activeFontFamily);
+    sessionStorage.setItem('newPost', newPost);
+    // console.log('json', sessionStorage);
     setJsonObj({
       bgColor,
       mentionColor,
       hashtagColor,
       txtColor,
+      activeFontFamily,
+      newPost,
     });
-    // console.log('POST JSON STATE', setJsonObj);
-  }, [bgColor, mentionColor,hashtagColor, txtColor]);
+  }, [
+    activeFontFamily,
+    bgColor,
+    mentionColor,
+    hashtagColor,
+    newPost,
+    txtColor,
+  ]);
 
   return (
     <>
@@ -165,89 +190,61 @@ export default function CardProfile({ post }) {
           <div className="settings">
             <Settings />
             <div className="colorSettings">
-              <div className="form-group network">
-                <BtnLoadTwitter />
-                <BtnLoadFacebook />
-                <BtnLoadInstagram />
+              <div className="form-group">
+                <FontPicker
+                  apiKey="AIzaSyBqmdg2e_R-b0vz6xutdlonOrfWUuQ0Tas"
+                  activeFontFamily={activeFontFamily}
+                  onChange={(nextFont) => setActiveFontFamily(nextFont.family)}
+                  className="typo"
+                />
+                <div style={{ color: ' black', marginTop: '1rem' }}>
+                  changer le
+                </div>
+                <div className="inputRange">
+                  <SlideFilter handleChange={changePost} />
+                </div>
               </div>
 
               <div className="form-group">
                 <SketchPicker
                   onChange={(color) => setBgColor(color.hex)}
-                  onSubmit={(e) => submitBg(e)}
-                  className="circlepicker"
+                  className="sketchPicker"
                 />
                 <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreBg()}
-                  >
-                    Cancel
-                  </button>
+                  <BtnCancel handleClick={restoreBg} />
                 </div>
               </div>
               <div className="form-group">
-                <SketchPicker
-                  onChange={(color) => setTxtColor(color.hex)}
-                  onSubmit={(e) => submitBg(e)}
-                  className="circlepicker"
-                />
+                <SketchPicker onChange={(color) => setTxtColor(color.hex)} />
                 <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => restoreTxt()}
-                  >
-                    Cancel
-                  </button>
+                  <BtnCancel handleClick={restoreTxt} />
                 </div>
               </div>
 
               <div className="form-group">
                 <SketchPicker
-                  // color={mentionColor}
                   onChange={(color) =>
                     setHashtagColor(color.hex) || setMentionColor(color.hex)
                   }
-                  onSubmit={(e) => submitColor(e)}
-                  className="circlepicker"
+                  className="sketchPicker"
                 />
                 <div className="btnSettings">
-                  <button
-                    id="btn"
-                    className="cancel"
-                    type="submit"
-                    onClick={() => {
-                      restorehashtagColor();
-                      restoreMention();
-                    }}
-                  >
-                    Cancel
-                  </button>
+                  <BtnCancel handleClick={restoreHashtagAndMention} />
                 </div>
               </div>
             </div>
-            <button
-              id="btn"
-              className="submit"
-              type="submit"
-              value={txtColor}
-              onClick={() => submitColor(txtColor)}
-            >
-              Submit
-            </button>
+            <BtnSubmit handleClick={submitColor} />
           </div>
           <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
             <div className={post.media_url ? 'content' : 'contentNoImg'}>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: highlight(post.content),
-                }}
-                style={{ color: txtColor }}
-              />
+              <p className="apply-font">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: highlight(post.content),
+                  }}
+                  style={{ color: txtColor }}
+                />
+              </p>
             </div>
             <div className="cardImg">
               <div className={post.media_url ? 'getImg' : 'hideImg'}>
