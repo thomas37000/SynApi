@@ -37,21 +37,18 @@ const Slider = () => {
 
   useEffect(() => {
     if (statesParams.items.length > 0 && statesParams.maxItems.length > 0) {
-      setItems(
-        statesParams.maxItems.slice(
-          0,
-          statesParams.newPost,
-          statesParams.newOrder,
-          statesParams.newOrderAsc,
-          statesParams.newOrderContent
-        )
-      );
+      const test = statesParams.maxItems.slice(0, statesParams.newPost);
+      console.log('ligne 41', test);
+      setItems(test);
+      // setTimeout(() => {
+      //   setItems(test);
+      // }, 2000);
     }
   }, [
     statesParams.items,
-    statesParams.newOrder,
-    statesParams.newOrderAsc,
-    statesParams.newOrderContent,
+    // statesParams.newOrder,
+    // statesParams.newOrderAsc,
+    // statesParams.newOrderContent,
     statesParams.newPost,
   ]);
 
@@ -80,8 +77,7 @@ const Slider = () => {
           activeIndex={activeIndex}
           onClickHandler={goToIndex}
         />
-        {/* {slides()} */}
-        {slides}
+        {slides()}
         <CarouselControl
           direction="prev"
           directionText="Previous"
@@ -100,9 +96,9 @@ const Slider = () => {
     return items && items;
   }
 
-  const slides =
+  const slides = () => {
     // tant que il n' y a pas d' items on ne déclanche pas le map
-    changeAllParams().map((post) => {
+    return changeAllParams().map((post) => {
       return (
         <CarouselItem
           onExiting={() => setAnimating(true)}
@@ -110,15 +106,11 @@ const Slider = () => {
           key={post.pub_id}
           post={post}
         >
-          <Card
-            {...post}
-            key={post.pub_id}
-            post={post}
-            session={post.session_id}
-          />
+          <Card key={post.pub_id} post={post} session={post.session_id} />
         </CarouselItem>
       );
     });
+  };
 
   function loader() {
     return (
