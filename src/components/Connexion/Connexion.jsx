@@ -49,6 +49,9 @@ const Connexion = (props) => {
     s: `${API_USER}`,
     t: `${API_TOKEN}`,
     object: 'user',
+    // le point de l' Api n'existe pas
+    // session-name
+    // session-token
   };
 
   const url = 'http://slideyour.net/api.php';
@@ -201,6 +204,8 @@ const Connexion = (props) => {
                     value="connexion"
                     className="inputSubmit"
                     onSubmit={handleSubmit}
+                    // renvoyer l' user sur cette URL
+                    // https://admin.slideyour.net/admin/index.php?s=thomas3&t=8845c9cd48230070ac72191467ac1690
                   />
                 </Link>
               ) : (
