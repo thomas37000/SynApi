@@ -21,21 +21,14 @@ const Tri = (post, props) => {
 
   const handleChange = (e) => {
     statesParams.function.setSorting(e.target.value);
-    // sessionStorage.setItem('order_by', e.target.value);
-    console.log(e.target.value);
   };
 
   useEffect(() => {
     sessionStorage.setItem('newPost', newPost);
-    // console.log('json Sidebar', sessionStorage);
-    // console.log('TRI', newPost);
     setJsonObj({
       newPost,
     });
   }, [newPost]);
-
-  // onClick trier items et mettre à jour
-  const { value } = props;
 
   return (
     <AccordionItemPanel>
