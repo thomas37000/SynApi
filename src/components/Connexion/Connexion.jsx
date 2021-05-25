@@ -131,12 +131,12 @@ const Connexion = (props) => {
   };
 
   // stocker que si c'est bon
-  useEffect(() => {
-    sessionStorage.setItem('user-name', API_USER);
-    setJsonObj({
-      userName,
-    });
-  }, [userName]);
+  // useEffect(() => {
+  //   sessionStorage.setItem('user-name', API_USER);
+  //   setJsonObj({
+  //     userName,
+  //   });
+  // }, [userName]);
 
   const handleClick = () => {
     setOpen(true);

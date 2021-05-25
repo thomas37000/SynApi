@@ -25,7 +25,7 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Sidebar = ({ show, setIsOpened }) => {
+const Sidebar = ({ interval, show, setIsOpened }) => {
   const { states } = useContext(ColorContext);
   const { statesParams } = useContext(ParamsContext);
 
@@ -215,7 +215,7 @@ const Sidebar = ({ show, setIsOpened }) => {
         </div>
         {/*  ************** SLIDE FILTER + TRI par ordre de contenu ou ASC ou DESC  ************** */}
         <div className="sidebar-category">
-          <span>Tri et nombre de posts</span>
+          {/* <span>Tri et nombre de posts</span> */}
           <Accordion allowZeroExpanded>
             <AccordionItem>
               <AccordionItemHeading>

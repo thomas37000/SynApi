@@ -41,8 +41,8 @@ const ParamsContextProvider = (props) => {
   } = process.env;
 
   const API_URL = `${REACT_APP_API_URL}`;
-  const API_USER = `${REACT_APP_API_USER}`;
-  const API_TOKEN = `${REACT_APP_API_TOKEN}`;
+  const API_USER = 'thomas2';
+  const API_TOKEN = '414d4d57e4577ea404ff0ebdfe25c680';
 
   const params = {
     s: `${API_USER}`,
@@ -51,7 +51,7 @@ const ParamsContextProvider = (props) => {
     network: '',
     per_page: '50',
     order: 'DESC',
-    order_by: 'pub_date',
+    order_by: 'content',
   };
 
   const getApi = () => {
@@ -83,8 +83,8 @@ const ParamsContextProvider = (props) => {
       },
       items,
       maxItems,
-      sorting,
       newPost,
+      sorting,
     }),
     [items, maxItems, newPost, sorting]
   );
