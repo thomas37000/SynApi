@@ -52,14 +52,6 @@ const Tri = (post, props) => {
             onChange={(e) => handleChange(e)}
           >
             <FormControlLabel
-              // affiche les contenus avec des emojis en premier comme les smiley ou autre ...
-              value="content"
-              control={<Radio />}
-              className="radioButton"
-              label=" Tri par ordre de contenus"
-            />
-
-            <FormControlLabel
               value="ASC"
               control={<Radio />}
               className="radioButton"

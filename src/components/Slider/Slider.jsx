@@ -3,10 +3,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-// DESC c'est normal publications récentes
-// ASC publications anciennes
-// order: 'ASC' && 'DESC',
-// order_by: 'content' && 'pub_date',
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Carousel,
@@ -50,8 +46,6 @@ const Slider = () => {
           return a.timestamp - b.timestamp;
         case 'DESC':
           return b.timestamp - a.timestamp;
-        case 'content':
-          return a.content - b.content;
         default:
           return a.timestamp - b.timestamp;
       }
