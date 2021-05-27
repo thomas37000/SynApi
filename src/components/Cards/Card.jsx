@@ -43,6 +43,7 @@ export default function Card({ post }) {
   const contentApi = post.content;
   const media = post.media_url;
   const netWork = post.network;
+  const getInstagram = post.timestamp;
 
   function highlight(match) {
     return match
@@ -124,7 +125,7 @@ export default function Card({ post }) {
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
-              <img src={post.media_url} alt="" />
+              <img src={post.media_url} alt={post.media_url} />
             </div>
           </div>
         </div>
