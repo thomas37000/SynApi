@@ -1,9 +1,14 @@
 {
   "colors": {
     "background": "",
+    "hashtag": "",
     "mention": "",
-    "span": "",
-    "Text": ""
+    "text": ""
   },
-  "font-family":""
+  "font_family": "",
+  "tri": {
+    "asc": "",
+    "desc": "",
+    "new_post": ""
+  }
 }

@@ -18,6 +18,14 @@ import {
 } from './SidebarStyledComponent';
 import { ColorContext } from '../Context/ColorContext';
 import { ParamsContext } from '../Context/ParamsContext';
+import {
+  defaultColorsFacebook,
+  defaultColorsInstagram,
+  defaultColorsTwitter,
+  defaultPost,
+  defaultTri,
+  defaultTypoJson,
+} from '../utils/helpers';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import Tri from './Tri';
@@ -63,6 +71,10 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
     sessionStorage.setItem('new_order_by', newOrderContent);
     sessionStorage.setItem('newPost', newPost);
     sessionStorage.setItem('txtColor', txtColor);
+    const jsonFacebook = JSON.stringify(defaultColorsFacebook);
+    const jsonInstagram = JSON.stringify(defaultColorsInstagram);
+    const jsonTwitter = JSON.stringify(defaultColorsTwitter);
+    console.log(jsonFacebook, jsonInstagram, jsonTwitter);
     setJsonObj({
       activeFontFamily,
       bgColor,
@@ -73,6 +85,9 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
       newPost,
       mentionColor,
       txtColor,
+      defaultColorsFacebook,
+      defaultColorsInstagram,
+      defaultColorsTwitter,
     });
   }, [
     activeFontFamily,
@@ -84,17 +99,22 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
     newPost,
     mentionColor,
     txtColor,
+    defaultColorsFacebook,
+    defaultColorsInstagram,
+    defaultColorsTwitter,
   ]);
 
   const handleChangeBg = (color) => {
     states.function.setBgColor(color);
     sessionStorage.setItem('bgColor', color);
+    JSON.stringify('background', color);
     setBgColor(color);
   };
 
   const handleChangeTxt = (color) => {
     states.function.setTxtColor(color);
     sessionStorage.setItem('txtColor', color);
+    JSON.stringify('text', color);
     setTxtColor(color);
   };
 
@@ -103,6 +123,8 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
     states.function.setMentionColor(color);
     sessionStorage.setItem('hasthagColor', color);
     sessionStorage.setItem('mentionColor', color);
+    JSON.stringify('hashtag', color);
+    JSON.stringify('mention', color);
     setHashtagColor(color);
     setMentionColor(color);
   };

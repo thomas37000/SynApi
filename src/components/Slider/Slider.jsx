@@ -14,6 +14,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import { ParamsContext } from '../Context/ParamsContext';
+import { defaultPost } from '../utils/helpers';
 import Card from '../Cards/Card';
 import './Slider.css';
 
@@ -38,6 +39,15 @@ const Slider = () => {
       setItems(statesParams.maxItems.slice(0, statesParams.newPost));
     }
   }, [statesParams.items, statesParams.newPost]);
+
+  function test() {
+    const jsonPost = JSON.stringify(defaultPost);
+    console.log('jsonPost in SLIDER', jsonPost);
+  }
+
+  useEffect(() => {
+    test();
+  }, []);
 
   const sortItems = () => {
     return items.sort((a, b) => {

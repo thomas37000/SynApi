@@ -1,72 +1,48 @@
-/* eslint-disable no-unused-vars */
-
-// pas de hooks
-// les helpers pas de states, sinon context
-
-const helpers = (props) => {
-  const {
-    setToken,
-    setUserName,
-    setUserNameToken,
-    userName,
-    userNameToken,
-  } = props;
-
-  const handleChange = (e) => {
-    setUserName(e.target.value);
-  };
-
-  const handleChangeUserToken = (e) => {
-    setUserNameToken(e.target.value);
-  };
-
-  const handleChangeToken = (e) => {
-    setToken(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    console.log(`Bienvenue ${userName}`);
-    e.preventDefault();
-    setUserName('');
-  };
-
-  const handleSubmitToken = (e) => {
-    console.log(`Bienvenue ${userNameToken}`);
-    e.preventDefault();
-    setToken('');
-  };
+const defaultColorsInstagram = {
+  colors: {
+    background_no_image:
+      ('#405de6', '#5851db', '#833ab4', '#c13584', '#e1306c'),
+    hashtag: '#e1306c',
+    mention: '#e1306c',
+    text: '#fff',
+  },
 };
 
-export default helpers;
+const defaultColorsTwitter = {
+  colors: {
+    background_no_image: '#1da1f2',
+    hashtag: '#1da1f2',
+    mention: '#1da1f2',
+    text: '#fff',
+  },
+};
 
-// const handleChange = (e, setUserName) => {
-//   setUserName(e.target.value);
-// };
+const defaultColorsFacebook = {
+  colors: {
+    background_no_image: '#4267b2',
+    hashtag: '#4267b2',
+    mention: '#4267b2',
+    text: '#fff',
+  },
+};
 
-// const handleChangeUserToken = (e, setUserNameToken) => {
-//   setUserNameToken(e.target.value);
-// };
+const defaultTypoJson = {
+  font_family: 'Arial',
+};
 
-// const handleChangeToken = (e, setToken) => {
-//   setToken(e.target.value);
-// };
+const defaultPost = {
+  post: 10,
+};
 
-// const handleSubmit = (e, setUserName, userName) => {
-//   console.log(`Bienvenue ${userName}`);
-//   e.preventDefault();
-//   setUserName('');
-// };
+const defaultTri = {
+  desc: 'DESC',
+};
 
-// const handleSubmitToken = (e, setToken, userNameToken) => {
-//   console.log(`Bienvenue ${userNameToken}`);
-//   e.preventDefault();
-//   setToken('');
-// };
-
-// export {
-//   handleChange,
-//   handleChangeToken,
-//   handleChangeUserToken,
-//   handleSubmit,
-//   handleSubmitToken,
-// };
+export {
+  defaultColorsFacebook,
+  defaultColorsInstagram,
+  defaultColorsTwitter,
+  defaultPost,
+  defaultTri,
+  defaultTypoJson,
+};
