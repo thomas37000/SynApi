@@ -1,7 +1,16 @@
 .cardInsta {
   width: 100vw;
   height: 100vh;
-} 
+  background: linear-gradient(
+    10deg,
+    #405de6,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c
+  );
+  color: var(--txt);
+}
 
 .txtSpanWithImgInst {
   color: var(--im);
@@ -11,6 +20,5 @@
 /* ne marche pas, mais getImg marche ? */
 .getImgInsta {
   width: 600px;
-  height: 600px; 
+  height: 600px;
 }
-
