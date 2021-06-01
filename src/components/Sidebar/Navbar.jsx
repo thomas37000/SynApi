@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../images/syn.png';
@@ -22,13 +23,13 @@ const NavWrapper = styled.div`
   }
 `;
 
-const Navbar = ({ connected, toggleMenu }) => {
+const Navbar = ({ connected, connectedWithToken, toggleMenu }) => {
   return (
     <NavWrapper>
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
-      {connected ? (
+      {connected || !connectedWithToken ? (
         <button
           className="btn-sidebar btn btn-default"
           type="button"
