@@ -9,26 +9,26 @@ export const ColorContext = createContext(null);
 
 const ColorContextProvider = (props) => {
   const defaultColors = {
-    txt: sessionStorage.getItem('txtColor') || '#fff',
-    black: sessionStorage.getItem('mentionColor') || '#000',
-    im: sessionStorage.getItem('mentionColor') || '#e1306c',
-    fk: sessionStorage.getItem('mentionColor') || '#4267b2',
-    fkBackgroundNoImg: sessionStorage.getItem('bgColor') || '#4267b2',
-    fkRegexColor: sessionStorage.getItem('hashtagColor') || '#4267b2',
-    tr: sessionStorage.getItem('mentionColor') || '#1da1f2',
-    trBackgroundNoImg: sessionStorage.getItem('bgColor') || '#1da1f2',
-    trRegexColor: sessionStorage.getItem('hashtagColor') || '#1da1f2',
+    txt: sessionStorage.getItem('text') || '#fff',
+    black: sessionStorage.getItem('mention') || '#000',
+    im: sessionStorage.getItem('mention') || '#e1306c',
+    fk: sessionStorage.getItem('mention') || '#4267b2',
+    fkBackgroundNoImg: sessionStorage.getItem('background') || '#4267b2',
+    fkRegexColor: sessionStorage.getItem('hashtag') || '#4267b2',
+    tr: sessionStorage.getItem('mention') || '#1da1f2',
+    trBackgroundNoImg: sessionStorage.getItem('background') || '#1da1f2',
+    trRegexColor: sessionStorage.getItem('hashtag') || '#1da1f2',
   };
 
   const defaultTypo = {
-    typo: sessionStorage.getItem('activeFontFamily') || 'Arial',
+    typo: sessionStorage.getItem('font_family') || 'Arial',
   };
 
   const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
 
-  const background =
+  const backgroundColor =
     defaultColors.trBackgroundNoImg || defaultColors.fkBackgroundNoImg;
-  const [bgColor, setBgColor] = useState(background);
+  const [background, setBackground] = useState(backgroundColor);
 
   const [hashtagColor, setHashtagColor] = useState(
     defaultColors.fkRegexColor ||
@@ -42,8 +42,8 @@ const ColorContextProvider = (props) => {
   );
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
 
-  const restoreBg = () => {
-    setBgColor(!bgColor);
+  const restoreBackground = () => {
+    setBackground(!background);
   };
   const restoreHashtagAndMention = () => {
     setHashtagColor(!hashtagColor);
@@ -58,30 +58,30 @@ const ColorContextProvider = (props) => {
     () => ({
       function: {
         setActiveFontFamily,
-        setBgColor,
+        setBackground,
         setHashtagColor,
         setMentionColor,
         setTxtColor,
-        restoreBg,
+        restoreBackground,
         restoreHashtagAndMention,
         restoreTxt,
       },
       activeFontFamily,
-      bgColor,
+      background,
       mentionColor,
       hashtagColor,
       txtColor,
     }),
-    [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]
+    [activeFontFamily, background, mentionColor, hashtagColor, txtColor]
   );
 
   useEffect(() => {
     setActiveFontFamily(activeFontFamily);
-    setBgColor(bgColor);
+    setBackground(background);
     setHashtagColor(hashtagColor);
     setMentionColor(mentionColor);
     setTxtColor(txtColor);
-  }, [activeFontFamily, bgColor, mentionColor, hashtagColor, txtColor]);
+  }, [activeFontFamily, background, mentionColor, hashtagColor, txtColor]);
 
   return (
     <ColorContext.Provider value={{ states }}>

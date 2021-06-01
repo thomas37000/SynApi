@@ -24,7 +24,7 @@ const Tri = (post, props) => {
   };
 
   useEffect(() => {
-    sessionStorage.setItem('newPost', newPost);
+    sessionStorage.setItem('post', newPost);
     setJsonObj({
       newPost,
     });

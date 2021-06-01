@@ -11,11 +11,11 @@ export const ParamsContext = createContext(null);
 
 const ParamsContextProvider = (props) => {
   const undefinedNewPost =
-    sessionStorage.getItem('newPost') === 'undefined' ||
-    sessionStorage.getItem('newPost') === undefined;
+    sessionStorage.getItem('post') === 'undefined' ||
+    sessionStorage.getItem('post') === undefined;
 
   const defaultPost = {
-    newPost: undefinedNewPost ? '10' : sessionStorage.getItem('newPost'),
+    newPost: undefinedNewPost ? '10' : sessionStorage.getItem('post'),
   };
 
   // ---------------------------------------------------------------------------

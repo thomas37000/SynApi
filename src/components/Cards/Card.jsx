@@ -15,20 +15,20 @@ export default function Card({ post }) {
   const { states } = useContext(ColorContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
-    states.activeFontFamily || sessionStorage.getItem('fontFamily')
+    states.activeFontFamily || sessionStorage.getItem('font_family')
   );
 
-  const [bgColor, setBgColor] = useState(
-    states.bgColor || sessionStorage.getItem('bgColor')
+  const [background, setBackground] = useState(
+    states.background || sessionStorage.getItem('background')
   );
   const [hashtagColor, setHashtagColor] = useState(
-    states.hashtagColor || sessionStorage.getItem('hashtagColor')
+    states.hashtagColor || sessionStorage.getItem('hashtag')
   );
   const [mentionColor, setMentionColor] = useState(
-    states.mentionColor || sessionStorage.getItem('mentionColor')
+    states.mentionColor || sessionStorage.getItem('mention')
   );
   const [txtColor, setTxtColor] = useState(
-    states.txtColor || sessionStorage.getItem('txtColor')
+    states.txtColor || sessionStorage.getItem('text')
   );
 
   const bg = `url(${post.media_url})`;
@@ -77,13 +77,13 @@ export default function Card({ post }) {
 
   useEffect(() => {
     setActiveFontFamily(states.activeFontFamily);
-    setBgColor(states.bgColor);
+    setBackground(states.background);
     setHashtagColor(states.hashtagColor);
     setMentionColor(states.mentionColor);
     setTxtColor(states.txtColor);
   }, [
     states.activeFontFamily,
-    states.bgColor,
+    states.background,
     states.hashtagColor,
     states.mentionColor,
     states.txtColor,
@@ -103,7 +103,7 @@ export default function Card({ post }) {
             ? 'cardWithImg'
             : 'cardTr'
         }
-        style={media ? bgBefore : { backgroundColor: bgColor }}
+        style={media ? bgBefore : { backgroundColor: background }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>

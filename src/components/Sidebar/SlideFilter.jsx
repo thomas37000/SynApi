@@ -13,7 +13,7 @@ export default function SlideFilter(props) {
     // typeof = return data type comme string , number, boolean etc...
     // voir https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/typeof
     statesParams.function.setNewPost(e.target.value);
-    sessionStorage.setItem('newPost', e.target.value);
+    sessionStorage.setItem('post', e.target.value);
   };
 
   const renderSlider = () => {

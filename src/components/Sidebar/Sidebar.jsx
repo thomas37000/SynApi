@@ -40,14 +40,11 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
   );
-  const [bgColor, setBgColor] = useState(states.bgColor);
+  const [background, setBackground] = useState(states.background);
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
   const [newOrder, setNewOrder] = useState(statesParams.newOrder);
   const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
-  const [newOrderContent, setNewOrderContent] = useState(
-    statesParams.newOrderContent
-  );
   const [newPost, setNewPost] = useState();
   // const [sidebarOpen, setSidebarOpen] = useState(false);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
@@ -62,26 +59,24 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
   };
 
   useEffect(() => {
-    sessionStorage.setItem('activeFontFamily', activeFontFamily);
-    sessionStorage.setItem('bgColor', bgColor);
-    sessionStorage.setItem('hashtagColor', hashtagColor);
-    sessionStorage.setItem('mentionColor', mentionColor);
-    sessionStorage.setItem('new_order', newOrder);
-    sessionStorage.setItem('new_order', newOrderAsc);
-    sessionStorage.setItem('new_order_by', newOrderContent);
-    sessionStorage.setItem('newPost', newPost);
-    sessionStorage.setItem('txtColor', txtColor);
+    sessionStorage.setItem('font_family', activeFontFamily);
+    sessionStorage.setItem('background', background);
+    sessionStorage.setItem('hashtag', hashtagColor);
+    sessionStorage.setItem('mention', mentionColor);
+    sessionStorage.setItem('desc', newOrder);
+    sessionStorage.setItem('asc', newOrderAsc);
+    sessionStorage.setItem('post', newPost);
+    sessionStorage.setItem('text', txtColor);
     const jsonFacebook = JSON.stringify(defaultColorsFacebook);
     const jsonInstagram = JSON.stringify(defaultColorsInstagram);
     const jsonTwitter = JSON.stringify(defaultColorsTwitter);
     console.log(jsonFacebook, jsonInstagram, jsonTwitter);
     setJsonObj({
       activeFontFamily,
-      bgColor,
+      background,
       hashtagColor,
       newOrder,
       newOrderAsc,
-      newOrderContent,
       newPost,
       mentionColor,
       txtColor,
@@ -91,11 +86,10 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
     });
   }, [
     activeFontFamily,
-    bgColor,
+    background,
     hashtagColor,
     newOrder,
     newOrderAsc,
-    newOrderContent,
     newPost,
     mentionColor,
     txtColor,
@@ -105,15 +99,15 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
   ]);
 
   const handleChangeBg = (color) => {
-    states.function.setBgColor(color);
-    sessionStorage.setItem('bgColor', color);
+    states.function.setBackground(color);
+    sessionStorage.setItem('background', color);
     JSON.stringify('background', color);
-    setBgColor(color);
+    setBackground(color);
   };
 
   const handleChangeTxt = (color) => {
     states.function.setTxtColor(color);
-    sessionStorage.setItem('txtColor', color);
+    sessionStorage.setItem('text', color);
     JSON.stringify('text', color);
     setTxtColor(color);
   };
@@ -121,9 +115,9 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
   const handleChangeHashtag = (color) => {
     states.function.setHashtagColor(color);
     states.function.setMentionColor(color);
-    sessionStorage.setItem('hasthagColor', color);
-    sessionStorage.setItem('mentionColor', color);
-    JSON.stringify('hashtag', color);
+    sessionStorage.setItem('hasthag', color);
+    sessionStorage.setItem('mention', color);
+    // JSON.stringify('hashtag', color);
     JSON.stringify('mention', color);
     setHashtagColor(color);
     setMentionColor(color);
@@ -131,18 +125,16 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
 
   const handleChangeFontFamily = () => {
     states.function.setActiveFontFamily(activeFontFamily);
-    sessionStorage.setItem('activeFontFamily', activeFontFamily);
+    sessionStorage.setItem('font_family', activeFontFamily);
   };
 
   const handleChangePost = () => {
     statesParams.function.setNewOrder(newOrder);
     statesParams.function.setNewOrderAsc(newOrderAsc);
-    statesParams.function.setNewOrderContent(newOrderContent);
     states.function.setNewPost(newPost);
-    sessionStorage.setItem('new_order', newOrder);
-    sessionStorage.setItem('new_order', newOrderAsc);
-    sessionStorage.setItem('new_order_by', newOrderContent);
-    sessionStorage.setItem('newPost', newPost);
+    sessionStorage.setItem('desc', newOrder);
+    sessionStorage.setItem('asc', newOrderAsc);
+    sessionStorage.setItem('post', newPost);
   };
 
   return (
@@ -166,11 +158,11 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
-                  color={bgColor}
+                  color={background}
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel handleClick={states.function.restoreBg} />
+                <BtnCancel handleClick={states.function.restoreBackground} />
                 <BtnSubmit handleClick={submitColor} />
               </AccordionItemPanel>
             </AccordionItem>
