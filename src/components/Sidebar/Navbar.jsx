@@ -22,19 +22,21 @@ const NavWrapper = styled.div`
   }
 `;
 
-const Navbar = ({ toggleMenu }) => {
+const Navbar = ({ connected, toggleMenu }) => {
   return (
     <NavWrapper>
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
-      <button
-        className="btn-sidebar btn btn-default"
-        type="button"
-        onClick={() => toggleMenu(true)}
-      >
-        <i className="fa fa-cog fa-2x" />
-      </button>
+      {connected ? (
+        <button
+          className="btn-sidebar btn btn-default"
+          type="button"
+          onClick={() => toggleMenu(true)}
+        >
+          <i className="fa fa-cog fa-2x" />
+        </button>
+      ) : null}
     </NavWrapper>
   );
 };

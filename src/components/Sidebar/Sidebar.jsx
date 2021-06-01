@@ -33,7 +33,7 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Sidebar = ({ interval, show, setIsOpened }) => {
+const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext);
   const { statesParams } = useContext(ParamsContext);
 
@@ -46,7 +46,6 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
   const [newOrder, setNewOrder] = useState(statesParams.newOrder);
   const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
   const [newPost, setNewPost] = useState();
-  // const [sidebarOpen, setSidebarOpen] = useState(false);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState({});
 
@@ -117,7 +116,7 @@ const Sidebar = ({ interval, show, setIsOpened }) => {
     states.function.setMentionColor(color);
     sessionStorage.setItem('hasthag', color);
     sessionStorage.setItem('mention', color);
-    // JSON.stringify('hashtag', color);
+    JSON.stringify('hashtag', color);
     JSON.stringify('mention', color);
     setHashtagColor(color);
     setMentionColor(color);

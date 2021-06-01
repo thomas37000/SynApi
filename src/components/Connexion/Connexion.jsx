@@ -6,8 +6,6 @@
 /* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { SketchPicker } from 'react-color';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -83,19 +81,13 @@ const Connexion = (props) => {
   // SOIT faire un appel d' API pour les 2 pour changer les params
 
   const defaultUserName = {
-    userName: sessionStorage.getItem('userName') || '',
+    userName: sessionStorage.getItem('username') || '',
   };
   const [open, setOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [userNameToken, setUserNameToken] = useState('');
   const [token, setToken] = useState('');
   const [jsonObjToken, setJsonObjToken] = useState({});
-
-  const [bgColor, setBgColor] = useState('green');
-  const handleChangeBg = (color) => {
-    setBgColor(color);
-    sessionStorage.setItem('bgColor', color);
-  };
 
   // ça donne [Object] [object] si je mets defaultUserName ?
   const handleChange = (e) => {
@@ -131,12 +123,12 @@ const Connexion = (props) => {
   };
 
   // stocker que si c'est bon
-  // useEffect(() => {
-  //   sessionStorage.setItem('user-name', API_USER);
-  //   setJsonObj({
-  //     userName,
-  //   });
-  // }, [userName]);
+  useEffect(() => {
+    sessionStorage.setItem('username', API_USER);
+    setJsonObj({
+      userName,
+    });
+  }, [userName]);
 
   const handleClick = () => {
     setOpen(true);
@@ -159,6 +151,8 @@ const Connexion = (props) => {
   };
 
   const { displayUserName } = props;
+
+  const connected = userName === API_USER;
 
   return (
     <div className="connexion">
@@ -196,7 +190,7 @@ const Connexion = (props) => {
 
             <div>
               {/* //  user est loggé ou pas  */}
-              {userName === API_USER ? (
+              {connected ? (
                 <Link to="/networks">
                   <input
                     type="submit"

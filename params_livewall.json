@@ -10,5 +10,9 @@
     "asc": "",
     "desc": "",
     "post": ""
-  }
+  },
+  "session_user": {
+    "username": "",
+    "token": ""
+  } 
 }
