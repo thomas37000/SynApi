@@ -45,6 +45,7 @@ const ColorContextProvider = (props) => {
   const restoreBackground = () => {
     setBackground(!background);
   };
+
   const restoreHashtagAndMention = () => {
     setHashtagColor(!hashtagColor);
     setMentionColor(!mentionColor);

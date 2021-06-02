@@ -16,6 +16,8 @@ import './Sidebar.css';
 
 const Tri = (post, props) => {
   const { statesParams } = useContext(ParamsContext);
+  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
+  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
   const [newPost, setNewPost] = useState();
   const [jsonObj, setJsonObj] = useState({});
 
@@ -23,11 +25,26 @@ const Tri = (post, props) => {
     statesParams.function.setSorting(e.target.value);
   };
 
+  const triJson = {
+    asc: newOrderAsc,
+    desc: newOrder,
+    post: newPost,
+  };
+  // undifined ?
+  console.log(triJson);
+
+  const triStringify = JSON.stringify(
+    triJson,
+    (prop, val) => {
+      return val;
+    },
+    3
+  );
+  console.log('tri', triStringify);
+
   useEffect(() => {
     sessionStorage.setItem('post', newPost);
-    setJsonObj({
-      newPost,
-    });
+    setJsonObj(triStringify);
   }, [newPost]);
 
   return (

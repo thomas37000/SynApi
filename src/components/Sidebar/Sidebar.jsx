@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
@@ -18,14 +19,6 @@ import {
 } from './SidebarStyledComponent';
 import { ColorContext } from '../Context/ColorContext';
 import { ParamsContext } from '../Context/ParamsContext';
-import {
-  defaultColorsFacebook,
-  defaultColorsInstagram,
-  defaultColorsTwitter,
-  defaultPost,
-  defaultTri,
-  defaultTypoJson,
-} from '../utils/helpers';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import Tri from './Tri';
@@ -56,6 +49,23 @@ const Sidebar = ({ show, setIsOpened }) => {
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
   };
+  const colorJson = {
+    background: background,
+    hashtag: hashtagColor,
+    mention: mentionColor,
+    text: txtColor,
+    // font family reste à Arial, il ne se modifie pas ?
+    font_family: activeFontFamily,
+  };
+
+  const colorStringify = JSON.stringify(
+    colorJson,
+    (prop, val) => {
+      return val;
+    },
+    3
+  );
+  console.log('colors', colorStringify);
 
   useEffect(() => {
     sessionStorage.setItem('font_family', activeFontFamily);
@@ -66,23 +76,10 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('asc', newOrderAsc);
     sessionStorage.setItem('post', newPost);
     sessionStorage.setItem('text', txtColor);
-    const jsonFacebook = JSON.stringify(defaultColorsFacebook);
-    const jsonInstagram = JSON.stringify(defaultColorsInstagram);
-    const jsonTwitter = JSON.stringify(defaultColorsTwitter);
-    console.log(jsonFacebook, jsonInstagram, jsonTwitter);
-    setJsonObj({
-      activeFontFamily,
-      background,
-      hashtagColor,
-      newOrder,
-      newOrderAsc,
-      newPost,
-      mentionColor,
-      txtColor,
-      defaultColorsFacebook,
-      defaultColorsInstagram,
-      defaultColorsTwitter,
-    });
+    setJsonObj(
+      // le point d' API doit être fait pour les enregistrer
+      colorStringify
+    );
   }, [
     activeFontFamily,
     background,
@@ -92,22 +89,17 @@ const Sidebar = ({ show, setIsOpened }) => {
     newPost,
     mentionColor,
     txtColor,
-    defaultColorsFacebook,
-    defaultColorsInstagram,
-    defaultColorsTwitter,
   ]);
 
   const handleChangeBg = (color) => {
     states.function.setBackground(color);
     sessionStorage.setItem('background', color);
-    JSON.stringify('background', color);
     setBackground(color);
   };
 
   const handleChangeTxt = (color) => {
     states.function.setTxtColor(color);
     sessionStorage.setItem('text', color);
-    JSON.stringify('text', color);
     setTxtColor(color);
   };
 
@@ -116,8 +108,6 @@ const Sidebar = ({ show, setIsOpened }) => {
     states.function.setMentionColor(color);
     sessionStorage.setItem('hasthag', color);
     sessionStorage.setItem('mention', color);
-    JSON.stringify('hashtag', color);
-    JSON.stringify('mention', color);
     setHashtagColor(color);
     setMentionColor(color);
   };
