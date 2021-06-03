@@ -112,9 +112,12 @@ const Sidebar = ({ show, setIsOpened }) => {
     setMentionColor(color);
   };
 
-  const handleChangeFontFamily = () => {
-    states.function.setActiveFontFamily(activeFontFamily);
-    sessionStorage.setItem('font_family', activeFontFamily);
+  // selectedFont = la saisie de l'utilisateur
+  const handleChangeFontFamily = (selectedFont) => {
+    // ici on met a jour le state local de la font (state appartenant a ce composant)
+    setActiveFontFamily(selectedFont);
+    states.function.setActiveFontFamily(selectedFont);
+    sessionStorage.setItem('font_family', selectedFont);
   };
 
   const handleChangePost = () => {
