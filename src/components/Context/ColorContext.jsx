@@ -57,6 +57,7 @@ const ColorContextProvider = (props) => {
 
   const restoreFontFamily = () => {
     setActiveFontFamily(!activeFontFamily);
+    setActiveFontFamily('Arial');
   };
 
   const states = useMemo(

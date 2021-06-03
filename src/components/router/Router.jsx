@@ -8,8 +8,6 @@ import NavRoute from '../Sidebar/NavRoute';
 import Slider from '../Slider/Slider';
 import Nav from '../Sidebar/Nav';
 
-// import SliderReact from '../Slider/SliderReact';
-
 export default function Routter(props) {
   const [display] = useState(false);
   function displayNav() {
@@ -32,7 +30,6 @@ export default function Routter(props) {
               <ParamsContextProvider>
                 <NavRoute />
                 <Route path="/networks/" component={Slider} />
-                {/* <Route path="/networks/" component={SliderReact} /> */}
               </ParamsContextProvider>
             </Switch>
           )}
