@@ -76,14 +76,6 @@ const ColorContextProvider = (props) => {
     [activeFontFamily, background, mentionColor, hashtagColor, txtColor]
   );
 
-  useEffect(() => {
-    setActiveFontFamily(activeFontFamily);
-    setBackground(background);
-    setHashtagColor(hashtagColor);
-    setMentionColor(mentionColor);
-    setTxtColor(txtColor);
-  }, [activeFontFamily, background, mentionColor, hashtagColor, txtColor]);
-
   return (
     <ColorContext.Provider value={{ states }}>
       {props.children}
