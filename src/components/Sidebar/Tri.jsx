@@ -16,9 +16,9 @@ import './Sidebar.css';
 
 const Tri = (post, props) => {
   const { statesParams } = useContext(ParamsContext);
-  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
-  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
+
   const [newPost, setNewPost] = useState();
+  const [sorting, setSorting] = useState(statesParams.sorting);
   const [jsonObj, setJsonObj] = useState();
 
   const handleChange = (e) => {
@@ -26,8 +26,7 @@ const Tri = (post, props) => {
   };
 
   const triJson = {
-    asc: newOrderAsc,
-    desc: newOrder,
+    order: sorting,
     post: newPost,
   };
   // undifined ?
@@ -40,12 +39,13 @@ const Tri = (post, props) => {
     },
     3
   );
-  console.log('tri', triStringify);
+  console.log('order', triStringify);
 
   useEffect(() => {
     sessionStorage.setItem('post', newPost);
+    sessionStorage.setItem('order', sorting);
     setJsonObj(triStringify);
-  }, [newPost]);
+  }, [newPost, sorting]);
 
   return (
     <AccordionItemPanel>

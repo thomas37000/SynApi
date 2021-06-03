@@ -36,9 +36,6 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [background, setBackground] = useState(states.background);
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
-  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
-  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
-  const [newPost, setNewPost] = useState();
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState({});
 
@@ -72,24 +69,12 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('background', background);
     sessionStorage.setItem('hashtag', hashtagColor);
     sessionStorage.setItem('mention', mentionColor);
-    sessionStorage.setItem('desc', newOrder);
-    sessionStorage.setItem('asc', newOrderAsc);
-    sessionStorage.setItem('post', newPost);
     sessionStorage.setItem('text', txtColor);
     setJsonObj(
       // le point d' API doit être fait pour les enregistrer
       colorStringify
     );
-  }, [
-    activeFontFamily,
-    background,
-    hashtagColor,
-    newOrder,
-    newOrderAsc,
-    newPost,
-    mentionColor,
-    txtColor,
-  ]);
+  }, [activeFontFamily, background, hashtagColor, mentionColor, txtColor]);
 
   const handleChangeBg = (color) => {
     states.function.setBackground(color);
@@ -118,15 +103,6 @@ const Sidebar = ({ show, setIsOpened }) => {
     setActiveFontFamily(selectedFont);
     states.function.setActiveFontFamily(selectedFont);
     sessionStorage.setItem('font_family', selectedFont);
-  };
-
-  const handleChangePost = () => {
-    statesParams.function.setNewOrder(newOrder);
-    statesParams.function.setNewOrderAsc(newOrderAsc);
-    states.function.setNewPost(newPost);
-    sessionStorage.setItem('desc', newOrder);
-    sessionStorage.setItem('asc', newOrderAsc);
-    sessionStorage.setItem('post', newPost);
   };
 
   return (
@@ -229,7 +205,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   <span>Tri et nombre de posts</span>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <Tri handleChange={handleChangePost} />
+              <Tri />
             </AccordionItem>
           </Accordion>
         </div>
