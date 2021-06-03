@@ -10,10 +10,10 @@ import Nav from '../Sidebar/Nav';
 
 // import SliderReact from '../Slider/SliderReact';
 
-export default function Routter() {
+export default function Routter(props) {
   const [display] = useState(false);
   function displayNav() {
-    if ('username') {
+    if (props) {
       return <Nav />;
     }
     // else 'username + token'

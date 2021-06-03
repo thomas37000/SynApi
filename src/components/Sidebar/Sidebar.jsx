@@ -28,7 +28,6 @@ import './Sidebar.css';
 
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext);
-  const { statesParams } = useContext(ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
