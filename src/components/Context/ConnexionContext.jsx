@@ -46,7 +46,6 @@ const ConnexionContextProvider = (props) => {
 
   useEffect(() => {
     getApi();
-    console.log('CALL API');
   }, []);
 
   const statesParams = useMemo(

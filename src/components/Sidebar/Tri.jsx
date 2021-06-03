@@ -19,7 +19,7 @@ const Tri = (post, props) => {
   const [newOrder, setNewOrder] = useState(statesParams.newOrder);
   const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
   const [newPost, setNewPost] = useState();
-  const [jsonObj, setJsonObj] = useState({});
+  const [jsonObj, setJsonObj] = useState();
 
   const handleChange = (e) => {
     statesParams.function.setSorting(e.target.value);
@@ -88,12 +88,14 @@ const Tri = (post, props) => {
   );
 };
 
-// Tri.propTypes = {
-//   aria: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-//   selected: PropTypes.string.isRequired,
-//   value: PropTypes.string.isRequired,
-//   onChange: PropTypes.func.isRequired,
-// };
+Tri.propTypes = {
+  post: PropTypes.shape({
+    aria: PropTypes.string,
+    name: PropTypes.string,
+    selected: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+  }).isRequired,
+};
 
 export default Tri;

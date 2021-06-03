@@ -23,7 +23,7 @@ const Slider = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [jsonObj, setJsonObj] = useState({});
+  const [jsonObj, setJsonObj] = useState();
   const [items, setItems] = useState(statesParams.items);
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
@@ -39,15 +39,6 @@ const Slider = () => {
       setItems(statesParams.maxItems.slice(0, statesParams.newPost));
     }
   }, [statesParams.items, statesParams.newPost]);
-
-  function test() {
-    const jsonPost = JSON.stringify(defaultPost);
-    console.log('jsonPost in SLIDER', jsonPost);
-  }
-
-  useEffect(() => {
-    test();
-  }, []);
 
   const sortItems = () => {
     return items.sort((a, b) => {
@@ -119,6 +110,10 @@ const Slider = () => {
     return 'Loading ...';
   };
 
+  function refresh() {
+    window.history.go(0);
+  }
+
   const loader = () => {
     return (
       <div className="loader-container">
@@ -127,7 +122,7 @@ const Slider = () => {
           <button
             type="button"
             value="Rafraîchir la page"
-            onClick="history.go(0)"
+            onClick={() => refresh()}
           >
             refresh
           </button>
