@@ -55,6 +55,10 @@ const ColorContextProvider = (props) => {
     setTxtColor(!txtColor);
   };
 
+  const restoreFontFamily = () => {
+    setActiveFontFamily(!activeFontFamily);
+  };
+
   const states = useMemo(
     () => ({
       function: {
@@ -64,6 +68,7 @@ const ColorContextProvider = (props) => {
         setMentionColor,
         setTxtColor,
         restoreBackground,
+        restoreFontFamily,
         restoreHashtagAndMention,
         restoreTxt,
       },

@@ -42,10 +42,6 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState({});
 
-  const restoreFontFamily = () => {
-    setActiveFontFamily(!activeFontFamily);
-  };
-
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
   };
@@ -213,7 +209,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   }
                   className="typo"
                 />
-                <BtnCancel handleClick={restoreFontFamily} />
+                <BtnCancel handleClick={states.function.restoreFontFamily} />
                 <BtnSubmit handleClick={submitColor} />
               </AccordionItemPanel>
             </AccordionItem>
