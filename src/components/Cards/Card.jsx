@@ -159,14 +159,17 @@ export default function Card({ post }) {
 
 Card.propTypes = {
   post: PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    network: PropTypes.string.isRequired,
-    pub_date: PropTypes.string.isRequired,
-    pub_url: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired,
-  }).isRequired,
+    content: PropTypes.string,
+    network: PropTypes.string,
+    search: PropTypes.string,
+  }),
   user: PropTypes.shape({
-    avatar_url: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+    avatar_url: PropTypes.string,
+    name: PropTypes.string,
+  }),
+};
+
+Card.defaultProps = {
+  post: {},
+  user: {},
 };

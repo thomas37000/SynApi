@@ -103,7 +103,11 @@ Tri.propTypes = {
     selected: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func,
-  }).isRequired,
+  }),
+};
+
+Tri.defaultProps = {
+  post: {},
 };
 
 export default Tri;
