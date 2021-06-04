@@ -36,7 +36,7 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
-  const [jsonObj, setJsonObj] = useState({});
+  const [jsonObj, setJsonObj] = useState();
 
   const submitColor = () => {
     const jsonColor = JSON.stringify(jsonObj);
@@ -98,6 +98,12 @@ const Sidebar = ({ show, setIsOpened }) => {
     setActiveFontFamily(selectedFont);
     states.function.setActiveFontFamily(selectedFont);
     sessionStorage.setItem('font_family', selectedFont);
+  };
+
+  const restoreFontFamily = (selectedFont) => {
+    setActiveFontFamily('Arial');
+    states.function.restoreFontFamily();
+    sessionStorage.setItem('font_family', 'Arial');
   };
 
   return (
@@ -184,7 +190,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   }
                   className="typo"
                 />
-                <BtnCancel handleClick={states.function.restoreFontFamily} />
+                <BtnCancel handleClick={() => restoreFontFamily()} />
                 <BtnSubmit handleClick={submitColor} />
               </AccordionItemPanel>
             </AccordionItem>
