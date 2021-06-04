@@ -14,12 +14,12 @@ import { ColorContext } from '../Context/ColorContext';
 export default function Card({ post }) {
   const { states } = useContext(ColorContext);
 
-  const [activeFontFamily, setActiveFontFamily] = useState(
+  const [setActiveFontFamily] = useState(
     states.activeFontFamily || sessionStorage.getItem('font_family')
   );
 
-  const [background, setBackground] = useState(
-    states.background || sessionStorage.getItem('background')
+  const [backgroundColor, setBackgroundColor] = useState(
+    states.backgroundColor || sessionStorage.getItem('background')
   );
   const [hashtagColor, setHashtagColor] = useState(
     states.hashtagColor || sessionStorage.getItem('hashtag')
@@ -77,13 +77,13 @@ export default function Card({ post }) {
 
   useEffect(() => {
     setActiveFontFamily(states.activeFontFamily);
-    setBackground(states.background);
+    setBackgroundColor(states.backgroundColor);
     setHashtagColor(states.hashtagColor);
     setMentionColor(states.mentionColor);
     setTxtColor(states.txtColor);
   }, [
     states.activeFontFamily,
-    states.background,
+    states.backgroundColor,
     states.hashtagColor,
     states.mentionColor,
     states.txtColor,
@@ -103,7 +103,7 @@ export default function Card({ post }) {
             ? 'cardWithImg'
             : 'cardTr'
         }
-        style={media ? bgBefore : { backgroundColor: background }}
+        style={media ? bgBefore : { backgroundColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>

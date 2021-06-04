@@ -1,8 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-console */
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -14,7 +9,7 @@ const ConnexionContextProvider = (props) => {
   // STATE CONTEXT
   // ---------------------------------------------------------------------------
   const [users, setUsers] = useState([]);
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   // ---------------------------------------------------------------------------
   // API CALL
   // ---------------------------------------------------------------------------
@@ -33,7 +28,7 @@ const ConnexionContextProvider = (props) => {
     t: `${API_TOKEN}`,
   };
 
-  const getApi = async (onSuccess, onError) => {
+  const getApi = async () => {
     await axios.get(`${API_URL}`, { params }).then(
       (res) => {
         setUsers(res.data);
@@ -62,15 +57,16 @@ const ConnexionContextProvider = (props) => {
     setUsers(users);
   }, [users]);
 
+  const { children } = props;
   return (
     <ConnexionContext.Provider value={{ statesParams }}>
-      {props.children}
+      {children}
     </ConnexionContext.Provider>
   );
 };
 
 ConnexionContextProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default ConnexionContextProvider;

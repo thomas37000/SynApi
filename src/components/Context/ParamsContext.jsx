@@ -1,7 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
@@ -24,7 +20,7 @@ const ParamsContextProvider = (props) => {
 
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);
-  const [newPost, setNewPost] = useState('10');
+  const [newPost, setNewPost] = useState(10);
 
   // ---------------------------------------------------------------------------
   // RADIO BUTTONS
@@ -89,15 +85,17 @@ const ParamsContextProvider = (props) => {
     [items, maxItems, newPost, sorting]
   );
 
+  const { children } = props;
+
   return (
     <ParamsContext.Provider value={{ statesParams }}>
-      {props.children}
+      {children}
     </ParamsContext.Provider>
   );
 };
 
 ParamsContextProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default ParamsContextProvider;

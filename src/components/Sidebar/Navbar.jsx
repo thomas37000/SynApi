@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import logo from '../images/syn.png';
 
@@ -43,3 +42,15 @@ const Navbar = ({ connected, connectedWithToken, toggleMenu }) => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  connected: PropTypes.string,
+  connectedWithToken: PropTypes.string,
+  toggleMenu: PropTypes.func,
+};
+
+Navbar.defaultProps = {
+  connected: 'undefined',
+  connectedWithToken: 'undefined',
+  toggleMenu: 'undefined',
+};

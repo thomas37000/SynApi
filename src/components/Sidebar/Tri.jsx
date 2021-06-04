@@ -1,12 +1,11 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react';
 import { AccordionItemPanel } from 'react-accessible-accordion';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import { ParamsContext } from '../Context/ParamsContext';
 import SlideFilter from './SlideFilter';
@@ -14,11 +13,11 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Tri = (post, props) => {
+const Tri = (post) => {
   const { statesParams } = useContext(ParamsContext);
 
-  const [newPost, setNewPost] = useState(10);
-  const [sorting, setSorting] = useState(statesParams.sorting);
+  const [newPost] = useState(10);
+  const [sorting] = useState(statesParams.sorting);
   const [jsonObj, setJsonObj] = useState();
 
   const handleChange = (e) => {

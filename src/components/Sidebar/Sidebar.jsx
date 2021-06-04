@@ -1,6 +1,5 @@
-/* eslint-disable object-shorthand */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Accordion,
@@ -11,7 +10,7 @@ import {
 } from 'react-accessible-accordion';
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   CloseIcon,
   SidebarStyled,
@@ -28,12 +27,14 @@ import './Sidebar.css';
 
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext);
-  const { statesParams } = useContext(ParamsContext);
+  // const { statesParams } = useContext(ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
   );
-  const [background, setBackground] = useState(states.background);
+  const [backgroundColor, setBackgroundColor] = useState(
+    states.backgroundColor
+  );
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
@@ -43,7 +44,7 @@ const Sidebar = ({ show, setIsOpened }) => {
     const jsonColor = JSON.stringify(jsonObj);
   };
   const colorJson = {
-    background: background,
+    background: backgroundColor,
     hashtag: hashtagColor,
     mention: mentionColor,
     text: txtColor,
@@ -62,7 +63,7 @@ const Sidebar = ({ show, setIsOpened }) => {
 
   useEffect(() => {
     sessionStorage.setItem('font_family', activeFontFamily);
-    sessionStorage.setItem('background', background);
+    sessionStorage.setItem('background', backgroundColor);
     sessionStorage.setItem('hashtag', hashtagColor);
     sessionStorage.setItem('mention', mentionColor);
     sessionStorage.setItem('text', txtColor);
@@ -70,12 +71,12 @@ const Sidebar = ({ show, setIsOpened }) => {
       // le point d' API doit être fait pour les enregistrer
       colorStringify
     );
-  }, [activeFontFamily, background, hashtagColor, mentionColor, txtColor]);
+  }, [activeFontFamily, backgroundColor, hashtagColor, mentionColor, txtColor]);
 
   const handleChangeBg = (color) => {
-    states.function.setBackground(color);
+    states.function.setBackgroundColor(color);
     sessionStorage.setItem('background', color);
-    setBackground(color);
+    setBackgroundColor(color);
   };
 
   const handleChangeTxt = (color) => {
@@ -101,7 +102,7 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('font_family', selectedFont);
   };
 
-  const restoreFontFamily = (selectedFont) => {
+  const restoreFontFamily = () => {
     setActiveFontFamily('Arial');
     states.function.restoreFontFamily();
     sessionStorage.setItem('font_family', 'Arial');
@@ -137,7 +138,7 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
-                  color={background}
+                  color={backgroundColor}
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"
                 />
@@ -227,3 +228,15 @@ const Sidebar = ({ show, setIsOpened }) => {
 };
 
 export default Sidebar;
+
+Sidebar.propTypes = {
+  // connected: PropTypes.string,
+  // connectedWithToken: PropTypes.string,
+  show: PropTypes.func,
+  setIsOpened: PropTypes.func,
+};
+
+Sidebar.defaultProps = {
+  show: 'undefined',
+  setIsOpened: 'undefined',
+};

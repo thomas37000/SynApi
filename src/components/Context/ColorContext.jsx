@@ -1,8 +1,4 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-import React, { createContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 export const ColorContext = createContext(null);
@@ -26,9 +22,9 @@ const ColorContextProvider = (props) => {
 
   const [activeFontFamily, setActiveFontFamily] = useState(defaultTypo.typo);
 
-  const backgroundColor =
+  const BgColor =
     defaultColors.trBackgroundNoImg || defaultColors.fkBackgroundNoImg;
-  const [background, setBackground] = useState(backgroundColor);
+  const [backgroundColor, setBackgroundColor] = useState(BgColor);
 
   const [hashtagColor, setHashtagColor] = useState(
     defaultColors.fkRegexColor ||
@@ -43,8 +39,8 @@ const ColorContextProvider = (props) => {
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
 
   const restoreBackground = () => {
-    setBackground(!background);
-    sessionStorage.setItem('background', background);
+    setBackgroundColor(!backgroundColor);
+    sessionStorage.setItem('background', backgroundColor);
   };
 
   const restoreHashtagAndMention = () => {
@@ -60,7 +56,7 @@ const ColorContextProvider = (props) => {
     () => ({
       function: {
         setActiveFontFamily,
-        setBackground,
+        setBackgroundColor,
         setHashtagColor,
         setMentionColor,
         setTxtColor,
@@ -69,23 +65,23 @@ const ColorContextProvider = (props) => {
         restoreTxt,
       },
       activeFontFamily,
-      background,
+      backgroundColor,
       mentionColor,
       hashtagColor,
       txtColor,
     }),
-    [activeFontFamily, background, mentionColor, hashtagColor, txtColor]
+    [activeFontFamily, backgroundColor, mentionColor, hashtagColor, txtColor]
   );
 
+  const { children } = props;
+
   return (
-    <ColorContext.Provider value={{ states }}>
-      {props.children}
-    </ColorContext.Provider>
+    <ColorContext.Provider value={{ states }}>{children}</ColorContext.Provider>
   );
 };
 
 ColorContextProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default ColorContextProvider;
