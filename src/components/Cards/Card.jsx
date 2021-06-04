@@ -1,20 +1,22 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
-/* eslint-disable react/prop-types */
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/CardFacebook.css';
 import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 import { ColorContext } from '../Context/ColorContext';
+import { ParamsContext } from '../Context/ParamsContext';
 
 export default function Card({ post }) {
   const { states } = useContext(ColorContext);
+  const { statesParams } = useContext(ParamsContext);
 
-  const [setActiveFontFamily] = useState(
+  const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily || sessionStorage.getItem('font_family')
   );
 
@@ -160,6 +162,7 @@ export default function Card({ post }) {
 Card.propTypes = {
   post: PropTypes.shape({
     content: PropTypes.string,
+    media_url: PropTypes.string,
     network: PropTypes.string,
     search: PropTypes.string,
   }),

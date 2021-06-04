@@ -40,26 +40,24 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState();
 
-  const submitColor = () => {
-    const jsonColor = JSON.stringify(jsonObj);
-  };
   const colorJson = {
     background: backgroundColor,
     hashtag: hashtagColor,
     mention: mentionColor,
     text: txtColor,
-    // font family reste à Arial, il ne se modifie pas ?
     font_family: activeFontFamily,
   };
 
-  const colorStringify = JSON.stringify(
-    colorJson,
-    (prop, val) => {
-      return val;
-    },
-    3
-  );
-  console.log('colors', colorStringify);
+  const submitColor = () => {
+    const colorStringify = JSON.stringify(
+      colorJson,
+      (prop, val) => {
+        return val;
+      },
+      3
+    );
+    console.log('colors', colorStringify);
+  };
 
   useEffect(() => {
     sessionStorage.setItem('font_family', activeFontFamily);
@@ -69,8 +67,9 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('text', txtColor);
     setJsonObj(
       // le point d' API doit être fait pour les enregistrer
-      colorStringify
+      submitColor
     );
+    submitColor();
   }, [activeFontFamily, backgroundColor, hashtagColor, mentionColor, txtColor]);
 
   const handleChangeBg = (color) => {
@@ -104,7 +103,6 @@ const Sidebar = ({ show, setIsOpened }) => {
 
   const restoreFontFamily = () => {
     setActiveFontFamily('Arial');
-    states.function.restoreFontFamily();
     sessionStorage.setItem('font_family', 'Arial');
   };
 
@@ -230,13 +228,10 @@ const Sidebar = ({ show, setIsOpened }) => {
 export default Sidebar;
 
 Sidebar.propTypes = {
-  // connected: PropTypes.string,
-  // connectedWithToken: PropTypes.string,
-  show: PropTypes.func,
-  setIsOpened: PropTypes.func,
+  show: PropTypes.bool.isRequired,
+  setIsOpened: PropTypes.func.isRequired,
 };
 
-Sidebar.defaultProps = {
-  show: 'undefined',
-  setIsOpened: 'undefined',
-};
+// Sidebar.defaultProps = {
+//   setIsOpened: 'undefined',
+// };
