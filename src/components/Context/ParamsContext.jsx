@@ -10,13 +10,13 @@ import axios from 'axios';
 export const ParamsContext = createContext(null);
 
 const ParamsContextProvider = (props) => {
-  const undefinedNewPost =
-    sessionStorage.getItem('post') === 'undefined' ||
-    sessionStorage.getItem('post') === undefined;
+  // const undefinedNewPost =
+  //   sessionStorage.getItem('post') === 'undefined' ||
+  //   sessionStorage.getItem('post') === undefined;
 
-  const defaultPost = {
-    newPost: undefinedNewPost ? '10' : sessionStorage.getItem('post'),
-  };
+  // const defaultPost = {
+  //   newPost: undefinedNewPost ? '10' : sessionStorage.getItem('post'),
+  // };
 
   // ---------------------------------------------------------------------------
   // STATE CONTEXT
@@ -24,7 +24,7 @@ const ParamsContextProvider = (props) => {
 
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);
-  const [newPost, setNewPost] = useState(defaultPost.newPost);
+  const [newPost, setNewPost] = useState('10');
 
   // ---------------------------------------------------------------------------
   // RADIO BUTTONS
@@ -88,10 +88,6 @@ const ParamsContextProvider = (props) => {
     }),
     [items, maxItems, newPost, sorting]
   );
-
-  useEffect(() => {
-    setNewPost(newPost);
-  }, [newPost]);
 
   return (
     <ParamsContext.Provider value={{ statesParams }}>

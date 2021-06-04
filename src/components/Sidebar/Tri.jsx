@@ -17,7 +17,7 @@ import './Sidebar.css';
 const Tri = (post, props) => {
   const { statesParams } = useContext(ParamsContext);
 
-  const [newPost, setNewPost] = useState();
+  const [newPost, setNewPost] = useState(10);
   const [sorting, setSorting] = useState(statesParams.sorting);
   const [jsonObj, setJsonObj] = useState();
 
@@ -47,12 +47,20 @@ const Tri = (post, props) => {
     setJsonObj(triStringify);
   }, [newPost, sorting]);
 
+  // const handleChangeSliderFilter = (e) => {
+  //   statesParams.function.setNewPost(e.target.value);
+  //   sessionStorage.setItem('post', e.target.value);
+  // };
+
   return (
     <AccordionItemPanel>
       <div className="sidebar-category">
         {/* Le Slider pour modifier le nombre de posts */}
         <div className="dropdown">
-          <SlideFilter value={post} />
+          <SlideFilter
+            value={post}
+            // handleChange={() => handleChangeSliderFilter()}
+          />
         </div>
 
         {/* //

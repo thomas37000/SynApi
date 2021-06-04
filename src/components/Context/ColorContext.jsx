@@ -44,6 +44,7 @@ const ColorContextProvider = (props) => {
 
   const restoreBackground = () => {
     setBackground(!background);
+    sessionStorage.setItem('background', background);
   };
 
   const restoreHashtagAndMention = () => {

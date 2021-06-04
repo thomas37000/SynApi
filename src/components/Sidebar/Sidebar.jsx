@@ -28,6 +28,7 @@ import './Sidebar.css';
 
 const Sidebar = ({ show, setIsOpened }) => {
   const { states } = useContext(ColorContext);
+  const { statesParams } = useContext(ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
@@ -106,6 +107,15 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('font_family', 'Arial');
   };
 
+  const restoreTxt = () => {
+    states.function.restoreTxt();
+    sessionStorage.setItem('text', txtColor);
+  };
+
+  const handleChangePost = (e) => {
+    sessionStorage.setItem('post', e.target.value);
+  };
+
   return (
     <SidebarStyled show={show ? 1 : 0}>
       <SidebarWrapper>
@@ -149,7 +159,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   onChange={(color) => handleChangeTxt(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel handleClick={states.function.restoreTxt} />
+                <BtnCancel handleClick={() => restoreTxt()} />
                 <BtnSubmit handleClick={submitColor} />
               </AccordionItemPanel>
             </AccordionItem>
@@ -206,7 +216,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   <span>Tri et nombre de posts</span>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <Tri />
+              <Tri handleChange={handleChangePost} />
             </AccordionItem>
           </Accordion>
         </div>
