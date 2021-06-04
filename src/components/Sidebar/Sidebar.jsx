@@ -56,7 +56,7 @@ const Sidebar = ({ show, setIsOpened }) => {
       },
       3
     );
-    console.log('colors', colorStringify);
+    console.log('submit colors', colorStringify);
   };
 
   useEffect(() => {
@@ -109,10 +109,6 @@ const Sidebar = ({ show, setIsOpened }) => {
   const restoreTxt = () => {
     states.function.restoreTxt();
     sessionStorage.setItem('text', txtColor);
-  };
-
-  const handleChangePost = (e) => {
-    sessionStorage.setItem('post', e.target.value);
   };
 
   return (
@@ -205,7 +201,7 @@ const Sidebar = ({ show, setIsOpened }) => {
             </AccordionItem>
           </Accordion>
         </div>
-        {/*  ************** SLIDE FILTER + TRI par ordre de contenu ou ASC ou DESC  ************** */}
+        {/*  ************** SLIDE FILTER + TRI par ordre ASC ou DESC  ************** */}
         <div className="sidebar-category">
           {/* <span>Tri et nombre de posts</span> */}
           <Accordion allowZeroExpanded>
@@ -215,7 +211,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   <span>Tri et nombre de posts</span>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <Tri handleChange={handleChangePost} />
+              <Tri />
             </AccordionItem>
           </Accordion>
         </div>
@@ -231,7 +227,3 @@ Sidebar.propTypes = {
   show: PropTypes.bool.isRequired,
   setIsOpened: PropTypes.func.isRequired,
 };
-
-// Sidebar.defaultProps = {
-//   setIsOpened: 'undefined',
-// };

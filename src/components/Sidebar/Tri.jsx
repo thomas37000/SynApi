@@ -8,6 +8,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
 import { ParamsContext } from '../Context/ParamsContext';
+import BtnSubmit from '../Buttons/ButtonSubmit';
+import BtnCancel from '../Buttons/ButtonCancel';
 import SlideFilter from './SlideFilter';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -28,22 +30,22 @@ const Tri = (post) => {
     order: sorting,
     post: newPost,
   };
-  // undifined ?
-  console.log(triJson);
 
-  const triStringify = JSON.stringify(
-    triJson,
-    (prop, val) => {
-      return val;
-    },
-    3
-  );
-  console.log('order', triStringify);
+  const submitTri = () => {
+    const triStringify = JSON.stringify(
+      triJson,
+      (prop, val) => {
+        return val;
+      },
+      3
+    );
+    console.log('submit order', triStringify);
+  };
 
   useEffect(() => {
     sessionStorage.setItem('post', newPost);
     sessionStorage.setItem('order', sorting);
-    setJsonObj(triStringify);
+    setJsonObj(submitTri);
   }, [newPost, sorting]);
 
   // const handleChangeSliderFilter = (e) => {
@@ -89,6 +91,11 @@ const Tri = (post) => {
               label="Tri par ordre décroissant"
             />
           </RadioGroup>
+
+          <div className="triBtn">
+            <BtnCancel />
+            <BtnSubmit handleClick={submitTri} />
+          </div>
         </FormControl>
       </div>
     </AccordionItemPanel>
