@@ -40,7 +40,6 @@ const ColorContextProvider = (props) => {
 
   const restoreBackground = () => {
     setBackgroundColor(!backgroundColor);
-    sessionStorage.setItem('background', backgroundColor);
   };
 
   const restoreHashtagAndMention = () => {
@@ -50,6 +49,7 @@ const ColorContextProvider = (props) => {
 
   const restoreTxt = () => {
     setTxtColor(!txtColor);
+    setTxtColor(txtColor);
   };
 
   const states = useMemo(
@@ -60,9 +60,9 @@ const ColorContextProvider = (props) => {
         setHashtagColor,
         setMentionColor,
         setTxtColor,
+        restoreTxt,
         restoreBackground,
         restoreHashtagAndMention,
-        restoreTxt,
       },
       activeFontFamily,
       backgroundColor,

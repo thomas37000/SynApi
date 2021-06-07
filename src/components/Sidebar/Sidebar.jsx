@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react';
@@ -40,6 +41,8 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState();
 
+  const hexColors = '#1da1f2' || '#4267b2' || '#e1306c' || '#000' || ' #fff';
+
   const colorJson = {
     background: backgroundColor,
     hashtag: hashtagColor,
@@ -67,9 +70,8 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('text', txtColor);
     setJsonObj(
       // le point d' API doit être fait pour les enregistrer
-      submitColor
+      submitColor()
     );
-    submitColor();
   }, [activeFontFamily, backgroundColor, hashtagColor, mentionColor, txtColor]);
 
   const handleChangeBg = (color) => {
@@ -106,9 +108,27 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('font_family', 'Arial');
   };
 
-  const restoreTxt = () => {
+  const restoreTxt = (color) => {
+    // setTxtColor(color);
+    // setTxtColor(txtColor);
+    // states.function.setTxtColor();
+    setTxtColor(hexColors);
     states.function.restoreTxt();
-    sessionStorage.setItem('text', txtColor);
+    sessionStorage.setItem('text', hexColors);
+  };
+
+  const restoreHashtagAndMention = () => {
+    setHashtagColor(hexColors);
+    setMentionColor(hexColors);
+    states.function.restoreHashtagAndMention();
+    sessionStorage.setItem('hashtag', hexColors);
+    sessionStorage.setItem('mention', hexColors);
+  };
+
+  const restoreBackground = () => {
+    setBackgroundColor(hexColors);
+    states.function.restoreBackground();
+    sessionStorage.setItem('background', hexColors);
   };
 
   return (
@@ -136,7 +156,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel handleClick={states.function.restoreBackground} />
+                <BtnCancel handleClick={() => restoreBackground()} />
                 <BtnSubmit handleClick={submitColor} />
               </AccordionItemPanel>
             </AccordionItem>
@@ -172,9 +192,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   onChange={(color) => handleChangeHashtag(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel
-                  handleClick={states.function.restoreHashtagAndMention}
-                />
+                <BtnCancel handleClick={() => restoreHashtagAndMention()} />
                 <BtnSubmit handleClick={submitColor} />
               </AccordionItemPanel>
             </AccordionItem>
