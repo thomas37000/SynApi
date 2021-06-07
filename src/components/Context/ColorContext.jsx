@@ -38,19 +38,19 @@ const ColorContextProvider = (props) => {
   );
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
 
-  const restoreBackground = () => {
-    setBackgroundColor(!backgroundColor);
-  };
+  // const restoreBackground = () => {
+  //   setBackgroundColor(!backgroundColor);
+  // };
 
-  const restoreHashtagAndMention = () => {
-    setHashtagColor(!hashtagColor);
-    setMentionColor(!mentionColor);
-  };
+  // const restoreHashtagAndMention = () => {
+  //   setHashtagColor(!hashtagColor);
+  //   setMentionColor(!mentionColor);
+  // };
 
-  const restoreTxt = () => {
-    setTxtColor(!txtColor);
-    setTxtColor(txtColor);
-  };
+  // const restoreTxt = () => {
+  //   setTxtColor(!txtColor);
+  //   setTxtColor(txtColor);
+  // };
 
   const states = useMemo(
     () => ({
@@ -60,9 +60,9 @@ const ColorContextProvider = (props) => {
         setHashtagColor,
         setMentionColor,
         setTxtColor,
-        restoreTxt,
-        restoreBackground,
-        restoreHashtagAndMention,
+        // restoreTxt,
+        // restoreBackground,
+        // restoreHashtagAndMention,
       },
       activeFontFamily,
       backgroundColor,

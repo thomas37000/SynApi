@@ -41,7 +41,7 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState();
 
-  const hexColors = '#1da1f2' || '#4267b2' || '#e1306c' || '#000' || ' #fff';
+  const hexColors = 'red' || '#4267b2' || '#e1306c' || '#000' || ' #fff';
 
   const colorJson = {
     background: backgroundColor,
@@ -76,21 +76,17 @@ const Sidebar = ({ show, setIsOpened }) => {
 
   const handleChangeBg = (color) => {
     states.function.setBackgroundColor(color);
-    sessionStorage.setItem('background', color);
     setBackgroundColor(color);
   };
 
   const handleChangeTxt = (color) => {
     states.function.setTxtColor(color);
-    sessionStorage.setItem('text', color);
     setTxtColor(color);
   };
 
   const handleChangeHashtag = (color) => {
     states.function.setHashtagColor(color);
     states.function.setMentionColor(color);
-    sessionStorage.setItem('hasthag', color);
-    sessionStorage.setItem('mention', color);
     setHashtagColor(color);
     setMentionColor(color);
   };
@@ -108,27 +104,17 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('font_family', 'Arial');
   };
 
-  const restoreTxt = (color) => {
-    // setTxtColor(color);
-    // setTxtColor(txtColor);
-    // states.function.setTxtColor();
-    setTxtColor(hexColors);
-    states.function.restoreTxt();
-    sessionStorage.setItem('text', hexColors);
+  const restoreTxt = () => {
+    states.function.setTxtColor();
   };
 
   const restoreHashtagAndMention = () => {
-    setHashtagColor(hexColors);
-    setMentionColor(hexColors);
-    states.function.restoreHashtagAndMention();
-    sessionStorage.setItem('hashtag', hexColors);
-    sessionStorage.setItem('mention', hexColors);
+    states.function.setHashtagColor();
+    states.function.setMentionColor();
   };
 
   const restoreBackground = () => {
-    setBackgroundColor(hexColors);
-    states.function.restoreBackground();
-    sessionStorage.setItem('background', hexColors);
+    states.function.setBackgroundColor();
   };
 
   return (
