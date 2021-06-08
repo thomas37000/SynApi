@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -39,9 +39,7 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
-  const [jsonObj, setJsonObj] = useState();
-
-  const hexColors = 'red' || '#4267b2' || '#e1306c' || '#000' || ' #fff';
+  const [jsonObj, setJsonObj] = useState({});
 
   const colorJson = {
     background: backgroundColor,
@@ -50,16 +48,20 @@ const Sidebar = ({ show, setIsOpened }) => {
     text: txtColor,
     font_family: activeFontFamily,
   };
+  const stringify = (colors) => {
+    return JSON.stringify(colors);
+  };
 
   const submitColor = () => {
-    const colorStringify = JSON.stringify(
-      colorJson,
-      (prop, val) => {
-        return val;
-      },
-      3
-    );
-    console.log('submit colors', colorStringify);
+    const stringColors = stringify({
+      background: backgroundColor,
+      hashtag: hashtagColor,
+      mention: mentionColor,
+      text: txtColor,
+      font_family: activeFontFamily,
+    });
+    setJsonObj(stringColors);
+    console.log(stringColors);
   };
 
   useEffect(() => {
@@ -68,10 +70,6 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('hashtag', hashtagColor);
     sessionStorage.setItem('mention', mentionColor);
     sessionStorage.setItem('text', txtColor);
-    setJsonObj(
-      // le point d' API doit être fait pour les enregistrer
-      submitColor()
-    );
   }, [activeFontFamily, backgroundColor, hashtagColor, mentionColor, txtColor]);
 
   const handleChangeBg = (color) => {
@@ -114,7 +112,11 @@ const Sidebar = ({ show, setIsOpened }) => {
   };
 
   const restoreBackground = () => {
-    states.function.setBackgroundColor();
+    const defaultBG = states.unmutabledColors.backgroundColor;
+    setBackgroundColor(defaultBG);
+    states.function.setBackgroundColor(defaultBG);
+    console.log('restore', backgroundColor);
+    submitColor();
   };
 
   return (
@@ -143,7 +145,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   className="sketch-picker"
                 />
                 <BtnCancel handleClick={() => restoreBackground()} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
@@ -161,7 +163,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   className="sketch-picker"
                 />
                 <BtnCancel handleClick={() => restoreTxt()} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
@@ -179,7 +181,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   className="sketch-picker"
                 />
                 <BtnCancel handleClick={() => restoreHashtagAndMention()} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
@@ -200,7 +202,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   className="typo"
                 />
                 <BtnCancel handleClick={() => restoreFontFamily()} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>

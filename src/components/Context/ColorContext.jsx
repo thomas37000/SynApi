@@ -4,8 +4,16 @@ import PropTypes from 'prop-types';
 export const ColorContext = createContext(null);
 
 const ColorContextProvider = (props) => {
+  const unmutabledColors = {
+    txt: '#fff',
+    black: '#000',
+    im: '#e1306c',
+    fk: '#4267b2',
+    tr: '#1da1f2',
+  };
+
   const defaultColors = {
-    txt: sessionStorage.getItem('text') || '#fff',
+    txt: sessionStorage.getItem('text') || unmutabledColors.txt,
     black: sessionStorage.getItem('mention') || '#000',
     im: sessionStorage.getItem('mention') || '#e1306c',
     fk: sessionStorage.getItem('mention') || '#4267b2',
@@ -69,8 +77,16 @@ const ColorContextProvider = (props) => {
       mentionColor,
       hashtagColor,
       txtColor,
+      unmutabledColors,
     }),
-    [activeFontFamily, backgroundColor, mentionColor, hashtagColor, txtColor]
+    [
+      activeFontFamily,
+      backgroundColor,
+      mentionColor,
+      hashtagColor,
+      txtColor,
+      unmutabledColors,
+    ]
   );
 
   const { children } = props;
