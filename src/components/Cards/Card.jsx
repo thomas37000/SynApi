@@ -10,11 +10,9 @@ import './Card_css/CardFacebook.css';
 import './Card_css/CardInsta.css';
 import './Card_css/Card.css';
 import { ColorContext } from '../Context/ColorContext';
-import { ParamsContext } from '../Context/ParamsContext';
 
 export default function Card({ post }) {
   const { states } = useContext(ColorContext);
-  const { statesParams } = useContext(ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily || sessionStorage.getItem('font_family')

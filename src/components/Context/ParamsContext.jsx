@@ -18,6 +18,11 @@ const ParamsContextProvider = (props) => {
   // STATE CONTEXT
   // ---------------------------------------------------------------------------
 
+  // const unmutabledParams = {
+  //   per_page: '50',
+  //   order: 'DESC',
+  // };
+
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);
   const [newPost, setNewPost] = useState(10);
@@ -59,7 +64,6 @@ const ParamsContextProvider = (props) => {
           setMaxItems(res.data);
           // ne conserve que item * newPost ( le nombre de post du slider)
           setItems(res.data.slice(0, newPost));
-          console.log('Success', res.data, newPost);
         }
       })
       .catch((error) => console.log(error));
@@ -67,7 +71,6 @@ const ParamsContextProvider = (props) => {
 
   useEffect(() => {
     getApi();
-    console.log('CALL API');
   }, []);
 
   const statesParams = useMemo(

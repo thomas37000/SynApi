@@ -15,10 +15,10 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Tri = (post) => {
+const Tri = (post, params) => {
   const { statesParams } = useContext(ParamsContext);
 
-  const [newPost] = useState(10);
+  const [newPost, setNewPost] = useState(10);
   const [sorting] = useState(statesParams.sorting);
   const [jsonObj, setJsonObj] = useState();
 
@@ -26,42 +26,50 @@ const Tri = (post) => {
     statesParams.function.setSorting(e.target.value);
   };
 
-  const triJson = {
+  const submitedParams = params || {
     order: sorting,
     post: newPost,
   };
 
-  const submitTri = () => {
-    const triStringify = JSON.stringify(
-      triJson,
-      (prop, val) => {
-        return val;
-      },
-      3
-    );
-    console.log('submit order', triStringify);
+  const stringify = () => {
+    return JSON.stringify(params);
+  };
+
+  const submitParams = () => {
+    const stringParams = stringify({
+      order: sorting,
+      post: newPost,
+    });
+    setJsonObj(stringParams);
+    console.log(stringParams);
   };
 
   useEffect(() => {
     sessionStorage.setItem('post', newPost);
     sessionStorage.setItem('order', sorting);
-    setJsonObj(submitTri);
-  }, [newPost, sorting]);
+    setJsonObj(
+      JSON.stringify(
+        submitedParams,
+        (prop, val) => {
+          return val;
+        },
+        3
+      )
+    );
+    console.log('mise à jour params', jsonObj);
+  }, [jsonObj, newPost, sorting]);
 
-  // const handleChangeSliderFilter = (e) => {
-  //   statesParams.function.setNewPost(e.target.value);
-  //   sessionStorage.setItem('post', e.target.value);
-  // };
+  const restoreDefaultPost = () => {
+    setNewPost(10);
+    sessionStorage.setItem('post', 10);
+  };
 
   return (
     <AccordionItemPanel>
       <div className="sidebar-category">
         {/* Le Slider pour modifier le nombre de posts */}
         <div className="dropdown">
-          <SlideFilter
-            value={post}
-            // handleChange={() => handleChangeSliderFilter()}
-          />
+          <SlideFilter value={post} />
         </div>
 
         {/* //
@@ -93,8 +101,8 @@ const Tri = (post) => {
           </RadioGroup>
 
           <div className="triBtn">
-            <BtnCancel />
-            <BtnSubmit handleClick={submitTri} />
+            <BtnCancel handleClick={() => restoreDefaultPost()} />
+            <BtnSubmit handleClick={() => submitParams()} />
           </div>
         </FormControl>
       </div>

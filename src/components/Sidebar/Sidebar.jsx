@@ -18,7 +18,6 @@ import {
   SidebarWrapper,
 } from './SidebarStyledComponent';
 import { ColorContext } from '../Context/ColorContext';
-import { ParamsContext } from '../Context/ParamsContext';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import Tri from './Tri';
@@ -26,9 +25,8 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Sidebar = ({ show, setIsOpened }) => {
+const Sidebar = ({ show, setIsOpened, colors }) => {
   const { states } = useContext(ColorContext);
-  // const { statesParams } = useContext(ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
@@ -41,14 +39,15 @@ const Sidebar = ({ show, setIsOpened }) => {
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState({});
 
-  const colorJson = {
+  const submitedColors = colors || {
     background: backgroundColor,
     hashtag: hashtagColor,
     mention: mentionColor,
     text: txtColor,
     font_family: activeFontFamily,
   };
-  const stringify = (colors) => {
+
+  const stringify = () => {
     return JSON.stringify(colors);
   };
 
@@ -60,6 +59,7 @@ const Sidebar = ({ show, setIsOpened }) => {
       text: txtColor,
       font_family: activeFontFamily,
     });
+    // setJsonObj(JSON.stringify(submitedColors));
     setJsonObj(stringColors);
     console.log(stringColors);
   };
@@ -70,7 +70,25 @@ const Sidebar = ({ show, setIsOpened }) => {
     sessionStorage.setItem('hashtag', hashtagColor);
     sessionStorage.setItem('mention', mentionColor);
     sessionStorage.setItem('text', txtColor);
-  }, [activeFontFamily, backgroundColor, hashtagColor, mentionColor, txtColor]);
+    setJsonObj(
+      JSON.stringify(
+        submitedColors,
+        (prop, val) => {
+          return val;
+        },
+        3
+      )
+    );
+
+    console.log('mise à jour', jsonObj);
+  }, [
+    activeFontFamily,
+    backgroundColor,
+    hashtagColor,
+    mentionColor,
+    txtColor,
+    jsonObj,
+  ]);
 
   const handleChangeBg = (color) => {
     states.function.setBackgroundColor(color);
@@ -103,20 +121,34 @@ const Sidebar = ({ show, setIsOpened }) => {
   };
 
   const restoreTxt = () => {
-    states.function.setTxtColor();
+    const defaultTxt = states.unmutabledColors.txtColor;
+    setTxtColor(defaultTxt);
+    states.function.setTxtColor(defaultTxt);
+    submitColor({
+      text: txtColor,
+    });
   };
 
   const restoreHashtagAndMention = () => {
-    states.function.setHashtagColor();
-    states.function.setMentionColor();
+    const defaultHashtag = states.unmutabledColors.hashtagColor;
+    const defaultMention = states.unmutabledColors.mentionColor;
+    setHashtagColor(defaultHashtag);
+    setMentionColor(defaultMention);
+    states.function.setHashtagColor(defaultHashtag);
+    states.function.setMentionColor(defaultMention);
+    submitColor({
+      hashtag: hashtagColor,
+      mention: mentionColor,
+    });
   };
 
   const restoreBackground = () => {
     const defaultBG = states.unmutabledColors.backgroundColor;
     setBackgroundColor(defaultBG);
     states.function.setBackgroundColor(defaultBG);
-    console.log('restore', backgroundColor);
-    submitColor();
+    submitColor({
+      background: defaultBG,
+    });
   };
 
   return (
