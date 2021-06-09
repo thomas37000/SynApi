@@ -56,7 +56,7 @@ const Tri = (post, params) => {
         3
       )
     );
-    console.log('mise à jour params', jsonObj);
+    // console.log('mise à jour params', jsonObj);
   }, [jsonObj, newPost, sorting]);
 
   const restoreDefaultPost = () => {
@@ -100,10 +100,10 @@ const Tri = (post, params) => {
             />
           </RadioGroup>
 
-          <div className="triBtn">
+          {/* <div className="triBtn">
             <BtnCancel handleClick={() => restoreDefaultPost()} />
             <BtnSubmit handleClick={() => submitParams()} />
-          </div>
+          </div> */}
         </FormControl>
       </div>
     </AccordionItemPanel>

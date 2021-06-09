@@ -125,7 +125,7 @@ const Connexion = (props) => {
 
   // stocker que si c'est bon
   useEffect(() => {
-    sessionStorage.setItem('username', API_USER);
+    // sessionStorage.setItem('username', API_USER);
     setJsonObj({
       userName,
     });
@@ -169,8 +169,7 @@ const Connexion = (props) => {
           Une application pour retrouver vos publications favorites
         </h2>
         <h3 className="h3Connexion">
-          from <span>Facebook</span> - <span>Instagram</span> -
-          <span>Twitter</span>
+          <span>Facebook</span> - <span>Instagram</span> -<span>Twitter</span>
         </h3>
         <div className="formulaire">
           {connected ? (

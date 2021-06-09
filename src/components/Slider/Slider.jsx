@@ -110,25 +110,28 @@ const Slider = () => {
     return 'Loading ...';
   };
 
-  function refresh() {
-    window.history.go(0);
-  }
+  // function refresh() {
+  //   window.history.go(0);
+  // }
 
   const loader = () => {
     return (
-      <div className="loader-container">
-        Loading, Refresh the Page !
-        <Link to="/networks">
-          <button
-            type="button"
-            value="Rafraîchir la page"
-            onClick={() => refresh()}
-          >
-            refresh
-          </button>
-        </Link>
-        <div className="loader" />
-      </div>
+      // *** bouton refresh seulement utile si problème de cross origin en Développement ***
+
+      // <div className="loader-container">
+      //   Loading, Refresh the Page !
+      //   <Link to="/networks">
+      //     <button
+      //       type="button"
+      //       value="Rafraîchir la page"
+      //       onClick={() => refresh()}
+      //     >
+      //       refresh
+      //     </button>
+      //   </Link>
+      // </div>
+
+      <div className="loader" />
     );
   };
 

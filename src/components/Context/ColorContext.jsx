@@ -48,6 +48,7 @@ const ColorContextProvider = (props) => {
       defaultColors.fkRegexColor &&
       defaultColors.trRegexColor
   );
+
   const [txtColor, setTxtColor] = useState(defaultColors.txt);
 
   const states = useMemo(
