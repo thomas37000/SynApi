@@ -1,0 +1,82 @@
+.connexion::before {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/src/components/images/syn.png');
+  background-size: cover;
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.h1Connexion {
+  font-size: 3rem !important;
+  font-weight: 600 !important;
+  background-color: var(--im);
+  color: var(--txt);
+  padding: 1rem;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 3px 6px;
+}
+
+.h2Connexion {
+  color: var(--txt);
+  background-color: var(--fk);
+  padding: 1rem;
+  margin-top: -1rem !important;
+}
+
+.h3Connexion {
+  background-color: var(--tr);
+  padding: 0.5rem;
+  margin-top: -1rem !important;
+}
+
+.formulaire {
+  margin: 0 auto;
+  height: 500px;
+  width: 350px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 4px solid transparent;
+}
+
+form span {
+  color: var(--fk);
+  font-weight: bold;
+}
+
+.inputConnexion {
+  margin-bottom: 1rem;
+}
+
+.btnConnexion {
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: #000;
+  border: none;
+  height: 40px;
+}
+
+.btnConnexion:hover {
+  background-color: #000;
+  color: var(--txt);
+}
+
+.Error {
+  background-color: red;
+  color: var(--txt);
+}
+
+@media screen and (max-width: 768px) {
+  .connexion::before {
+    background-size: contain;
+  }
+}

@@ -2,17 +2,17 @@ import React from 'react';
 import '../Cards/Card_css/CardProfile.css';
 import childrenPropType from '../Proptypes/ChildrenProptypes';
 
-function BtnSubmit(props) {
+function BtnCancel(props) {
   const { handleClick } = props;
   return (
     <>
-      <button id="btn" className="submit" type="submit" onClick={handleClick}>
-        Valider
+      <button id="btn" className="cancel" type="submit" onClick={handleClick}>
+        Annuler
       </button>
     </>
   );
 }
 
-export default BtnSubmit;
+export default BtnCancel;
 
-BtnSubmit.propTypes = childrenPropType;
+BtnCancel.propTypes = childrenPropType;

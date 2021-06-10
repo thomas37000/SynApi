@@ -1,17 +1,16 @@
-/* eslint-disable no-undef */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from './syn.png';
-import Burger from './Burger';
+import logo from '../images/syn.png';
 
-const Nav = styled.nav`
+const NavWrapper = styled.div`
   width: 100%;
   height: 7vh;
   background: #f7f7f7;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: right;
 
   .logo {
     display: flex;
@@ -20,23 +19,16 @@ const Nav = styled.nav`
     margin-left: 30px;
     border-radius: 50%;
   }
-
-  @media (max-width: 765px) {
-    .logo {
-      display: flex;
-    }
-  }
 `;
 
-const Navbar = () => {
+const Nav = () => {
   return (
-    <Nav>
+    <NavWrapper>
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
-      <Burger />
-    </Nav>
+    </NavWrapper>
   );
 };
 
-export default Navbar;
+export default Nav;
