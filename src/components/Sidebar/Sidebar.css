@@ -90,3 +90,9 @@ button.close {
 .MuiRadio-colorSecondary.Mui-checked {
   color: #ffcc00 !important;
 }
+
+.triBtn {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}

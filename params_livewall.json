@@ -1,0 +1,18 @@
+{
+  "colors": {
+    "background": "",
+    "hashtag": "",
+    "mention": "",
+    "text": ""
+  },
+  "font_family": "",
+  "tri": {
+    "asc": "",
+    "desc": "",
+    "post": ""
+  },
+  "session_user": {
+    "username": "",
+    "token": ""
+  } 
+}
