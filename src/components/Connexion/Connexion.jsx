@@ -293,18 +293,6 @@ const Connexion = (props) => {
               )}
             </div>
           </form>
-
-          {/* <FormSettings
-            open={open}
-            token={token}
-            userName={userName}
-            userNameToken={userNameToken}
-            handleChangeToken={handleChangeToken}
-            handleChangeUserToken={handleChangeUserToken}
-            handleCloseToken={handleChangeToken}
-            handleSubmit={handleSubmitToken}
-            handleClick={handleClick}
-          /> */}
         </div>
       </div>
     </div>

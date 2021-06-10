@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ConnexionContextProvider from '../Context/ConnexionContext';
 import ParamsContextProvider from '../Context/ParamsContext';
 import ColorContextProvider from '../Context/ColorContext';
 import Connexion from '../Connexion/Connexion';
@@ -20,21 +19,19 @@ export default function Routter(props) {
 
   return (
     <Router>
-      <ConnexionContextProvider>
-        <ColorContextProvider>
-          {display ? (
-            displayNav()
-          ) : (
-            <Switch>
-              <Route exact path="/" component={Connexion} />
-              <ParamsContextProvider>
-                <NavRoute />
-                <Route path="/networks/" component={Slider} />
-              </ParamsContextProvider>
-            </Switch>
-          )}
-        </ColorContextProvider>
-      </ConnexionContextProvider>
+      <ColorContextProvider>
+        {display ? (
+          displayNav()
+        ) : (
+          <Switch>
+            <Route exact path="/" component={Connexion} />
+            <ParamsContextProvider>
+              <NavRoute />
+              <Route path="/networks/" component={Slider} />
+            </ParamsContextProvider>
+          </Switch>
+        )}
+      </ColorContextProvider>
     </Router>
   );
 }

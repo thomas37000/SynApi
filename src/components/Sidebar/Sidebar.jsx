@@ -60,7 +60,6 @@ const Sidebar = ({ show, setIsOpened, colors }) => {
       font_family: activeFontFamily,
     });
     setJsonObj(stringColors);
-    console.log(stringColors);
   };
 
   useEffect(() => {
@@ -79,7 +78,7 @@ const Sidebar = ({ show, setIsOpened, colors }) => {
       )
     );
 
-    console.log('mise à jour', jsonObj);
+    // console.log('mise à jour', jsonObj);
   }, [
     activeFontFamily,
     backgroundColor,
