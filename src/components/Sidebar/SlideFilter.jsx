@@ -1,17 +1,14 @@
-/* eslint-disable no-unused-vars */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { ParamsContext } from '../Context/ParamsContext';
 // import PropTypes from 'prop-types';
 import './Sidebar.css';
 
-export default function SlideFilter(props) {
+export default function SlideFilter() {
   const { statesParams } = useContext(ParamsContext);
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
   const handleChange = (e) => {
     setNewPost(Number(e.target.value));
-    // typeof = return data type comme string , number, boolean etc...
-    // voir https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/typeof
     statesParams.function.setNewPost(e.target.value);
     sessionStorage.setItem('post', e.target.value);
   };

@@ -6,22 +6,9 @@ import axios from 'axios';
 export const ParamsContext = createContext(null);
 
 const ParamsContextProvider = (props) => {
-  // const undefinedNewPost =
-  //   sessionStorage.getItem('post') === 'undefined' ||
-  //   sessionStorage.getItem('post') === undefined;
-
-  // const defaultPost = {
-  //   newPost: undefinedNewPost ? '10' : sessionStorage.getItem('post'),
-  // };
-
   // ---------------------------------------------------------------------------
   // STATE CONTEXT
   // ---------------------------------------------------------------------------
-
-  // const unmutabledParams = {
-  //   per_page: '50',
-  //   order: 'DESC',
-  // };
 
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);

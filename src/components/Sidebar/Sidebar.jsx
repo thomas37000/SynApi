@@ -59,7 +59,6 @@ const Sidebar = ({ show, setIsOpened, colors }) => {
       text: txtColor,
       font_family: activeFontFamily,
     });
-    // setJsonObj(JSON.stringify(submitedColors));
     setJsonObj(stringColors);
     console.log(stringColors);
   };
@@ -107,12 +106,10 @@ const Sidebar = ({ show, setIsOpened, colors }) => {
     setMentionColor(color);
   };
 
-  // selectedFont = la saisie de l'utilisateur
-  const handleChangeFontFamily = (selectedFont) => {
-    // ici on met a jour le state local de la font (state appartenant a ce composant)
-    setActiveFontFamily(selectedFont);
-    states.function.setActiveFontFamily(selectedFont);
-    sessionStorage.setItem('font_family', selectedFont);
+  const handleChangeFontFamily = (nextFont) => {
+    setActiveFontFamily(nextFont);
+    states.function.setActiveFontFamily(nextFont);
+    sessionStorage.setItem('font_family', nextFont);
   };
 
   const restoreFontFamily = () => {
@@ -130,8 +127,16 @@ const Sidebar = ({ show, setIsOpened, colors }) => {
   };
 
   const restoreHashtagAndMention = () => {
-    const defaultHashtag = states.unmutabledColors.hashtagColor;
-    const defaultMention = states.unmutabledColors.mentionColor;
+    // ---------------------------------------------------------------------------
+    // il faudra réussir à appeler selon le cas des valeurs préfixées
+    // dans colorContext ligne 11
+    //
+    // unmutabledColors[`${currentSocialNetwork}_txt`]
+    // ou currentSocialNetwork serait égale à tw_ pour twitter par exemple
+    // if twitter -> unmutabledColors[${currentSocialNetwork}_txt]
+    // ---------------------------------------------------------------------------
+    const defaultHashtag = states.unmutabledColors.black;
+    const defaultMention = states.unmutabledColors.black;
     setHashtagColor(defaultHashtag);
     setMentionColor(defaultMention);
     states.function.setHashtagColor(defaultHashtag);
@@ -143,7 +148,7 @@ const Sidebar = ({ show, setIsOpened, colors }) => {
   };
 
   const restoreBackground = () => {
-    const defaultBG = states.unmutabledColors.backgroundColor;
+    const defaultBG = states.unmutabledColors.tr_backgroundColor;
     setBackgroundColor(defaultBG);
     states.function.setBackgroundColor(defaultBG);
     submitColor({

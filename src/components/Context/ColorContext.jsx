@@ -4,16 +4,34 @@ import PropTypes from 'prop-types';
 export const ColorContext = createContext(null);
 
 const ColorContextProvider = (props) => {
+  // ---------------------------------------------------------------------------
+  // callback function pour les fonctions restore ( boutons annuler )
+  // dans sidebar.jsx à partir de la ligne 123
+  // ---------------------------------------------------------------------------
   const unmutabledColors = {
-    txt: '#fff',
     txtColor: '#fff',
     black: '#000',
-    im: '#e1306c',
-    fk: '#4267b2',
-    tr: '#1da1f2',
-    hashtagColor: '#000',
-    mentionColor: '#000',
-    backgroundColor: '#1da1f2',
+    // facebook default colors
+    fk_babgroundColor: '#4267b2',
+    fk_hashtagColor: '#4267b2',
+    fk_mentionColor: '#4267b2',
+    // facebook hashtag et mention sans image
+    fk_hashtagColor_txt: '#000',
+    fk_mentionColor_txt: '#000',
+    // instagram default colors
+    im_backgroundColor: '#e1306c',
+    im_hashtagColor: '#e1306c',
+    im_mentionColor: '#e1306c',
+    // instagram hashtag et mention sans image
+    im_hashtagColor_txt: '#000',
+    im_mentionColor_txt: '#000',
+    // twitter default colors
+    tr_backgroundColor: '#1da1f2',
+    tr_hashtagColor: '#1da1f2',
+    tr_mentionColor: '#1da1f2',
+    // twitter hashtag et mention sans image
+    tr_hashtagColor_txt: '#000',
+    tr_mentionColor_txt: '#000',
   };
 
   const defaultColors = {

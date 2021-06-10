@@ -1,14 +1,6 @@
 .cardInsta {
   width: 100vw;
   height: 100vh;
-  /* background: linear-gradient(
-    360deg,
-    #405de6,
-    #5851db,
-    #833ab4,
-    #c13584,
-    #e1306c
-  ); */
   background: var(--im);
   color: var(--txt);
 }

@@ -9,12 +9,8 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
 import { ParamsContext } from '../Context/ParamsContext';
-import { defaultPost } from '../utils/helpers';
 import Card from '../Cards/Card';
 import './Slider.css';
 
@@ -23,7 +19,6 @@ const Slider = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [jsonObj, setJsonObj] = useState();
   const [items, setItems] = useState(statesParams.items);
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
@@ -116,7 +111,9 @@ const Slider = () => {
 
   const loader = () => {
     return (
-      // *** bouton refresh seulement utile si problème de cross origin en Développement ***
+      // ---------------------------------------------------------------------------
+      // bouton refresh seulement utile si problème de cross origin en Développement
+      // ---------------------------------------------------------------------------
 
       // <div className="loader-container">
       //   Loading, Refresh the Page !

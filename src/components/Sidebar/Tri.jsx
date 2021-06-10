@@ -59,10 +59,14 @@ const Tri = (post, params) => {
     // console.log('mise à jour params', jsonObj);
   }, [jsonObj, newPost, sorting]);
 
-  const restoreDefaultPost = () => {
-    setNewPost(10);
-    sessionStorage.setItem('post', 10);
-  };
+  // ---------------------------------------------------------------------------
+  // fonction restore slider et ordre DESC au bouton annuler
+  // ---------------------------------------------------------------------------
+
+  // const restoreDefaultPost = () => {
+  //   setNewPost(10);
+  //   sessionStorage.setItem('post', 10);
+  // };
 
   return (
     <AccordionItemPanel>
@@ -82,7 +86,6 @@ const Tri = (post, params) => {
             aria-label="tri des posts"
             name="new_order_by"
             defaultValue="DESC"
-            // defaultValue={statesParams.sorting}
             onChange={(e) => handleChange(e)}
           >
             <FormControlLabel

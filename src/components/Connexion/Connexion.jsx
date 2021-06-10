@@ -125,7 +125,7 @@ const Connexion = (props) => {
 
   // stocker que si c'est bon
   useEffect(() => {
-    // sessionStorage.setItem('username', API_USER);
+    sessionStorage.setItem('username', API_USER);
     setJsonObj({
       userName,
     });
