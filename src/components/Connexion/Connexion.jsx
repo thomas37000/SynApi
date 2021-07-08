@@ -180,7 +180,7 @@ const Connexion = (props) => {
           ) : null}
 
           <form onSubmit={handleSubmit}>
-            <span>Pour voir les publications</span>
+            <span>Pour voir les publications entrez le nom thomas3</span>
             <label htmlFor="inputidentifiant" className="label">
               Entrez votre nom
               <input
@@ -226,67 +226,6 @@ const Connexion = (props) => {
                       classeName={classes.alertStyles}
                     >
                       Ce champ doit être rempli !
-                    </Alert>
-                  </Snackbar>
-                </>
-              )}
-            </div>
-          </form>
-
-          <form onSubmit={handleSubmitToken}>
-            <span>Changer les paramètres du Slider</span>
-            <label htmlFor="inputidentifiant" className="label">
-              Entrez votre nom
-              <input
-                className="inputConnexion"
-                type="text"
-                id="inputIdentifiant"
-                name="inputIdentifiant"
-                placeholder="John Doe"
-                value={userNameToken}
-                onChange={handleChangeUserToken}
-              />
-            </label>
-            <p>
-              <label htmlFor="inputidentifiant" className="label">
-                Entrez votre Token
-                <input
-                  className="inputToken"
-                  type="password"
-                  id="inputToken"
-                  name="inputToken"
-                  placeholder="a1W4xcvb23..."
-                  value={token}
-                  required
-                  onChange={handleChangeToken}
-                />
-              </label>
-            </p>
-
-            <div>
-              {connectedWithToken ? (
-                <Link to="/networks">
-                  <input
-                    type="submit"
-                    value="connexion"
-                    className="inputSubmit"
-                    onSubmit={handleSubmitToken}
-                  />
-                </Link>
-              ) : (
-                <>
-                  <input
-                    type="submit"
-                    value="connexion"
-                    onClick={handleClick}
-                  />
-                  <Snackbar
-                    open={open}
-                    autoHideDuration={6000}
-                    onClose={handleCloseToken}
-                  >
-                    <Alert severity="error" onClose={handleCloseToken}>
-                      ce champ doit être rempli !
                     </Alert>
                   </Snackbar>
                 </>
