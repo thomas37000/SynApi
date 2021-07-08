@@ -22,21 +22,20 @@ const NavWrapper = styled.div`
   }
 `;
 
-const Navbar = ({ connected, connectedWithToken, toggleMenu }) => {
+const Navbar = ({ toggleMenu }) => {
   return (
     <NavWrapper>
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
-      {connected || !connectedWithToken ? (
-        <button
-          className="btn-sidebar btn btn-default"
-          type="button"
-          onClick={() => toggleMenu(true)}
-        >
-          <i className="fa fa-cog fa-2x" />
-        </button>
-      ) : null}
+
+      <button
+        className="btn-sidebar btn btn-default"
+        type="button"
+        onClick={() => toggleMenu(true)}
+      >
+        <i className="fa fa-cog fa-2x" />
+      </button>
     </NavWrapper>
   );
 };
@@ -44,13 +43,9 @@ const Navbar = ({ connected, connectedWithToken, toggleMenu }) => {
 export default Navbar;
 
 Navbar.propTypes = {
-  connected: PropTypes.string,
-  connectedWithToken: PropTypes.string,
   toggleMenu: PropTypes.func,
 };
 
 Navbar.defaultProps = {
-  connected: 'undefined',
-  connectedWithToken: 'undefined',
   toggleMenu: 'undefined',
 };
