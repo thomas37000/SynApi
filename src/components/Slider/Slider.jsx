@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Carousel,
   CarouselItem,
@@ -105,30 +106,31 @@ const Slider = () => {
     return 'Loading ...';
   };
 
-  // function refresh() {
-  //   window.history.go(0);
-  // }
+  function refresh() {
+    window.history.go(0);
+  }
 
   const loader = () => {
     return (
       // ---------------------------------------------------------------------------
       // bouton refresh seulement utile si problème de cross origin en Développement
       // ---------------------------------------------------------------------------
+      <>
+        <div className="loader-container">
+          Loading, Refresh the Page !
+          <Link to="/">
+            <button
+              type="button"
+              value="Rafraîchir la page"
+              onClick={() => refresh()}
+            >
+              refresh
+            </button>
+          </Link>
+        </div>
 
-      // <div className="loader-container">
-      //   Loading, Refresh the Page !
-      //   <Link to="/networks">
-      //     <button
-      //       type="button"
-      //       value="Rafraîchir la page"
-      //       onClick={() => refresh()}
-      //     >
-      //       refresh
-      //     </button>
-      //   </Link>
-      // </div>
-
-      <div className="loader" />
+        <div className="loader" />
+      </>
     );
   };
 
