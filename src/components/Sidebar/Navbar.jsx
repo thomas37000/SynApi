@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import logo from '../images/syn.png';
 
@@ -28,6 +28,7 @@ const Navbar = ({ toggleMenu }) => {
       <Link to="/">
         <img className="logo" src={logo} alt="" />
       </Link>
+
       <button
         className="btn-sidebar btn btn-default"
         type="button"
@@ -40,3 +41,11 @@ const Navbar = ({ toggleMenu }) => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  toggleMenu: PropTypes.func,
+};
+
+Navbar.defaultProps = {
+  toggleMenu: 'undefined',
+};

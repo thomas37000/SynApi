@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../Cards/Card_css/CardProfile.css';
+import childrenPropType from '../Proptypes/ChildrenProptypes';
 
 function BtnSubmit(props) {
   const { handleClick } = props;
@@ -15,8 +15,4 @@ function BtnSubmit(props) {
 
 export default BtnSubmit;
 
-BtnSubmit.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-};
-
-// BtnSubmit.propTypes = ChildrenPropType;
+BtnSubmit.propTypes = childrenPropType;

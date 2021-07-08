@@ -9,10 +9,7 @@ import {
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
 import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 import './Slider.css';
@@ -22,7 +19,6 @@ const Slider = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [jsonObj, setJsonObj] = useState({});
   const [items, setItems] = useState(statesParams.items);
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
@@ -109,21 +105,30 @@ const Slider = () => {
     return 'Loading ...';
   };
 
+  // function refresh() {
+  //   window.history.go(0);
+  // }
+
   const loader = () => {
     return (
-      <div className="loader-container">
-        Loading, Refresh the Page !
-        <Link to="/networks">
-          <button
-            type="button"
-            value="Rafraîchir la page"
-            onClick="history.go(0)"
-          >
-            refresh
-          </button>
-        </Link>
-        <div className="loader" />
-      </div>
+      // ---------------------------------------------------------------------------
+      // bouton refresh seulement utile si problème de cross origin en Développement
+      // ---------------------------------------------------------------------------
+
+      // <div className="loader-container">
+      //   Loading, Refresh the Page !
+      //   <Link to="/networks">
+      //     <button
+      //       type="button"
+      //       value="Rafraîchir la page"
+      //       onClick={() => refresh()}
+      //     >
+      //       refresh
+      //     </button>
+      //   </Link>
+      // </div>
+
+      <div className="loader" />
     );
   };
 
@@ -131,7 +136,7 @@ const Slider = () => {
 
   // Return de la function principale
   // Si on a items et que c'est bien un array avec au moins un item
-  // il faudrait un useEffect car si items est vide === 'loading"
+  // il faudrait un useEffect car si items est vide === 'loading ligne 110"
   return items && items.length > 0 ? renderCarousel() : loader();
 };
 
