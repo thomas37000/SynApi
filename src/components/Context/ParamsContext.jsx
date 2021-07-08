@@ -22,15 +22,10 @@ const ParamsContextProvider = (props) => {
   // ---------------------------------------------------------------------------
   // API CALL
   // ---------------------------------------------------------------------------
-  const {
-    REACT_APP_API_URL,
-    REACT_APP_API_USER,
-    REACT_APP_API_TOKEN,
-  } = process.env;
 
-  const API_URL = `${REACT_APP_API_URL}`;
-  const API_USER = `${REACT_APP_API_USER}`;
-  const API_TOKEN = `${REACT_APP_API_TOKEN}`;
+  const API_URL = 'https://slideyour.net/api.php';
+  const API_USER = 'thomas3';
+  const API_TOKEN = '8845c9cd48230070ac72191467ac1690';
 
   const params = {
     s: `${API_USER}`,
