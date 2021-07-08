@@ -1,7 +1,6 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../Cards/Card_css/CardProfile.css';
+import childrenPropType from '../Proptypes/ChildrenProptypes';
 
 function BtnCancel(props) {
   const { handleClick } = props;
@@ -16,8 +15,4 @@ function BtnCancel(props) {
 
 export default BtnCancel;
 
-BtnCancel.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-};
-
-// BtnSubmit.propTypes = ChildrenPropType;
+BtnCancel.propTypes = childrenPropType;

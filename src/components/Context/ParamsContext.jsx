@@ -1,7 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-console */
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
@@ -10,21 +6,13 @@ import axios from 'axios';
 export const ParamsContext = createContext(null);
 
 const ParamsContextProvider = (props) => {
-  const undefinedNewPost =
-    sessionStorage.getItem('newPost') === 'undefined' ||
-    sessionStorage.getItem('newPost') === undefined;
-
-  const defaultPost = {
-    newPost: undefinedNewPost ? '10' : sessionStorage.getItem('newPost'),
-  };
-
   // ---------------------------------------------------------------------------
   // STATE CONTEXT
   // ---------------------------------------------------------------------------
 
   const [items, setItems] = useState([]);
   const [maxItems, setMaxItems] = useState([]);
-  const [newPost, setNewPost] = useState(defaultPost.newPost);
+  const [newPost, setNewPost] = useState(10);
 
   // ---------------------------------------------------------------------------
   // RADIO BUTTONS
@@ -63,7 +51,6 @@ const ParamsContextProvider = (props) => {
           setMaxItems(res.data);
           // ne conserve que item * newPost ( le nombre de post du slider)
           setItems(res.data.slice(0, newPost));
-          console.log('Success', res.data, newPost);
         }
       })
       .catch((error) => console.log(error));
@@ -71,7 +58,6 @@ const ParamsContextProvider = (props) => {
 
   useEffect(() => {
     getApi();
-    console.log('CALL API');
   }, []);
 
   const statesParams = useMemo(
@@ -83,25 +69,23 @@ const ParamsContextProvider = (props) => {
       },
       items,
       maxItems,
-      sorting,
       newPost,
+      sorting,
     }),
     [items, maxItems, newPost, sorting]
   );
 
-  useEffect(() => {
-    setNewPost(newPost);
-  }, [newPost]);
+  const { children } = props;
 
   return (
     <ParamsContext.Provider value={{ statesParams }}>
-      {props.children}
+      {children}
     </ParamsContext.Provider>
   );
 };
 
 ParamsContextProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export default ParamsContextProvider;

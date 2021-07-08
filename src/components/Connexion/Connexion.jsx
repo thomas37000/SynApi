@@ -6,8 +6,6 @@
 /* eslint-disable react/jsx-no-undef */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { SketchPicker } from 'react-color';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,6 +47,9 @@ const Connexion = (props) => {
     s: `${API_USER}`,
     t: `${API_TOKEN}`,
     object: 'user',
+    // le point de l' Api n'existe pas
+    // session-name
+    // session-token
   };
 
   const url = 'http://slideyour.net/api.php';
@@ -80,19 +81,13 @@ const Connexion = (props) => {
   // SOIT faire un appel d' API pour les 2 pour changer les params
 
   const defaultUserName = {
-    userName: sessionStorage.getItem('userName') || '',
+    userName: sessionStorage.getItem('username') || '',
   };
   const [open, setOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [userNameToken, setUserNameToken] = useState('');
   const [token, setToken] = useState('');
   const [jsonObjToken, setJsonObjToken] = useState({});
-
-  const [bgColor, setBgColor] = useState('green');
-  const handleChangeBg = (color) => {
-    setBgColor(color);
-    sessionStorage.setItem('bgColor', color);
-  };
 
   // ça donne [Object] [object] si je mets defaultUserName ?
   const handleChange = (e) => {
@@ -123,13 +118,14 @@ const Connexion = (props) => {
   const handleSubmitToken = (e) => {
     // console.log(`Bienvenue ${userNameToken}`);
     e.preventDefault();
+    setUserNameToken('');
     setToken('');
     const jsonUsername = JSON.stringify(jsonObjToken);
   };
 
   // stocker que si c'est bon
   useEffect(() => {
-    sessionStorage.setItem('user-name', API_USER);
+    sessionStorage.setItem('username', API_USER);
     setJsonObj({
       userName,
     });
@@ -157,6 +153,14 @@ const Connexion = (props) => {
 
   const { displayUserName } = props;
 
+  const Token = token === API_TOKEN;
+  const connected = userName === API_USER;
+  const connectedWithToken = connected && Token;
+
+  // celui marche mais avec n' importe quel username
+  // donc NON
+  // const connectedWithToken = {connected, Token};
+
   return (
     <div className="connexion">
       <div className="acceuil">
@@ -165,11 +169,10 @@ const Connexion = (props) => {
           Une application pour retrouver vos publications favorites
         </h2>
         <h3 className="h3Connexion">
-          from <span>Facebook</span> - <span>Instagram</span> -
-          <span>Twitter</span>
+          <span>Facebook</span> - <span>Instagram</span> -<span>Twitter</span>
         </h3>
         <div className="formulaire">
-          {userName === API_USER ? (
+          {connected ? (
             <div>
               Bienvenue
               <Link to="/networks"> {userName}</Link>
@@ -193,13 +196,16 @@ const Connexion = (props) => {
 
             <div>
               {/* //  user est loggé ou pas  */}
-              {userName === API_USER ? (
+
+              {connected ? (
                 <Link to="/networks">
                   <input
                     type="submit"
                     value="connexion"
                     className="inputSubmit"
                     onSubmit={handleSubmit}
+                    // renvoyer l' user sur cette URL
+                    // https://admin.slideyour.net/admin/index.php?s=thomas3&t=8845c9cd48230070ac72191467ac1690
                   />
                 </Link>
               ) : (
@@ -219,7 +225,7 @@ const Connexion = (props) => {
                       onClose={handleClose}
                       classeName={classes.alertStyles}
                     >
-                      ...
+                      Ce champ doit être rempli !
                     </Alert>
                   </Snackbar>
                 </>
@@ -227,17 +233,66 @@ const Connexion = (props) => {
             </div>
           </form>
 
-          <FormSettings
-            open={open}
-            token={token}
-            userName={userName}
-            userNameToken={userNameToken}
-            handleChangeToken={handleChangeToken}
-            handleChangeUserToken={handleChangeUserToken}
-            handleCloseToken={handleChangeToken}
-            handleSubmit={handleSubmitToken}
-            handleClick={handleClick}
-          />
+          <form onSubmit={handleSubmitToken}>
+            <span>Changer les paramètres du Slider</span>
+            <label htmlFor="inputidentifiant" className="label">
+              Entrez votre nom
+              <input
+                className="inputConnexion"
+                type="text"
+                id="inputIdentifiant"
+                name="inputIdentifiant"
+                placeholder="John Doe"
+                value={userNameToken}
+                onChange={handleChangeUserToken}
+              />
+            </label>
+            <p>
+              <label htmlFor="inputidentifiant" className="label">
+                Entrez votre Token
+                <input
+                  className="inputToken"
+                  type="password"
+                  id="inputToken"
+                  name="inputToken"
+                  placeholder="a1W4xcvb23..."
+                  value={token}
+                  required
+                  onChange={handleChangeToken}
+                />
+              </label>
+            </p>
+
+            <div>
+              {connectedWithToken ? (
+                <Link to="/networks">
+                  <input
+                    type="submit"
+                    value="connexion"
+                    className="inputSubmit"
+                    onSubmit={handleSubmitToken}
+                  />
+                </Link>
+              ) : (
+                <>
+                  <input
+                    type="submit"
+                    value="connexion"
+                    onClick={handleClick}
+                  />
+                  <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleCloseToken}
+                  >
+                    <Alert severity="error" onClose={handleCloseToken}>
+                      ce champ doit être rempli !
+                    </Alert>
+                  </Snackbar>
+                </>
+              )}
+            </div>
+          </form>
         </div>
       </div>
     </div>

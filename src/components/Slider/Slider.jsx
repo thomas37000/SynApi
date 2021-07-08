@@ -1,22 +1,10 @@
-/* eslint-disable indent */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-// DESC c'est normal publications récentes
-// ASC publications anciennes
-// order: 'ASC' && 'DESC',
-// order_by: 'content' && 'pub_date',
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Carousel,
   CarouselItem,
   CarouselControl,
   CarouselIndicators,
-  CarouselCaption,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
 import { ParamsContext } from '../Context/ParamsContext';
 import Card from '../Cards/Card';
 import './Slider.css';
@@ -26,7 +14,6 @@ const Slider = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [jsonObj, setJsonObj] = useState({});
   const [items, setItems] = useState(statesParams.items);
   const [newPost, setNewPost] = useState(statesParams.newPost);
 
@@ -43,15 +30,13 @@ const Slider = () => {
     }
   }, [statesParams.items, statesParams.newPost]);
 
-  const sortItems = () => {
+const sortItems = () => {
     return items.sort((a, b) => {
       switch (statesParams.sorting) {
         case 'ASC':
           return a.timestamp - b.timestamp;
         case 'DESC':
           return b.timestamp - a.timestamp;
-        case 'content':
-          return a.content - b.content;
         default:
           return a.timestamp - b.timestamp;
       }
@@ -115,29 +100,38 @@ const Slider = () => {
     return 'Loading ...';
   };
 
+ // function refresh() {
+ //   window.history.go(0);
+ // }
+
   const loader = () => {
     return (
-      <div className="loader-container">
-        Loading, Refresh the Page !
-        <Link to="/networks">
-          <button
-            type="button"
-            value="Rafraîchir la page"
-            onClick="history.go(0)"
-          >
-            refresh
-          </button>
-        </Link>
-        <div className="loader" />
-      </div>
+      // ---------------------------------------------------------------------------
+      // bouton refresh seulement utile si problème de cross origin en Développement
+      // ---------------------------------------------------------------------------
+
+      // <div className="loader-container">
+      //   Loading, Refresh the Page !
+      //   <Link to="/networks">
+      //     <button
+      //       type="button"
+      //       value="Rafraîchir la page"
+      //       onClick={() => refresh()}
+      //     >
+      //       refresh
+      //     </button>
+      //   </Link>
+      // </div>
+
+      <div className="loader" />
     );
   };
 
   setTimeout(loader, 100);
 
-  // Return de la function principale
-  // Si on a items et que c'est bien un array avec au moins un item
-  // il faudrait un useEffect car si items est vide === 'loading"
+ // Return de la function principale
+ // Si on a items et que c'est bien un array avec au moins un item
+ // il faudrait un useEffect car si items est vide === 'loading ligne 110"
   return items && items.length > 0 ? renderCarousel() : loader();
 };
 

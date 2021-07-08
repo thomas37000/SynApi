@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Accordion,
@@ -10,14 +11,13 @@ import {
 } from 'react-accessible-accordion';
 import { SketchPicker } from 'react-color';
 import FontPicker from 'font-picker-react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   CloseIcon,
   SidebarStyled,
   SidebarWrapper,
 } from './SidebarStyledComponent';
 import { ColorContext } from '../Context/ColorContext';
-import { ParamsContext } from '../Context/ParamsContext';
 import BtnCancel from '../Buttons/ButtonCancel';
 import BtnSubmit from '../Buttons/ButtonSubmit';
 import Tri from './Tri';
@@ -25,102 +25,134 @@ import 'react-accessible-accordion/dist/fancy-example.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './Sidebar.css';
 
-const Sidebar = ({ show, setIsOpened }) => {
+const Sidebar = ({ show, setIsOpened, colors }) => {
   const { states } = useContext(ColorContext);
-  const { statesParams } = useContext(ParamsContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
     states.activeFontFamily
   );
-  const [bgColor, setBgColor] = useState(states.bgColor);
+  const [backgroundColor, setBackgroundColor] = useState(
+    states.backgroundColor
+  );
   const [hashtagColor, setHashtagColor] = useState(states.hashtagColor);
   const [mentionColor, setMentionColor] = useState(states.mentionColor);
-  const [newOrder, setNewOrder] = useState(statesParams.newOrder);
-  const [newOrderAsc, setNewOrderAsc] = useState(statesParams.newOrderAsc);
-  const [newOrderContent, setNewOrderContent] = useState(
-    statesParams.newOrderContent
-  );
-  const [newPost, setNewPost] = useState();
-  // const [sidebarOpen, setSidebarOpen] = useState(false);
   const [txtColor, setTxtColor] = useState(states.setTxtColor);
   const [jsonObj, setJsonObj] = useState({});
 
-  const restoreFontFamily = () => {
-    setActiveFontFamily(!activeFontFamily);
+  const submitedColors = colors || {
+    background: backgroundColor,
+    hashtag: hashtagColor,
+    mention: mentionColor,
+    text: txtColor,
+    font_family: activeFontFamily,
+  };
+
+  const stringify = () => {
+    return JSON.stringify(colors);
   };
 
   const submitColor = () => {
-    const jsonColor = JSON.stringify(jsonObj);
+    const stringColors = stringify({
+      background: backgroundColor,
+      hashtag: hashtagColor,
+      mention: mentionColor,
+      text: txtColor,
+      font_family: activeFontFamily,
+    });
+    setJsonObj(stringColors);
   };
 
   useEffect(() => {
-    sessionStorage.setItem('activeFontFamily', activeFontFamily);
-    sessionStorage.setItem('bgColor', bgColor);
-    sessionStorage.setItem('hashtagColor', hashtagColor);
-    sessionStorage.setItem('mentionColor', mentionColor);
-    sessionStorage.setItem('new_order', newOrder);
-    sessionStorage.setItem('new_order', newOrderAsc);
-    sessionStorage.setItem('new_order_by', newOrderContent);
-    sessionStorage.setItem('newPost', newPost);
-    sessionStorage.setItem('txtColor', txtColor);
-    setJsonObj({
-      activeFontFamily,
-      bgColor,
-      hashtagColor,
-      newOrder,
-      newOrderAsc,
-      newOrderContent,
-      newPost,
-      mentionColor,
-      txtColor,
-    });
+    sessionStorage.setItem('font_family', activeFontFamily);
+    sessionStorage.setItem('background', backgroundColor);
+    sessionStorage.setItem('hashtag', hashtagColor);
+    sessionStorage.setItem('mention', mentionColor);
+    sessionStorage.setItem('text', txtColor);
+    setJsonObj(
+      JSON.stringify(
+        submitedColors,
+        (prop, val) => {
+          return val;
+        },
+        3
+      )
+    );
+
+    // console.log('mise à jour', jsonObj);
   }, [
     activeFontFamily,
-    bgColor,
+    backgroundColor,
     hashtagColor,
-    newOrder,
-    newOrderAsc,
-    newOrderContent,
-    newPost,
     mentionColor,
     txtColor,
+    jsonObj,
   ]);
 
   const handleChangeBg = (color) => {
-    states.function.setBgColor(color);
-    sessionStorage.setItem('bgColor', color);
-    setBgColor(color);
+    states.function.setBackgroundColor(color);
+    setBackgroundColor(color);
   };
 
   const handleChangeTxt = (color) => {
     states.function.setTxtColor(color);
-    sessionStorage.setItem('txtColor', color);
     setTxtColor(color);
   };
 
   const handleChangeHashtag = (color) => {
     states.function.setHashtagColor(color);
     states.function.setMentionColor(color);
-    sessionStorage.setItem('hasthagColor', color);
-    sessionStorage.setItem('mentionColor', color);
     setHashtagColor(color);
     setMentionColor(color);
   };
 
-  const handleChangeFontFamily = () => {
-    states.function.setActiveFontFamily(activeFontFamily);
-    sessionStorage.setItem('activeFontFamily', activeFontFamily);
+  const handleChangeFontFamily = (nextFont) => {
+    setActiveFontFamily(nextFont);
+    states.function.setActiveFontFamily(nextFont);
+    sessionStorage.setItem('font_family', nextFont);
   };
 
-  const handleChangePost = () => {
-    statesParams.function.setNewOrder(newOrder);
-    statesParams.function.setNewOrderAsc(newOrderAsc);
-    statesParams.function.setNewOrderContent(newOrderContent);
-    states.function.setNewPost(newPost);
-    sessionStorage.setItem('new_order', newOrder);
-    sessionStorage.setItem('new_order', newOrderAsc);
-    sessionStorage.setItem('new_order_by', newOrderContent);
-    sessionStorage.setItem('newPost', newPost);
+  const restoreFontFamily = () => {
+    setActiveFontFamily('Arial');
+    sessionStorage.setItem('font_family', 'Arial');
+  };
+
+  const restoreTxt = () => {
+    const defaultTxt = states.unmutabledColors.txtColor;
+    setTxtColor(defaultTxt);
+    states.function.setTxtColor(defaultTxt);
+    submitColor({
+      text: txtColor,
+    });
+  };
+
+  const restoreHashtagAndMention = () => {
+    // ---------------------------------------------------------------------------
+    // il faudra réussir à appeler selon le cas des valeurs préfixées
+    // dans colorContext ligne 11
+    //
+    // unmutabledColors[`${currentSocialNetwork}_txt`]
+    // ou currentSocialNetwork serait égale à tw_ pour twitter par exemple
+    // if twitter -> unmutabledColors[${currentSocialNetwork}_txt]
+    // ---------------------------------------------------------------------------
+    const defaultHashtag = states.unmutabledColors.black;
+    const defaultMention = states.unmutabledColors.black;
+    setHashtagColor(defaultHashtag);
+    setMentionColor(defaultMention);
+    states.function.setHashtagColor(defaultHashtag);
+    states.function.setMentionColor(defaultMention);
+    submitColor({
+      hashtag: hashtagColor,
+      mention: mentionColor,
+    });
+  };
+
+  const restoreBackground = () => {
+    const defaultBG = states.unmutabledColors.tr_backgroundColor;
+    setBackgroundColor(defaultBG);
+    states.function.setBackgroundColor(defaultBG);
+    submitColor({
+      background: defaultBG,
+    });
   };
 
   return (
@@ -144,12 +176,12 @@ const Sidebar = ({ show, setIsOpened }) => {
               </AccordionItemHeading>
               <AccordionItemPanel>
                 <SketchPicker
-                  color={bgColor}
+                  color={backgroundColor}
                   onChange={(color) => handleChangeBg(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel handleClick={states.function.restoreBg} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnCancel handleClick={() => restoreBackground()} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
@@ -166,8 +198,8 @@ const Sidebar = ({ show, setIsOpened }) => {
                   onChange={(color) => handleChangeTxt(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel handleClick={states.function.restoreTxt} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnCancel handleClick={() => restoreTxt()} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
@@ -184,10 +216,8 @@ const Sidebar = ({ show, setIsOpened }) => {
                   onChange={(color) => handleChangeHashtag(color.hex)}
                   className="sketch-picker"
                 />
-                <BtnCancel
-                  handleClick={states.function.restoreHashtagAndMention}
-                />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnCancel handleClick={() => restoreHashtagAndMention()} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
@@ -207,15 +237,15 @@ const Sidebar = ({ show, setIsOpened }) => {
                   }
                   className="typo"
                 />
-                <BtnCancel handleClick={restoreFontFamily} />
-                <BtnSubmit handleClick={submitColor} />
+                <BtnCancel handleClick={() => restoreFontFamily()} />
+                <BtnSubmit handleClick={() => submitColor()} />
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
         </div>
-        {/*  ************** SLIDE FILTER + TRI par ordre de contenu ou ASC ou DESC  ************** */}
+        {/*  ************** SLIDE FILTER + TRI par ordre ASC ou DESC  ************** */}
         <div className="sidebar-category">
-          <span>Tri et nombre de posts</span>
+          {/* <span>Tri et nombre de posts</span> */}
           <Accordion allowZeroExpanded>
             <AccordionItem>
               <AccordionItemHeading>
@@ -223,7 +253,7 @@ const Sidebar = ({ show, setIsOpened }) => {
                   <span>Tri et nombre de posts</span>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <Tri handleChange={handleChangePost} />
+              <Tri />
             </AccordionItem>
           </Accordion>
         </div>
@@ -234,3 +264,8 @@ const Sidebar = ({ show, setIsOpened }) => {
 };
 
 export default Sidebar;
+
+Sidebar.propTypes = {
+  show: PropTypes.bool.isRequired,
+  setIsOpened: PropTypes.func.isRequired,
+};

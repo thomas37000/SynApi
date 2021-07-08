@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable indent */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
-/* eslint-disable react/prop-types */
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Card_css/CardFacebook.css';
@@ -15,20 +15,20 @@ export default function Card({ post }) {
   const { states } = useContext(ColorContext);
 
   const [activeFontFamily, setActiveFontFamily] = useState(
-    states.activeFontFamily || sessionStorage.getItem('fontFamily')
+    states.activeFontFamily || sessionStorage.getItem('font_family')
   );
 
-  const [bgColor, setBgColor] = useState(
-    states.bgColor || sessionStorage.getItem('bgColor')
+  const [backgroundColor, setBackgroundColor] = useState(
+    states.backgroundColor || sessionStorage.getItem('background')
   );
   const [hashtagColor, setHashtagColor] = useState(
-    states.hashtagColor || sessionStorage.getItem('hashtagColor')
+    states.hashtagColor || sessionStorage.getItem('hashtag')
   );
   const [mentionColor, setMentionColor] = useState(
-    states.mentionColor || sessionStorage.getItem('mentionColor')
+    states.mentionColor || sessionStorage.getItem('mention')
   );
   const [txtColor, setTxtColor] = useState(
-    states.txtColor || sessionStorage.getItem('txtColor')
+    states.txtColor || sessionStorage.getItem('text')
   );
 
   const bg = `url(${post.media_url})`;
@@ -43,6 +43,7 @@ export default function Card({ post }) {
   const contentApi = post.content;
   const media = post.media_url;
   const netWork = post.network;
+  const getInstagram = post.timestamp;
 
   function highlight(match) {
     return match
@@ -76,13 +77,13 @@ export default function Card({ post }) {
 
   useEffect(() => {
     setActiveFontFamily(states.activeFontFamily);
-    setBgColor(states.bgColor);
+    setBackgroundColor(states.backgroundColor);
     setHashtagColor(states.hashtagColor);
     setMentionColor(states.mentionColor);
     setTxtColor(states.txtColor);
   }, [
     states.activeFontFamily,
-    states.bgColor,
+    states.backgroundColor,
     states.hashtagColor,
     states.mentionColor,
     states.txtColor,
@@ -102,7 +103,7 @@ export default function Card({ post }) {
             ? 'cardWithImg'
             : 'cardTr'
         }
-        style={media ? bgBefore : { backgroundColor: bgColor }}
+        style={media ? bgBefore : { backgroundColor }}
       >
         <div className={post.media_url ? 'cardBodyWithImg' : 'cardBodyNoImg'}>
           <div className={post.media_url ? 'content' : 'contentNoImg'}>
@@ -124,7 +125,7 @@ export default function Card({ post }) {
           </div>
           <div className="cardImg">
             <div className={post.media_url ? 'getImg' : 'hideImg'}>
-              <img src={post.media_url} alt="" />
+              <img src={post.media_url} alt={post.media_url} />
             </div>
           </div>
         </div>
@@ -158,14 +159,18 @@ export default function Card({ post }) {
 
 Card.propTypes = {
   post: PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    network: PropTypes.string.isRequired,
-    pub_date: PropTypes.string.isRequired,
-    pub_url: PropTypes.string.isRequired,
-    search: PropTypes.string.isRequired,
-  }).isRequired,
+    content: PropTypes.string,
+    media_url: PropTypes.string,
+    network: PropTypes.string,
+    search: PropTypes.string,
+  }),
   user: PropTypes.shape({
-    avatar_url: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+    avatar_url: PropTypes.string,
+    name: PropTypes.string,
+  }),
+};
+
+Card.defaultProps = {
+  post: {},
+  user: {},
 };

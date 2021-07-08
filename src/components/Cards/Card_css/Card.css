@@ -2,7 +2,7 @@
 .cardTr {
   height: 100vh;
   background: var(--trBackgroundNoImg);
-  color: #f1f1f1;
+  color: var(--txt);
 }
 
 .cardWithImg::before {
@@ -23,7 +23,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #f1f1f1;
+  color: var(--txt);
   margin: 5rem 1rem;
   font-size: 35px;
   font-weight: bold;
@@ -43,7 +43,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #f1f1f1;
+  color: var(--txt);
   margin: 5rem 1rem;
   font-size: 35px;
   font-weight: bold;
