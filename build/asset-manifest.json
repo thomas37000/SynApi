@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/deploy-react-gitlab/static/css/main.8a0b63e9.chunk.css",
-    "main.js": "/deploy-react-gitlab/static/js/main.48f641af.chunk.js",
-    "main.js.map": "/deploy-react-gitlab/static/js/main.48f641af.chunk.js.map",
-    "runtime-main.js": "/deploy-react-gitlab/static/js/runtime-main.f659e3f2.js",
-    "runtime-main.js.map": "/deploy-react-gitlab/static/js/runtime-main.f659e3f2.js.map",
-    "static/css/2.150d169a.chunk.css": "/deploy-react-gitlab/static/css/2.150d169a.chunk.css",
-    "static/js/2.c9b897ca.chunk.js": "/deploy-react-gitlab/static/js/2.c9b897ca.chunk.js",
-    "static/js/2.c9b897ca.chunk.js.map": "/deploy-react-gitlab/static/js/2.c9b897ca.chunk.js.map",
-    "index.html": "/deploy-react-gitlab/index.html",
-    "static/css/2.150d169a.chunk.css.map": "/deploy-react-gitlab/static/css/2.150d169a.chunk.css.map",
-    "static/css/main.8a0b63e9.chunk.css.map": "/deploy-react-gitlab/static/css/main.8a0b63e9.chunk.css.map",
-    "static/js/2.c9b897ca.chunk.js.LICENSE.txt": "/deploy-react-gitlab/static/js/2.c9b897ca.chunk.js.LICENSE.txt"
+    "main.css": "https://livewall.slideyour.org/static/css/main.a271577d.chunk.css",
+    "main.js": "https://livewall.slideyour.org/static/js/main.017d8c7d.chunk.js",
+    "main.js.map": "https://livewall.slideyour.org/static/js/main.017d8c7d.chunk.js.map",
+    "runtime-main.js": "https://livewall.slideyour.org/static/js/runtime-main.d6bd9fc2.js",
+    "runtime-main.js.map": "https://livewall.slideyour.org/static/js/runtime-main.d6bd9fc2.js.map",
+    "static/css/2.d6420e18.chunk.css": "https://livewall.slideyour.org/static/css/2.d6420e18.chunk.css",
+    "static/js/2.2134039f.chunk.js": "https://livewall.slideyour.org/static/js/2.2134039f.chunk.js",
+    "static/js/2.2134039f.chunk.js.map": "https://livewall.slideyour.org/static/js/2.2134039f.chunk.js.map",
+    "index.html": "https://livewall.slideyour.org/index.html",
+    "static/css/2.d6420e18.chunk.css.map": "https://livewall.slideyour.org/static/css/2.d6420e18.chunk.css.map",
+    "static/css/main.a271577d.chunk.css.map": "https://livewall.slideyour.org/static/css/main.a271577d.chunk.css.map",
+    "static/js/2.2134039f.chunk.js.LICENSE.txt": "https://livewall.slideyour.org/static/js/2.2134039f.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.min.css": "https://livewall.slideyour.org/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/Connexion.css": "https://livewall.slideyour.org/static/media/syn.8052fb43.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f659e3f2.js",
-    "static/css/2.150d169a.chunk.css",
-    "static/js/2.c9b897ca.chunk.js",
-    "static/css/main.8a0b63e9.chunk.css",
-    "static/js/main.48f641af.chunk.js"
+    "static/js/runtime-main.d6bd9fc2.js",
+    "static/css/2.d6420e18.chunk.css",
+    "static/js/2.2134039f.chunk.js",
+    "static/css/main.a271577d.chunk.css",
+    "static/js/main.017d8c7d.chunk.js"
   ]
 }
