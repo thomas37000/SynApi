@@ -26,7 +26,7 @@ const Tri = (post, params) => {
     statesParams.function.setSorting(e.target.value);
   };
 
-  const submitedParams = params || {
+ const submitedParams = params || {
     order: sorting,
     post: newPost,
   };
@@ -67,7 +67,7 @@ const Tri = (post, params) => {
   //   setNewPost(10);
   //   sessionStorage.setItem('post', 10);
   // };
-
+    
   return (
     <AccordionItemPanel>
       <div className="sidebar-category">

@@ -1,8 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Carousel,
@@ -35,7 +30,7 @@ const Slider = () => {
     }
   }, [statesParams.items, statesParams.newPost]);
 
-  const sortItems = () => {
+const sortItems = () => {
     return items.sort((a, b) => {
       switch (statesParams.sorting) {
         case 'ASC':
@@ -105,9 +100,9 @@ const Slider = () => {
     return 'Loading ...';
   };
 
-  // function refresh() {
-  //   window.history.go(0);
-  // }
+ // function refresh() {
+ //   window.history.go(0);
+ // }
 
   const loader = () => {
     return (
@@ -134,9 +129,9 @@ const Slider = () => {
 
   setTimeout(loader, 100);
 
-  // Return de la function principale
-  // Si on a items et que c'est bien un array avec au moins un item
-  // il faudrait un useEffect car si items est vide === 'loading ligne 110"
+ // Return de la function principale
+ // Si on a items et que c'est bien un array avec au moins un item
+ // il faudrait un useEffect car si items est vide === 'loading ligne 110"
   return items && items.length > 0 ? renderCarousel() : loader();
 };
 
